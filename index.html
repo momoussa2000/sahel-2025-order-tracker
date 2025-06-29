@@ -122,8 +122,29 @@
             <h3>🔗 API Endpoint</h3>
             <p>استخدم هذا الرابط للوصول إلى نظام التتبع:</p>
             <div class="api-endpoint">
-                GET /api/track
+                <button id="loadDataBtn" onclick="loadTrackerData()" style="
+                    background: #4CAF50;
+                    color: white;
+                    border: none;
+                    padding: 15px 30px;
+                    font-size: 16px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px 0;
+                    transition: background 0.3s;
+                ">
+                    🔄 تحميل بيانات التتبع (Load Tracker Data)
+                </button>
             </div>
+            <div id="dataDisplay" style="
+                background: rgba(0, 0, 0, 0.4);
+                padding: 15px;
+                border-radius: 5px;
+                margin-top: 15px;
+                max-height: 400px;
+                overflow-y: auto;
+                display: none;
+            "></div>
             <p><strong>المناطق المتاحة:</strong> الماظة، سيدي هنيش، مراسي، هاسيندا وايت، هاسيندا ريد، دبلوماسين، مارينا، وغيرها...</p>
         </div>
 
@@ -132,5 +153,62 @@
             <p>نظام إدارة طلبات الآيس كريم للساحل الشمالي 2025</p>
         </div>
     </div>
+
+    <script>
+        async function loadTrackerData() {
+            const button = document.getElementById('loadDataBtn');
+            const display = document.getElementById('dataDisplay');
+            
+            // Show loading state
+            button.textContent = '⏳ جاري التحميل... (Loading...)';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/api/tracker');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Display the data
+                display.style.display = 'block';
+                display.innerHTML = `
+                    <h4>📊 بيانات النظام (System Data)</h4>
+                    <pre style="color: #00ff00; font-family: monospace; white-space: pre-wrap; font-size: 12px;">
+${JSON.stringify(data, null, 2)}
+                    </pre>
+                `;
+                
+                button.textContent = '✅ تم التحميل بنجاح (Data Loaded)';
+                
+            } catch (error) {
+                display.style.display = 'block';
+                display.innerHTML = `
+                    <h4>❌ خطأ في التحميل (Loading Error)</h4>
+                    <p style="color: #ff6b6b;">
+                        Error: ${error.message}<br>
+                        <small>تأكد من أن API يعمل بشكل صحيح</small>
+                    </p>
+                `;
+                
+                button.textContent = '🔄 إعادة المحاولة (Retry)';
+            }
+            
+            button.disabled = false;
+        }
+        
+        // Add hover effect to button
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('loadDataBtn');
+            btn.addEventListener('mouseenter', function() {
+                this.style.background = '#45a049';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.background = '#4CAF50';
+            });
+        });
+    </script>
 </body>
 </html> 
