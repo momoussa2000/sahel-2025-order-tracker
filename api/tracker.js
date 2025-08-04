@@ -17,9 +17,12 @@ module.exports = (req, res) => {
       zones: 16,
       total_clients: 47,
       freezer_clients: 32,
+      total_freezers: 38,
       trucks: ["NPR 7219 (Tariq)", "TFR 9987 (Mohamed)"],
+      sales_reps: ["Eslam", "Akrm", "Mouner", "Hussein Sabra", "Ahmed Hussein"],
       timestamp: new Date().toISOString(),
-      message: "نظام متتبع طلبات الآيس كريم للساحل الشمالي 2025"
+      message: "نظام متتبع طلبات الآيس كريم للساحل الشمالي 2025",
+      features: ["Contact Information", "Freezer Monitoring", "Delivery Tracking", "WhatsApp Integration"]
     };
     
     res.setHeader('Content-Type', 'application/json');
