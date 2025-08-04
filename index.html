@@ -162,7 +162,7 @@
     <script>
         // Demo data from your SAHEL 2025 tracker with all 47 North Coast clients
         const demoData = {
-            status: "SAHEL 2025 Order Tracker - Active",
+            status: "SAHEL 2025 Order Tracker - Enhanced Active",
             zones: 16,
             total_clients: 51,
             freezer_clients: 36,
@@ -170,7 +170,126 @@
             trucks: ["NPR 7219 (Tariq)", "TFR 9987 (Mohamed)"],
             sales_reps: ["Eslam", "Akrm", "Mouner", "Hussein Sabra", "Ahmed Hussein"],
             timestamp: new Date().toISOString(),
-            message: "نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025",
+            message: "نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025 - محسن",
+            
+            // Enhanced production data
+            production: {
+                daily: {
+                    "3kg": 2638,
+                    "4kg": 0,
+                    "5kg": 725,
+                    "cups": 0,
+                    "total_kg": 11539,
+                    "total_tons": 11.5
+                },
+                by_machine: {
+                    "old_machine": {
+                        "3kg": 0,
+                        "4kg": 0,
+                        "5kg": 725,
+                        "total_kg": 3625,
+                        "total_tons": 3.6
+                    },
+                    "new_machine": {
+                        "3kg": 2638,
+                        "4kg": 0,
+                        "5kg": 0,
+                        "total_kg": 7914,
+                        "total_tons": 7.9
+                    }
+                },
+                by_shift: {
+                    "first_shift": {
+                        "3kg": 1180,
+                        "4kg": 0,
+                        "5kg": 370,
+                        "total_kg": 5390,
+                        "total_tons": 5.4
+                    },
+                    "second_shift": {
+                        "3kg": 1458,
+                        "4kg": 0,
+                        "5kg": 355,
+                        "total_kg": 6149,
+                        "total_tons": 6.1
+                    }
+                }
+            },
+            
+            // Enhanced storage data
+            storage: {
+                rooms: {
+                    "main": {
+                        "name": "Main Storage Room",
+                        "3kg": 6231,
+                        "4kg": 0,
+                        "5kg": 1666,
+                        "cups": 200,
+                        "total_kg": 27023,
+                        "total_tons": 27.0
+                    },
+                    "mahdi": {
+                        "name": "External Storage 1 (Mahdi)",
+                        "3kg": 0,
+                        "4kg": 0,
+                        "5kg": 0,
+                        "cups": 0,
+                        "total_kg": 0,
+                        "total_tons": 0.0
+                    },
+                    "apex": {
+                        "name": "External Storage 2 (Apex for Food Industries)",
+                        "3kg": 0,
+                        "4kg": 0,
+                        "5kg": 37778,
+                        "cups": 0,
+                        "total_kg": 188890,
+                        "total_tons": 188.9
+                    },
+                    "brothers": {
+                        "name": "External Storage 3 (Brothers)",
+                        "3kg": 0,
+                        "4kg": 0,
+                        "5kg": 0,
+                        "cups": 0,
+                        "total_kg": 0,
+                        "total_tons": 0.0
+                    }
+                },
+                total: {
+                    "3kg": 6231,
+                    "4kg": 0,
+                    "5kg": 39444,
+                    "cups": 200,
+                    "total_kg": 215913,
+                    "total_tons": 215.9
+                }
+            },
+            
+            // Distribution and tracking
+            distribution: {
+                "3kg": 225,
+                "4kg": 0,
+                "5kg": 300,
+                "total_kg": 2175,
+                "total_tons": 2.2
+            },
+            
+            refunds: {
+                "3kg": 58,
+                "4kg": 0,
+                "5kg": 53,
+                "total_kg": 439,
+                "total_tons": 0.44
+            },
+            
+            damages: {
+                "3kg": 10,
+                "4kg": 0,
+                "5kg": 6,
+                "total_kg": 60,
+                "total_tons": 0.06
+            },
             
             client_zones: {
                 "Almaza": [
@@ -273,7 +392,33 @@
                 // Display the demo data
                 display.style.display = 'block';
                 display.innerHTML = `
-                    <h4 style="font-size: 20px; margin-bottom: 20px;">📊 بيانات الساحل الشمالي 2025 (North Coast Data)</h4>
+                    <h4 style="font-size: 20px; margin-bottom: 20px;">📊 بيانات الساحل الشمالي 2025 - محسن (Enhanced North Coast Data)</h4>
+                    
+                    <!-- Production Summary -->
+                    <div style="background: rgba(0, 100, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #4CAF50;">🏭 إنتاج اليوم (Daily Production)</h5>
+                        <p style="font-size: 16px; margin: 8px 0;">📦 الإنتاج الإجمالي: ${demoData.production.daily.total_kg.toLocaleString()} كجم (${demoData.production.daily.total_tons} طن)</p>
+                        <p style="font-size: 16px; margin: 8px 0;">🧊 أكياس 3كجم: ${demoData.production.daily["3kg"].toLocaleString()} | أكياس 4كجم: ${demoData.production.daily["4kg"].toLocaleString()} | أكياس 5كجم: ${demoData.production.daily["5kg"].toLocaleString()}</p>
+                        <p style="font-size: 16px; margin: 8px 0;">⚙️ الآلة القديمة: ${demoData.production.by_machine.old_machine.total_kg.toLocaleString()} كجم | الآلة الجديدة: ${demoData.production.by_machine.new_machine.total_kg.toLocaleString()} كجم</p>
+                        <p style="font-size: 16px; margin: 8px 0;">⏰ الوردية الأولى: ${demoData.production.by_shift.first_shift.total_kg.toLocaleString()} كجم | الوردية الثانية: ${demoData.production.by_shift.second_shift.total_kg.toLocaleString()} كجم</p>
+                    </div>
+                    
+                    <!-- Storage Summary -->
+                    <div style="background: rgba(0, 0, 255, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #2196F3;">🏪 المخازن (Storage Rooms)</h5>
+                        <p style="font-size: 16px; margin: 8px 0;">📦 إجمالي المخزون: ${demoData.storage.total.total_kg.toLocaleString()} كجم (${demoData.storage.total.total_tons} طن)</p>
+                        <p style="font-size: 16px; margin: 8px 0;">🏢 المخزن الرئيسي: ${demoData.storage.rooms.main.total_kg.toLocaleString()} كجم | مخزن Apex: ${demoData.storage.rooms.apex.total_kg.toLocaleString()} كجم</p>
+                        <p style="font-size: 16px; margin: 8px 0;">🧊 أكياس 3كجم: ${demoData.storage.total["3kg"].toLocaleString()} | أكياس 4كجم: ${demoData.storage.total["4kg"].toLocaleString()} | أكياس 5كجم: ${demoData.storage.total["5kg"].toLocaleString()}</p>
+                    </div>
+                    
+                    <!-- Distribution & Tracking -->
+                    <div style="background: rgba(255, 165, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
+                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #FF9800;">🚛 التوزيع والمتابعة (Distribution & Tracking)</h5>
+                        <p style="font-size: 16px; margin: 8px 0;">📦 خارج للتوزيع: ${demoData.distribution.total_kg.toLocaleString()} كجم (${demoData.distribution.total_tons} طن)</p>
+                        <p style="font-size: 16px; margin: 8px 0;">↩️ المرتجعات: ${demoData.refunds.total_kg.toLocaleString()} كجم | 💥 الأضرار: ${demoData.damages.total_kg.toLocaleString()} كجم</p>
+                    </div>
+                    
+                    <!-- System Statistics -->
                     <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
                         <h5 style="font-size: 18px; margin-bottom: 15px;">📈 إحصائيات النظام (System Statistics)</h5>
                         <p style="font-size: 16px; margin: 8px 0;">🏢 إجمالي العملاء: ${demoData.total_clients} | المناطق: ${demoData.zones}</p>

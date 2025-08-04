@@ -95,26 +95,171 @@ trucks = {
     "TFR 9987": {"capacity": 1.5, "driver": "Mohamed", "license": "Grade 3"}
 }
 sales_reps = {"Eslam": [], "Akrm": [], "Mouner": [], "Hussein Sabra": [], "Ahmed Hussein": []}
-stock = {"3kg": 1000, "4kg": 1200, "5kg": 1500, "cups": 200}
-production = {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0}
+
+# Enhanced storage system with multiple storage rooms
+storage_rooms = {
+    "main": {"3kg": 6231, "4kg": 0, "5kg": 1666, "cups": 200, "name": "Main Storage Room"},
+    "mahdi": {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "name": "External Storage 1 (Mahdi)"},
+    "apex": {"3kg": 0, "4kg": 0, "5kg": 37778, "cups": 0, "name": "External Storage 2 (Apex for Food Industries)"},
+    "brothers": {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "name": "External Storage 3 (Brothers)"}
+}
+
+# Production tracking by machine and shift
+production_machines = {
+    "old_machine": {"3kg": 0, "4kg": 0, "5kg": 725, "cups": 0, "name": "Old Ice Machine"},
+    "new_machine": {"3kg": 2638, "4kg": 0, "5kg": 0, "cups": 0, "name": "New Ice Machine"}
+}
+
+production_shifts = {
+    "first_shift": {"3kg": 2638, "4kg": 0, "5kg": 725, "cups": 0, "name": "First Shift"},
+    "second_shift": {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "name": "Second Shift"}
+}
+
+# Daily production totals
+daily_production = {"3kg": 2638, "4kg": 0, "5kg": 725, "cups": 0}
+
+# Distribution tracking (what's loaded on trucks)
+distribution = {"3kg": 225, "4kg": 0, "5kg": 300, "cups": 0}
+
+# Refunds and damages tracking
+refunds = {"3kg": 58, "4kg": 0, "5kg": 53, "cups": 0}
+damages = {"3kg": 10, "4kg": 0, "5kg": 6, "cups": 0}
+
+# Calculate total stock across all storage rooms
+def get_total_stock():
+    total = {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0}
+    for room in storage_rooms.values():
+        for product, quantity in room.items():
+            if product != "name":
+                total[product] += quantity
+    return total
+
+stock = get_total_stock()
 deliveries = []
 
 async def main():
     while True:
-        # Input production
-        print("Enter daily production (ice cube bags and cups):")
-        prod_3kg = int(input("3kg bags: ") or 0)
-        prod_4kg = int(input("4kg bags: ") or 0)
-        prod_5kg = int(input("5kg bags: ") or 0)
-        prod_cups = int(input("Ice cups: ") or 0)
-        production["3kg"] += prod_3kg
-        production["4kg"] += prod_4kg
-        production["5kg"] += prod_5kg
-        production["cups"] += prod_cups
-        stock["3kg"] += prod_3kg
-        stock["4kg"] += prod_4kg
-        stock["5kg"] += prod_5kg
-        stock["cups"] += prod_cups
+        print("\n" + "="*60)
+        print("🧊 SAHEL 2025 ICE CUBE TRACKER - ENHANCED SYSTEM")
+        print("="*60)
+        
+        # Production sheet input
+        print("\n📊 PRODUCTION SHEET INPUT (3/8/2025 Data):")
+        print("Enter production data from WhatsApp group report:")
+        
+        # Daily production input
+        print("\n🏭 DAILY PRODUCTION:")
+        daily_3kg = int(input("3kg bags produced: ") or 2638)
+        daily_4kg = int(input("4kg bags produced: ") or 0)
+        daily_5kg = int(input("5kg bags produced: ") or 725)
+        daily_cups = int(input("Ice cups produced: ") or 0)
+        
+        # Update daily production
+        daily_production["3kg"] = daily_3kg
+        daily_production["4kg"] = daily_4kg
+        daily_production["5kg"] = daily_5kg
+        daily_production["cups"] = daily_cups
+        
+        # Production by machine
+        print("\n⚙️ PRODUCTION BY MACHINE:")
+        old_3kg = int(input("Old machine 3kg bags: ") or 0)
+        old_4kg = int(input("Old machine 4kg bags: ") or 0)
+        old_5kg = int(input("Old machine 5kg bags: ") or 725)
+        new_3kg = int(input("New machine 3kg bags: ") or 2638)
+        new_4kg = int(input("New machine 4kg bags: ") or 0)
+        new_5kg = int(input("New machine 5kg bags: ") or 0)
+        
+        production_machines["old_machine"]["3kg"] = old_3kg
+        production_machines["old_machine"]["4kg"] = old_4kg
+        production_machines["old_machine"]["5kg"] = old_5kg
+        production_machines["new_machine"]["3kg"] = new_3kg
+        production_machines["new_machine"]["4kg"] = new_4kg
+        production_machines["new_machine"]["5kg"] = new_5kg
+        
+        # Production by shift
+        print("\n⏰ PRODUCTION BY SHIFT:")
+        first_3kg = int(input("First shift 3kg bags: ") or 1180)
+        first_4kg = int(input("First shift 4kg bags: ") or 0)
+        first_5kg = int(input("First shift 5kg bags: ") or 370)
+        second_3kg = int(input("Second shift 3kg bags: ") or 1458)
+        second_4kg = int(input("Second shift 4kg bags: ") or 0)
+        second_5kg = int(input("Second shift 5kg bags: ") or 355)
+        
+        production_shifts["first_shift"]["3kg"] = first_3kg
+        production_shifts["first_shift"]["4kg"] = first_4kg
+        production_shifts["first_shift"]["5kg"] = first_5kg
+        production_shifts["second_shift"]["3kg"] = second_3kg
+        production_shifts["second_shift"]["4kg"] = second_4kg
+        production_shifts["second_shift"]["5kg"] = second_5kg
+        
+        # Distribution input
+        print("\n🚛 DISTRIBUTION (Loaded on trucks):")
+        dist_3kg = int(input("3kg bags for distribution: ") or 225)
+        dist_4kg = int(input("4kg bags for distribution: ") or 0)
+        dist_5kg = int(input("5kg bags for distribution: ") or 300)
+        
+        distribution["3kg"] = dist_3kg
+        distribution["4kg"] = dist_4kg
+        distribution["5kg"] = dist_5kg
+        
+        # Refunds and damages
+        print("\n🔄 REFUNDS & DAMAGES:")
+        refund_3kg = int(input("3kg bags refunded: ") or 58)
+        refund_4kg = int(input("4kg bags refunded: ") or 0)
+        refund_5kg = int(input("5kg bags refunded: ") or 53)
+        damage_3kg = int(input("3kg bags damaged: ") or 10)
+        damage_4kg = int(input("4kg bags damaged: ") or 0)
+        damage_5kg = int(input("5kg bags damaged: ") or 6)
+        
+        refunds["3kg"] = refund_3kg
+        refunds["4kg"] = refund_4kg
+        refunds["5kg"] = refund_5kg
+        damages["3kg"] = damage_3kg
+        damages["4kg"] = damage_4kg
+        damages["5kg"] = damage_5kg
+        
+        # Storage room updates
+        print("\n🏪 STORAGE ROOM UPDATES:")
+        print("Main Storage Room:")
+        main_3kg = int(input("  3kg bags: ") or 6231)
+        main_4kg = int(input("  4kg bags: ") or 0)
+        main_5kg = int(input("  5kg bags: ") or 1666)
+        main_cups = int(input("  Ice cups: ") or 200)
+        
+        storage_rooms["main"]["3kg"] = main_3kg
+        storage_rooms["main"]["4kg"] = main_4kg
+        storage_rooms["main"]["5kg"] = main_5kg
+        storage_rooms["main"]["cups"] = main_cups
+        
+        print("External Storage 1 (Mahdi):")
+        mahdi_3kg = int(input("  3kg bags: ") or 0)
+        mahdi_4kg = int(input("  4kg bags: ") or 0)
+        mahdi_5kg = int(input("  5kg bags: ") or 0)
+        
+        storage_rooms["mahdi"]["3kg"] = mahdi_3kg
+        storage_rooms["mahdi"]["4kg"] = mahdi_4kg
+        storage_rooms["mahdi"]["5kg"] = mahdi_5kg
+        
+        print("External Storage 2 (Apex):")
+        apex_3kg = int(input("  3kg bags: ") or 0)
+        apex_4kg = int(input("  4kg bags: ") or 0)
+        apex_5kg = int(input("  5kg bags: ") or 37778)
+        
+        storage_rooms["apex"]["3kg"] = apex_3kg
+        storage_rooms["apex"]["4kg"] = apex_4kg
+        storage_rooms["apex"]["5kg"] = apex_5kg
+        
+        print("External Storage 3 (Brothers):")
+        brothers_3kg = int(input("  3kg bags: ") or 0)
+        brothers_4kg = int(input("  4kg bags: ") or 0)
+        brothers_5kg = int(input("  5kg bags: ") or 0)
+        
+        storage_rooms["brothers"]["3kg"] = brothers_3kg
+        storage_rooms["brothers"]["4kg"] = brothers_4kg
+        storage_rooms["brothers"]["5kg"] = brothers_5kg
+        
+        # Update total stock
+        stock = get_total_stock()
 
         # Plan and log delivery
         print("Plan delivery (Zone, Client Index, Truck, Sales Rep, Orders in kg):")
@@ -168,19 +313,88 @@ async def main():
                         contact_info = f" - Contact: {client['contact_person']} ({client['phone']})"
                     print(f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info} needs refill!")
 
-        # WhatsApp summary
-        summary = f"Summary - North Coast Ice Cubes - {platform.system()} {platform.release()}:\n"
-        summary += f"Production: 3kg={production['3kg']} bags, 4kg={production['4kg']} bags, 5kg={production['5kg']} bags, Cups={production['cups']}\n"
-        summary += f"Stock: 3kg={stock['3kg']} bags, 4kg={stock['4kg']} bags, 5kg={stock['5kg']} bags, Cups={stock['cups']}\n"
-        for delivery in deliveries:
-            summary += f"Delivered: {delivery['client']} ({delivery['zone']}), {delivery['orders_3kg']}×3kg, {delivery['orders_4kg']}×4kg, {delivery['orders_5kg']}×5kg, Rep: {delivery['sales_rep']}, Driver: {delivery['driver']}, Time: {delivery['delivered_time']}\n"
+        # Enhanced WhatsApp summary
+        print("\n" + "="*60)
+        print("📊 ENHANCED PRODUCTION & INVENTORY SUMMARY")
+        print("="*60)
+        
+        summary = f"🧊 SAHEL 2025 ICE CUBE TRACKER - {platform.system()} {platform.release()}\n"
+        summary += f"📅 Date: {platform.datetime.now().strftime('%d/%m/%Y')}\n\n"
+        
+        # Daily Production Summary
+        summary += "🏭 DAILY PRODUCTION SUMMARY:\n"
+        total_kg = daily_production["3kg"] * 3 + daily_production["4kg"] * 4 + daily_production["5kg"] * 5
+        total_tons = total_kg / 1000
+        summary += f"📦 Total Production: {total_kg:,} kg ({total_tons:.1f} tons)\n"
+        summary += f"   • 3kg bags: {daily_production['3kg']:,} bags ({daily_production['3kg'] * 3:,} kg)\n"
+        summary += f"   • 4kg bags: {daily_production['4kg']:,} bags ({daily_production['4kg'] * 4:,} kg)\n"
+        summary += f"   • 5kg bags: {daily_production['5kg']:,} bags ({daily_production['5kg'] * 5:,} kg)\n"
+        summary += f"   • Ice cups: {daily_production['cups']:,} units\n\n"
+        
+        # Production by Machine
+        summary += "⚙️ PRODUCTION BY MACHINE:\n"
+        old_total = production_machines["old_machine"]["3kg"] * 3 + production_machines["old_machine"]["4kg"] * 4 + production_machines["old_machine"]["5kg"] * 5
+        new_total = production_machines["new_machine"]["3kg"] * 3 + production_machines["new_machine"]["4kg"] * 4 + production_machines["new_machine"]["5kg"] * 5
+        summary += f"🔧 Old Machine: {old_total:,} kg ({old_total/1000:.1f} tons)\n"
+        summary += f"🔧 New Machine: {new_total:,} kg ({new_total/1000:.1f} tons)\n\n"
+        
+        # Production by Shift
+        summary += "⏰ PRODUCTION BY SHIFT:\n"
+        first_total = production_shifts["first_shift"]["3kg"] * 3 + production_shifts["first_shift"]["4kg"] * 4 + production_shifts["first_shift"]["5kg"] * 5
+        second_total = production_shifts["second_shift"]["3kg"] * 3 + production_shifts["second_shift"]["4kg"] * 4 + production_shifts["second_shift"]["5kg"] * 5
+        summary += f"🌅 First Shift: {first_total:,} kg ({first_total/1000:.1f} tons)\n"
+        summary += f"🌙 Second Shift: {second_total:,} kg ({second_total/1000:.1f} tons)\n\n"
+        
+        # Distribution
+        summary += "🚛 DISTRIBUTION (Loaded on trucks):\n"
+        dist_total = distribution["3kg"] * 3 + distribution["4kg"] * 4 + distribution["5kg"] * 5
+        summary += f"📦 Out for distribution: {dist_total:,} kg ({dist_total/1000:.1f} tons)\n"
+        summary += f"   • 3kg bags: {distribution['3kg']:,} bags\n"
+        summary += f"   • 4kg bags: {distribution['4kg']:,} bags\n"
+        summary += f"   • 5kg bags: {distribution['5kg']:,} bags\n\n"
+        
+        # Refunds and Damages
+        summary += "🔄 REFUNDS & DAMAGES:\n"
+        refund_total = refunds["3kg"] * 3 + refunds["4kg"] * 4 + refunds["5kg"] * 5
+        damage_total = damages["3kg"] * 3 + damages["4kg"] * 4 + damages["5kg"] * 5
+        summary += f"↩️ Refunds: {refund_total:,} kg ({refund_total/1000:.2f} tons)\n"
+        summary += f"💥 Damages: {damage_total:,} kg ({damage_total/1000:.2f} tons)\n\n"
+        
+        # Storage Room Summary
+        summary += "🏪 STORAGE ROOM BALANCES:\n"
+        for room_key, room_data in storage_rooms.items():
+            room_total = room_data["3kg"] * 3 + room_data["4kg"] * 4 + room_data["5kg"] * 5
+            if room_total > 0:
+                summary += f"📦 {room_data['name']}: {room_total:,} kg ({room_total/1000:.1f} tons)\n"
+                summary += f"   • 3kg: {room_data['3kg']:,} bags, 4kg: {room_data['4kg']:,} bags, 5kg: {room_data['5kg']:,} bags\n"
+        
+        total_storage = stock["3kg"] * 3 + stock["4kg"] * 4 + stock["5kg"] * 5
+        summary += f"\n📊 TOTAL STORAGE: {total_storage:,} kg ({total_storage/1000:.1f} tons)\n"
+        summary += f"   • 3kg: {stock['3kg']:,} bags, 4kg: {stock['4kg']:,} bags, 5kg: {stock['5kg']:,} bags, Cups: {stock['cups']:,}\n\n"
+        
+        # Deliveries
+        if deliveries:
+            summary += "🚚 RECENT DELIVERIES:\n"
+            for delivery in deliveries:
+                summary += f"📦 {delivery['client']} ({delivery['zone']})\n"
+                summary += f"   • {delivery['orders_3kg']}×3kg, {delivery['orders_4kg']}×4kg, {delivery['orders_5kg']}×5kg\n"
+                summary += f"   • Rep: {delivery['sales_rep']}, Driver: {delivery['driver']}, Time: {delivery['delivered_time']}\n\n"
+        
+        # Freezer Alerts
+        freezer_alerts = []
         for zone in clients:
             for client in clients[zone]:
                 if client["freezer"] and client["orders"] == 0:
                     contact_info = ""
                     if "contact_person" in client and "phone" in client:
                         contact_info = f" - Contact: {client['contact_person']} ({client['phone']})"
-                    summary += f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info} needs refill!\n"
+                    freezer_alerts.append(f"⚠️ {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info}")
+        
+        if freezer_alerts:
+            summary += "❄️ FREEZER REFILL ALERTS:\n"
+            for alert in freezer_alerts:
+                summary += f"{alert}\n"
+        
         print(summary)  # Copy to WhatsApp manually
 
         await asyncio.sleep(1.0 / FPS)  # Control loop for Pyodide
