@@ -25,6 +25,7 @@ module.exports = (req, res) => {
       
       // Enhanced production data
       production: {
+        date: "3/8/2025", // Date from production sheet
         daily: {
           "3kg": 2638,
           "4kg": 0,

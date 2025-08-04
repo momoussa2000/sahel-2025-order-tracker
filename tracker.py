@@ -115,7 +115,8 @@ production_shifts = {
     "second_shift": {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "name": "Second Shift"}
 }
 
-# Daily production totals
+# Production date and totals
+production_date = "3/8/2025"  # Date from production sheet
 daily_production = {"3kg": 2638, "4kg": 0, "5kg": 725, "cups": 0}
 
 # Distribution tracking (what's loaded on trucks)
@@ -144,11 +145,16 @@ async def main():
         print("="*60)
         
         # Production sheet input
-        print("\n📊 PRODUCTION SHEET INPUT (3/8/2025 Data):")
+        print("\n📊 PRODUCTION SHEET INPUT:")
         print("Enter production data from WhatsApp group report:")
         
+        # Production date input
+        print("\n📅 PRODUCTION DATE:")
+        sheet_date = input("Date from production sheet (e.g., 3/8/2025): ") or "3/8/2025"
+        production_date = sheet_date
+        
         # Daily production input
-        print("\n🏭 DAILY PRODUCTION:")
+        print(f"\n🏭 DAILY PRODUCTION ({sheet_date}):")
         daily_3kg = int(input("3kg bags produced: ") or 2638)
         daily_4kg = int(input("4kg bags produced: ") or 0)
         daily_5kg = int(input("5kg bags produced: ") or 725)
@@ -319,7 +325,8 @@ async def main():
         print("="*60)
         
         summary = f"🧊 SAHEL 2025 ICE CUBE TRACKER - {platform.system()} {platform.release()}\n"
-        summary += f"📅 Date: {platform.datetime.now().strftime('%d/%m/%Y')}\n\n"
+        summary += f"📅 Production Date: {production_date}\n"
+        summary += f"📅 Report Generated: {platform.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n"
         
         # Daily Production Summary
         summary += "🏭 DAILY PRODUCTION SUMMARY:\n"
