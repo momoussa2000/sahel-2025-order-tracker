@@ -7,155 +7,237 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #ffffff;
             min-height: 100vh;
         }
+        
         .container {
-            width: 100%;
-            margin: 0;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            backdrop-filter: blur(10px);
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        h1 {
+        
+        .header {
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.2em;
-            opacity: 0.9;
             margin-bottom: 40px;
         }
-        .features {
+        
+        .header h1 {
+            font-size: 2.4em;
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #64b5f6, #81c784);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin: 40px 0;
+            margin-bottom: 40px;
         }
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .api-info {
-            background: rgba(0, 0, 0, 0.2);
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
             padding: 25px;
-            border-radius: 12px;
-            margin: 40px 0;
-        }
-        .api-endpoint {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 5px;
-            font-family: monospace;
-            word-break: break-all;
-            margin: 10px 0;
-        }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            margin: 40px 0;
+            border-radius: 16px;
             text-align: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
         }
-        .stat {
-            flex: 1;
-            padding: 10px;
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(100, 181, 246, 0.3);
+            box-shadow: 0 8px 32px rgba(100, 181, 246, 0.1);
         }
+        
         .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #ffeb3b;
+            font-size: 3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #64b5f6;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .main-content {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .load-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 36px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .load-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .load-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        #dataDisplay {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .data-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .data-section h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #64b5f6;
+        }
+        
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .data-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .data-label {
+            font-size: 0.85em;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 5px;
+        }
+        
+        .data-value {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #81c784;
+        }
+        
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .client-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .client-card:hover {
+            border-color: rgba(100, 181, 246, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .client-name {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        
+        .client-details {
+            font-size: 0.9em;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+        
+        .status-bar {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .date-highlight {
+            background: linear-gradient(135deg, #ffd54f, #ffb300);
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🧊 SAHEL 2025 Order Tracker</h1>
-        <p class="subtitle">متتبع طلبات مكعبات الثلج للساحل الشمالي 2025</p>
+        <div class="header">
+            <h1>SAHEL 2025</h1>
+        </div>
         
-        <div class="stats">
-            <div class="stat">
+        <div class="stats-grid">
+            <div class="stat-card">
                 <div class="stat-number">51</div>
-                <div>عملاء</div>
+                <div class="stat-label">Clients</div>
             </div>
-            <div class="stat">
+            <div class="stat-card">
                 <div class="stat-number">16</div>
-                <div>منطقة</div>
+                <div class="stat-label">Zones</div>
             </div>
-            <div class="stat">
+            <div class="stat-card">
                 <div class="stat-number">69</div>
-                <div>فريزر</div>
+                <div class="stat-label">Freezers</div>
             </div>
-            <div class="stat">
+            <div class="stat-card">
                 <div class="stat-number">2</div>
-                <div>شاحنة</div>
+                <div class="stat-label">Trucks</div>
             </div>
         </div>
 
-        <div class="features">
-            <div class="feature">
-                <h3>🚛 إدارة التوصيل</h3>
-                <p>تتبع التوصيلات اليومية مع تفاصيل الشاحنات والسائقين</p>
-            </div>
-            <div class="feature">
-                <h3>❄️ مراقبة الفريزر</h3>
-                <p>تنبيهات تلقائية للعملاء الذين يحتاجون إعادة تعبئة</p>
-            </div>
-            <div class="feature">
-                <h3>📊 تقارير الإنتاج</h3>
-                <p>إدخال ومتابعة الإنتاج اليومي للأحجام المختلفة</p>
-            </div>
-            <div class="feature">
-                <h3>📱 تكامل واتساب</h3>
-                <p>ملخصات جاهزة للمشاركة على واتساب</p>
-            </div>
-        </div>
-
-        <div class="api-info">
-            <h3>🔗 API Endpoint</h3>
-            <p>استخدم هذا الرابط للوصول إلى نظام التتبع:</p>
-            <div class="api-endpoint">
-                <button id="loadDataBtn" onclick="loadTrackerData()" style="
-                    background: #4CAF50;
-                    color: white;
-                    border: none;
-                    padding: 20px 40px;
-                    font-size: 18px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    margin: 15px 0;
-                    transition: background 0.3s;
-                    font-weight: bold;
-                ">
-                    🔄 تحميل بيانات التتبع (Load Tracker Data)
-                </button>
-            </div>
-            <div id="dataDisplay" style="
-                background: rgba(0, 0, 0, 0.4);
-                padding: 20px;
-                border-radius: 8px;
-                margin-top: 20px;
-                max-height: 600px;
-                overflow-y: auto;
-                display: none;
-            "></div>
-            <p><strong>المناطق المتاحة:</strong> الماظة، سيدي هنيش، مراسي، هاسيندا وايت، هاسيندا ريد، دبلوماسين، مارينا، وغيرها...</p>
-        </div>
-
-        <div style="text-align: center; margin-top: 40px;">
-            <p><strong>تم النشر بنجاح على Vercel</strong></p>
-            <p>نظام إدارة طلبات مكعبات الثلج للساحل الشمالي 2025</p>
+        <div class="main-content">
+            <button id="loadDataBtn" onclick="loadTrackerData()" class="load-button">
+                Load Production Data
+            </button>
+            
+            <div id="dataDisplay"></div>
         </div>
     </div>
 
@@ -393,67 +475,98 @@
                 // Display the demo data
                 display.style.display = 'block';
                 display.innerHTML = `
-                    <h4 style="font-size: 20px; margin-bottom: 20px;">📊 بيانات الساحل الشمالي 2025 - محسن (Enhanced North Coast Data)</h4>
-                    
-                    <!-- Production Summary -->
-                    <div style="background: rgba(0, 100, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
-                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #4CAF50;">🏭 إنتاج اليوم (Daily Production)</h5>
-                        <p style="font-size: 16px; margin: 8px 0; font-weight: bold; color: #FFD700;">📅 تاريخ التقرير: ${demoData.production.date} (Report Date)</p>
-                        <p style="font-size: 16px; margin: 8px 0;">📦 الإنتاج الإجمالي: ${demoData.production.daily.total_kg.toLocaleString()} كجم (${demoData.production.daily.total_tons} طن)</p>
-                        <p style="font-size: 16px; margin: 8px 0;">🧊 أكياس 3كجم: ${demoData.production.daily["3kg"].toLocaleString()} | أكياس 4كجم: ${demoData.production.daily["4kg"].toLocaleString()} | أكياس 5كجم: ${demoData.production.daily["5kg"].toLocaleString()}</p>
-                        <p style="font-size: 16px; margin: 8px 0;">⚙️ الآلة القديمة: ${demoData.production.by_machine.old_machine.total_kg.toLocaleString()} كجم | الآلة الجديدة: ${demoData.production.by_machine.new_machine.total_kg.toLocaleString()} كجم</p>
-                        <p style="font-size: 16px; margin: 8px 0;">⏰ الوردية الأولى: ${demoData.production.by_shift.first_shift.total_kg.toLocaleString()} كجم | الوردية الثانية: ${demoData.production.by_shift.second_shift.total_kg.toLocaleString()} كجم</p>
+                    <div class="date-highlight">
+                        📅 ${demoData.production.date}
                     </div>
                     
-                    <!-- Storage Summary -->
-                    <div style="background: rgba(0, 0, 255, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
-                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #2196F3;">🏪 المخازن (Storage Rooms)</h5>
-                        <p style="font-size: 16px; margin: 8px 0;">📦 إجمالي المخزون: ${demoData.storage.total.total_kg.toLocaleString()} كجم (${demoData.storage.total.total_tons} طن)</p>
-                        <p style="font-size: 16px; margin: 8px 0;">🏢 المخزن الرئيسي: ${demoData.storage.rooms.main.total_kg.toLocaleString()} كجم | مخزن Apex: ${demoData.storage.rooms.apex.total_kg.toLocaleString()} كجم</p>
-                        <p style="font-size: 16px; margin: 8px 0;">🧊 أكياس 3كجم: ${demoData.storage.total["3kg"].toLocaleString()} | أكياس 4كجم: ${demoData.storage.total["4kg"].toLocaleString()} | أكياس 5كجم: ${demoData.storage.total["5kg"].toLocaleString()}</p>
-                    </div>
-                    
-                    <!-- Distribution & Tracking -->
-                    <div style="background: rgba(255, 165, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
-                        <h5 style="font-size: 18px; margin-bottom: 15px; color: #FF9800;">🚛 التوزيع والمتابعة (Distribution & Tracking)</h5>
-                        <p style="font-size: 16px; margin: 8px 0;">📦 خارج للتوزيع: ${demoData.distribution.total_kg.toLocaleString()} كجم (${demoData.distribution.total_tons} طن)</p>
-                        <p style="font-size: 16px; margin: 8px 0;">↩️ المرتجعات: ${demoData.refunds.total_kg.toLocaleString()} كجم | 💥 الأضرار: ${demoData.damages.total_kg.toLocaleString()} كجم</p>
-                    </div>
-                    
-                    <!-- System Statistics -->
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 8px; margin: 15px 0;">
-                        <h5 style="font-size: 18px; margin-bottom: 15px;">📈 إحصائيات النظام (System Statistics)</h5>
-                        <p style="font-size: 16px; margin: 8px 0;">🏢 إجمالي العملاء: ${demoData.total_clients} | المناطق: ${demoData.zones}</p>
-                        <p style="font-size: 16px; margin: 8px 0;">❄️ عملاء الفريزر: ${demoData.freezer_clients} | إجمالي الفريزر: ${demoData.total_freezers}</p>
-                        <p style="font-size: 16px; margin: 8px 0;">🚛 الشاحنات: ${demoData.trucks.join(', ')}</p>
-                        <p style="font-size: 16px; margin: 8px 0;">👥 مندوبي المبيعات: ${demoData.sales_reps.join(', ')}</p>
-                        <p style="font-size: 16px; margin: 8px 0;">🧊 المنتجات: أكياس 3كجم، 4كجم، 5كجم + أكواب ثلج</p>
-                    </div>
-                    
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 8px; max-height: 500px; overflow-y: auto;">
-                        <h5 style="font-size: 18px; margin-bottom: 20px;">🗺️ جميع المناطق والعملاء (All Zones & Clients)</h5>
-                        ${Object.entries(demoData.client_zones).map(([zone, clients]) => `
-                            <div style="padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; margin-bottom: 15px;">
-                                <h6 style="color: #ffeb3b; margin: 0 0 10px 0; font-size: 16px;">📍 ${zone} (${clients.length} عملاء)</h6>
-                                ${clients.map(client => `
-                                    <div style="padding: 12px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; font-size: 14px; margin-bottom: 8px;">
-                                        <div style="font-weight: bold; margin-bottom: 5px;">
-                                            ${client.freezer ? '❄️' : '🏪'} ${client.name} 
-                                            ${client.name_en ? `<br><small style="color: #4CAF50;">${client.name_en}</small>` : ''}
-                                            ${client.freezer_count > 0 ? `(${client.freezer_count} فريزر)` : '(بدون فريزر)'}
-                                        </div>
-                                        ${client.contact_person ? `<div style="color: #4CAF50; font-size: 13px;">👤 ${client.contact_person} | 📞 ${client.phone}</div>` : ''}
-                                    </div>
-                                `).join('')}
+                    <div class="data-section">
+                        <h3>Production</h3>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <div class="data-label">Total Production</div>
+                                <div class="data-value">${demoData.production.daily.total_kg.toLocaleString()} kg</div>
                             </div>
-                        `).join('')}
+                            <div class="data-item">
+                                <div class="data-label">3kg Bags</div>
+                                <div class="data-value">${demoData.production.daily["3kg"].toLocaleString()}</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">4kg Bags</div>
+                                <div class="data-value">${demoData.production.daily["4kg"].toLocaleString()}</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">5kg Bags</div>
+                                <div class="data-value">${demoData.production.daily["5kg"].toLocaleString()}</div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div style="background: rgba(0, 100, 0, 0.3); padding: 15px; border-radius: 8px; margin: 15px 0;">
-                        <p style="margin: 0; font-size: 14px;">
-                            ✅ تم تحميل ${demoData.total_clients} عميل من ${demoData.zones} منطقة بنجاح<br>
-                            🕐 آخر تحديث: ${new Date().toLocaleString('ar-EG')}
-                        </p>
+                    <div class="data-section">
+                        <h3>Machines</h3>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <div class="data-label">Old Machine</div>
+                                <div class="data-value">${demoData.production.by_machine.old_machine.total_kg.toLocaleString()} kg</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">New Machine</div>
+                                <div class="data-value">${demoData.production.by_machine.new_machine.total_kg.toLocaleString()} kg</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <h3>Storage</h3>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <div class="data-label">Total Storage</div>
+                                <div class="data-value">${demoData.storage.total.total_kg.toLocaleString()} kg</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">Main Storage</div>
+                                <div class="data-value">${demoData.storage.rooms.main.total_kg.toLocaleString()} kg</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">Apex Storage</div>
+                                <div class="data-value">${demoData.storage.rooms.apex.total_kg.toLocaleString()} kg</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <h3>Distribution</h3>
+                        <div class="data-grid">
+                            <div class="data-item">
+                                <div class="data-label">Out for Delivery</div>
+                                <div class="data-value">${demoData.distribution.total_kg.toLocaleString()} kg</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">Refunds</div>
+                                <div class="data-value">${demoData.refunds.total_kg.toLocaleString()} kg</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-label">Damages</div>
+                                <div class="data-value">${demoData.damages.total_kg.toLocaleString()} kg</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <h3>Clients</h3>
+                        <div class="clients-grid">
+                            ${Object.entries(demoData.client_zones).map(([zone, clients]) => `
+                                <div class="client-card">
+                                    <div class="client-name">${zone}</div>
+                                    <div class="client-details">
+                                        ${clients.length} clients • ${clients.filter(c => c.freezer).length} with freezers
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="status-bar">
+                        ✅ ${demoData.total_clients} clients loaded from ${demoData.zones} zones
                     </div>
                 `;
                 
