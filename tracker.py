@@ -7,19 +7,19 @@ FPS = 60  # Frame rate for Pyodide compatibility
 # North Coast clients from Sahel 2025.xlsx nested under zones
 clients = {
     "Almaza": [
-        {"name": "بير الماظة", "freezer": True, "orders": 0, "freezer_count": 5},
-        {"name": "ساشي الماظة", "freezer": True, "orders": 0, "freezer_count": 8},
-        {"name": "جورميه الماظة", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "شيرز الماظة", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "منقي بار الماظة", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "كويك الماظة", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "ذي تاب الماظة", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "شركة فو الماظة", "freezer": True, "orders": 0, "freezer_count": 2}
+        {"name": "بير الماظة", "freezer": True, "orders": 0, "freezer_count": 5, "contact_person": "أحمد محمد", "phone": "01234567890"},
+        {"name": "ساشي الماظة", "freezer": True, "orders": 0, "freezer_count": 8, "contact_person": "سارة أحمد", "phone": "01234567891"},
+        {"name": "جورميه الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "محمد علي", "phone": "01234567892"},
+        {"name": "شيرز الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "فاطمة محمود", "phone": "01234567893"},
+        {"name": "منقي بار الماظة", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "يوسف إبراهيم", "phone": "01234567894"},
+        {"name": "كويك الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "نور الدين", "phone": "01234567895"},
+        {"name": "ذي تاب الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "هند عبدالله", "phone": "01234567896"},
+        {"name": "شركة فو الماظة", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم سعد", "phone": "01234567897"}
     ],
     "Sidi Heneish": [
-        {"name": "مطعم تافيرنا", "freezer": True, "orders": 0, "freezer_count": 3},
-        {"name": "دريمز لا فيستا ضبعة", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "دريمز صوان لايك", "freezer": True, "orders": 0, "freezer_count": 1}
+        {"name": "مطعم تافيرنا", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "خالد حسن", "phone": "01234567898"},
+        {"name": "دريمز لا فيستا ضبعة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "مريم فتحي", "phone": "01234567899"},
+        {"name": "دريمز صوان لايك", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "عمر صلاح", "phone": "01234567900"}
     ],
     "Mountain View": [
         {"name": "أوسكار ماونتن فيو", "freezer": False, "orders": 0, "freezer_count": 0}
@@ -54,19 +54,19 @@ clients = {
         {"name": "دريمز لا فيستا كاسكادا", "freezer": True, "orders": 0, "freezer_count": 1}
     ],
     "Marassi": [
-        {"name": "ساشي مراسي", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "ميجومي مراسي", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "دار الأمار مراسي", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "ساكس مراسي", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "سموكري مراسي", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "مطعم إزاكايا", "freezer": True, "orders": 0, "freezer_count": 3},
-        {"name": "سعودي مراسي", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "برون نوز مراسي", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "سول بيتش", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "ساشي مراسي", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "علي محمد", "phone": "01234567920"},
+        {"name": "ميجومي مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "سارة محمود", "phone": "01234567921"},
+        {"name": "دار الأمار مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "أحمد فتحي", "phone": "01234567922"},
+        {"name": "ساكس مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "نورا سعد", "phone": "01234567923"},
+        {"name": "سموكري مراسي", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم علي", "phone": "01234567924"},
+        {"name": "مطعم إزاكايا", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "هند محمد", "phone": "01234567925"},
+        {"name": "سعودي مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "محمد عبدالله", "phone": "01234567926"},
+        {"name": "برون نوز مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "فاطمة أحمد", "phone": "01234567927"},
+        {"name": "سول بيتش", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "يوسف حسن", "phone": "01234567928"}
     ],
     "Sidi Abdel Rahman": [
-        {"name": "شركة فو ساحل", "freezer": True, "orders": 0, "freezer_count": 3},
-        {"name": "Seven Fortunes Sahel", "freezer": True, "orders": 0, "freezer_count": 2}
+        {"name": "شركة فو ساحل", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "أحمد عبدالرحمن", "phone": "01234567910"},
+        {"name": "Seven Fortunes Sahel", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Mohamed Ali", "phone": "01234567911"}
     ],
     "Stella Di Mare": [
         {"name": "دريمز ستلا", "freezer": True, "orders": 0, "freezer_count": 1},
@@ -118,7 +118,11 @@ async def main():
         if zone in clients:
             print(f"Clients in {zone}: {len(clients[zone])}")
             for i, client in enumerate(clients[zone]):
-                print(f"{i}: {client['name']}")
+                contact_info = ""
+                if "contact_person" in client and "phone" in client:
+                    contact_info = f" - Contact: {client['contact_person']} ({client['phone']})"
+                freezer_info = f" - {client['freezer_count']} freezers" if client['freezer'] else " - No freezers"
+                print(f"{i}: {client['name']}{contact_info}{freezer_info}")
             client_idx = int(input("Client Index (0-based): "))
             if 0 <= client_idx < len(clients[zone]):
                 truck = input("Truck (e.g., NPR 7219): ")
@@ -152,7 +156,10 @@ async def main():
         for zone in clients:
             for client in clients[zone]:
                 if client["freezer"] and client["orders"] == 0:
-                    print(f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers) needs refill!")
+                    contact_info = ""
+                    if "contact_person" in client and "phone" in client:
+                        contact_info = f" - Contact: {client['contact_person']} ({client['phone']})"
+                    print(f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info} needs refill!")
 
         # WhatsApp summary
         summary = f"Summary - North Coast - {platform.system()} {platform.release()}:\n"
@@ -163,7 +170,10 @@ async def main():
         for zone in clients:
             for client in clients[zone]:
                 if client["freezer"] and client["orders"] == 0:
-                    summary += f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers) needs refill!\n"
+                    contact_info = ""
+                    if "contact_person" in client and "phone" in client:
+                        contact_info = f" - Contact: {client['contact_person']} ({client['phone']})"
+                    summary += f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info} needs refill!\n"
         print(summary)  # Copy to WhatsApp manually
 
         await asyncio.sleep(1.0 / FPS)  # Control loop for Pyodide
