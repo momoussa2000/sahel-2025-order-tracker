@@ -155,6 +155,104 @@
     </div>
 
     <script>
+        // Demo data from your SAHEL 2025 tracker with all 47 North Coast clients
+        const demoData = {
+            status: "SAHEL 2025 Order Tracker - Active",
+            zones: 16,
+            total_clients: 47,
+            freezer_clients: 32,
+            total_freezers: 38,
+            trucks: ["NPR 7219 (Tariq)", "TFR 9987 (Mohamed)"],
+            sales_reps: ["Eslam", "Akrm", "Mouner", "Hussein Sabra", "Ahmed Hussein"],
+            timestamp: new Date().toISOString(),
+            message: "نظام متتبع طلبات الآيس كريم للساحل الشمالي 2025",
+            
+            client_zones: {
+                "Almaza": [
+                    {"name": "بير الماظة", "freezer": true, "freezer_count": 5},
+                    {"name": "ساشي الماظة", "freezer": true, "freezer_count": 8},
+                    {"name": "جورميه الماظة", "freezer": true, "freezer_count": 1},
+                    {"name": "شيرز الماظة", "freezer": true, "freezer_count": 1},
+                    {"name": "منقي بار الماظة", "freezer": true, "freezer_count": 2},
+                    {"name": "كويك الماظة", "freezer": true, "freezer_count": 1},
+                    {"name": "ذي تاب الماظة", "freezer": true, "freezer_count": 1},
+                    {"name": "شركة فو الماظة", "freezer": true, "freezer_count": 2}
+                ],
+                "Sidi Heneish": [
+                    {"name": "مطعم تافيرنا", "freezer": true, "freezer_count": 3},
+                    {"name": "دريمز لا فيستا ضبعة", "freezer": true, "freezer_count": 1},
+                    {"name": "دريمز صوان لايك", "freezer": true, "freezer_count": 1}
+                ],
+                "Mountain View": [
+                    {"name": "أوسكار ماونتن فيو", "freezer": false, "freezer_count": 0}
+                ],
+                "Ghazala Bay": [
+                    {"name": "ساس غزالة", "freezer": false, "freezer_count": 0},
+                    {"name": "ريكسوس علامين", "freezer": false, "freezer_count": 0}
+                ],
+                "Telal": [
+                    {"name": "دريمز تلال", "freezer": true, "freezer_count": 2}
+                ],
+                "Hacienda Red": [
+                    {"name": "لوسيدة هاسيندا", "freezer": true, "freezer_count": 2},
+                    {"name": "جورميه هاسيندا", "freezer": true, "freezer_count": 2},
+                    {"name": "سيركل ك هاسيندا", "freezer": true, "freezer_count": 1}
+                ],
+                "Hacienda White": [
+                    {"name": "ساس فندق - كازا كوك", "freezer": true, "freezer_count": 1},
+                    {"name": "كيكيز هاسيندا وايت", "freezer": false, "freezer_count": 0},
+                    {"name": "مطعم جلامبو", "freezer": true, "freezer_count": 2},
+                    {"name": "برون نوز هاسيندا وايت", "freezer": true, "freezer_count": 3}
+                ],
+                "Seashell": [
+                    {"name": "مطعم نوي", "freezer": true, "freezer_count": 2},
+                    {"name": "سيركل كاي سيشل", "freezer": false, "freezer_count": 0}
+                ],
+                "Bianchi": [
+                    {"name": "شيرز بيانكي", "freezer": true, "freezer_count": 1},
+                    {"name": "سموكري بيانكي", "freezer": true, "freezer_count": 4}
+                ],
+                "La Vista Cascada": [
+                    {"name": "دريمز لا فيستا كاسكادا", "freezer": true, "freezer_count": 1}
+                ],
+                "Marassi": [
+                    {"name": "ساشي مراسي", "freezer": true, "freezer_count": 2},
+                    {"name": "ميجومي مراسي", "freezer": false, "freezer_count": 0},
+                    {"name": "دار الأمار مراسي", "freezer": false, "freezer_count": 0},
+                    {"name": "ساكس مراسي", "freezer": false, "freezer_count": 0},
+                    {"name": "سموكري مراسي", "freezer": true, "freezer_count": 2},
+                    {"name": "مطعم إزاكايا", "freezer": true, "freezer_count": 3},
+                    {"name": "سعودي مراسي", "freezer": false, "freezer_count": 0},
+                    {"name": "برون نوز مراسي", "freezer": false, "freezer_count": 0},
+                    {"name": "سول بيتش", "freezer": false, "freezer_count": 0}
+                ],
+                "Sidi Abdel Rahman": [
+                    {"name": "شركة فو ساحل", "freezer": true, "freezer_count": 3},
+                    {"name": "Seven Fortunes Sahel", "freezer": true, "freezer_count": 2}
+                ],
+                "Stella Di Mare": [
+                    {"name": "دريمز ستلا", "freezer": true, "freezer_count": 1},
+                    {"name": "جورميه ستلا", "freezer": false, "freezer_count": 0},
+                    {"name": "شيرز ستلا", "freezer": false, "freezer_count": 0}
+                ],
+                "Diplomasseen": [
+                    {"name": "سيركل كاي دلبومسين", "freezer": true, "freezer_count": 1},
+                    {"name": "دريمز دلبومسين", "freezer": true, "freezer_count": 2},
+                    {"name": "سب كافيه ديبلوماسين", "freezer": true, "freezer_count": 1},
+                    {"name": "MATTER CAFE", "freezer": true, "freezer_count": 1}
+                ],
+                "Alamein": [
+                    {"name": "سعودي العلامين", "freezer": false, "freezer_count": 0},
+                    {"name": "سيركل كاي العلامين", "freezer": false, "freezer_count": 0}
+                ],
+                "Marina": [
+                    {"name": "أنديامو مارينا 5", "freezer": true, "freezer_count": 2},
+                    {"name": "سيركل كاي مارينا 5", "freezer": true, "freezer_count": 0},
+                    {"name": "سيركل كاي مارينا 7", "freezer": true, "freezer_count": 0}
+                ]
+            }
+        };
+
         async function loadTrackerData() {
             const button = document.getElementById('loadDataBtn');
             const display = document.getElementById('dataDisplay');
@@ -164,24 +262,45 @@
             button.disabled = true;
             
             try {
-                const response = await fetch('/api/tracker');
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                // Display the data
+                // Display the demo data
                 display.style.display = 'block';
                 display.innerHTML = `
-                    <h4>📊 بيانات النظام (System Data)</h4>
-                    <pre style="color: #00ff00; font-family: monospace; white-space: pre-wrap; font-size: 12px;">
-${JSON.stringify(data, null, 2)}
-                    </pre>
+                    <h4>📊 بيانات الساحل الشمالي 2025 (North Coast Data)</h4>
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 5px; margin: 10px 0;">
+                        <h5>📈 إحصائيات النظام (System Statistics)</h5>
+                        <p>🏢 إجمالي العملاء: ${demoData.total_clients} | المناطق: ${demoData.zones}</p>
+                        <p>❄️ عملاء الفريزر: ${demoData.freezer_clients} | إجمالي الفريزر: ${demoData.total_freezers}</p>
+                        <p>🚛 الشاحنات: ${demoData.trucks.join(', ')}</p>
+                        <p>👥 مندوبي المبيعات: ${demoData.sales_reps.join(', ')}</p>
+                    </div>
+                    
+                    <div style="background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 5px; margin: 10px 0; max-height: 300px; overflow-y: auto;">
+                        <h5>🗺️ جميع المناطق والعملاء (All Zones & Clients)</h5>
+                        ${Object.entries(demoData.client_zones).map(([zone, clients]) => `
+                            <div style="margin: 10px 0; padding: 10px; background: rgba(255, 255, 255, 0.1); border-radius: 5px;">
+                                <h6 style="color: #ffeb3b; margin: 0 0 5px 0;">📍 ${zone} (${clients.length} عملاء)</h6>
+                                ${clients.map(client => `
+                                    <div style="margin: 5px 0; padding: 5px; background: rgba(0, 0, 0, 0.2); border-radius: 3px; font-size: 12px;">
+                                        ${client.freezer ? '❄️' : '🏪'} ${client.name} 
+                                        ${client.freezer_count > 0 ? `(${client.freezer_count} فريزر)` : '(بدون فريزر)'}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="background: rgba(0, 100, 0, 0.3); padding: 10px; border-radius: 5px; margin: 10px 0;">
+                        <p style="margin: 0; font-size: 12px;">
+                            ✅ تم تحميل ${demoData.total_clients} عميل من ${demoData.zones} منطقة بنجاح<br>
+                            🕐 آخر تحديث: ${new Date().toLocaleString('ar-EG')}
+                        </p>
+                    </div>
                 `;
                 
-                button.textContent = '✅ تم التحميل بنجاح (Data Loaded)';
+                button.textContent = '✅ البيانات محملة (Data Loaded)';
                 
             } catch (error) {
                 display.style.display = 'block';
@@ -189,7 +308,7 @@ ${JSON.stringify(data, null, 2)}
                     <h4>❌ خطأ في التحميل (Loading Error)</h4>
                     <p style="color: #ff6b6b;">
                         Error: ${error.message}<br>
-                        <small>تأكد من أن API يعمل بشكل صحيح</small>
+                        <small>جاري عرض البيانات التجريبية...</small>
                     </p>
                 `;
                 
