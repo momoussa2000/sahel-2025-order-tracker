@@ -552,13 +552,39 @@
                     </div>
                     
                     <div class="data-section">
-                        <h3>Clients</h3>
+                        <h3>Clients Overview</h3>
                         <div class="clients-grid">
                             ${Object.entries(demoData.client_zones).map(([zone, clients]) => `
                                 <div class="client-card">
                                     <div class="client-name">${zone}</div>
                                     <div class="client-details">
                                         ${clients.length} clients • ${clients.filter(c => c.freezer).length} with freezers
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="data-section">
+                        <h3>All Clients & Contacts</h3>
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            ${Object.entries(demoData.client_zones).map(([zone, clients]) => `
+                                <div style="margin-bottom: 25px;">
+                                    <h4 style="color: #64b5f6; margin: 0 0 15px 0; font-size: 1.1em;">${zone}</h4>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 15px;">
+                                        ${clients.map(client => `
+                                            <div class="client-card">
+                                                <div class="client-name">
+                                                    ${client.name}
+                                                    ${client.name_en ? `<br><span style="font-size: 0.9em; opacity: 0.7; color: #81c784;">${client.name_en}</span>` : ''}
+                                                </div>
+                                                <div class="client-details">
+                                                    ${client.freezer ? '❄️' : '🏪'} ${client.freezer_count > 0 ? `${client.freezer_count} freezers` : 'No freezers'}
+                                                    ${client.contact_person ? `<br>👤 ${client.contact_person}` : ''}
+                                                    ${client.phone ? `<br>📞 ${client.phone}` : ''}
+                                                </div>
+                                            </div>
+                                        `).join('')}
                                     </div>
                                 </div>
                             `).join('')}
