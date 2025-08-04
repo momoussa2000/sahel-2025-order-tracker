@@ -21,8 +21,8 @@ module.exports = (req, res) => {
       trucks: ["NPR 7219 (Tariq)", "TFR 9987 (Mohamed)"],
       sales_reps: ["Eslam", "Akrm", "Mouner", "Hussein Sabra", "Ahmed Hussein"],
       timestamp: new Date().toISOString(),
-      message: "نظام متتبع طلبات الآيس كريم للساحل الشمالي 2025",
-      features: ["Contact Information", "Freezer Monitoring", "Delivery Tracking", "WhatsApp Integration"]
+      message: "نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025",
+      features: ["Contact Information", "Freezer Monitoring", "Delivery Tracking", "WhatsApp Integration", "Ice Cube Bags (3kg, 4kg, 5kg)", "Ice Cups"]
     };
     
     res.setHeader('Content-Type', 'application/json');

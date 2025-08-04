@@ -1,8 +1,8 @@
 # 🧊 SAHEL 2025 Order Tracker
 
-**نظام متتبع طلبات الآيس كريم للساحل الشمالي 2025**
+**نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025**
 
-A comprehensive order tracking system for ice cream deliveries across the North Coast of Egypt, managing 47 clients across 16 zones with freezer monitoring and delivery optimization.
+A comprehensive order tracking system for ice cube deliveries across the North Coast of Egypt, managing 47 clients across 16 zones with freezer monitoring and delivery optimization.
 
 ## 🌟 Features
 
@@ -157,9 +157,10 @@ Returns system status and statistics.
 
 ## 🧊 Product Types
 
-- **3kg Containers**: Standard ice cream containers
-- **5kg Containers**: Large ice cream containers  
-- **Cups**: Individual serving cups
+- **3kg Bags**: Standard ice cube bags
+- **4kg Bags**: Medium ice cube bags
+- **5kg Bags**: Large ice cube bags  
+- **Ice Cups**: Individual ice cups
 
 ## 📱 WhatsApp Integration
 

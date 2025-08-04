@@ -94,21 +94,24 @@ trucks = {
     "TFR 9987": {"capacity": 1.5, "driver": "Mohamed", "license": "Grade 3"}
 }
 sales_reps = {"Eslam": [], "Akrm": [], "Mouner": [], "Hussein Sabra": [], "Ahmed Hussein": []}
-stock = {"3kg": 1000, "5kg": 1500, "cups": 200}
-production = {"3kg": 0, "5kg": 0, "cups": 0}
+stock = {"3kg": 1000, "4kg": 1200, "5kg": 1500, "cups": 200}
+production = {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0}
 deliveries = []
 
 async def main():
     while True:
         # Input production
-        print("Enter daily production (kg):")
-        prod_3kg = int(input("3kg: ") or 0)
-        prod_5kg = int(input("5kg: ") or 0)
-        prod_cups = int(input("Cups: ") or 0)
+        print("Enter daily production (ice cube bags and cups):")
+        prod_3kg = int(input("3kg bags: ") or 0)
+        prod_4kg = int(input("4kg bags: ") or 0)
+        prod_5kg = int(input("5kg bags: ") or 0)
+        prod_cups = int(input("Ice cups: ") or 0)
         production["3kg"] += prod_3kg
+        production["4kg"] += prod_4kg
         production["5kg"] += prod_5kg
         production["cups"] += prod_cups
         stock["3kg"] += prod_3kg
+        stock["4kg"] += prod_4kg
         stock["5kg"] += prod_5kg
         stock["cups"] += prod_cups
 
@@ -127,14 +130,16 @@ async def main():
             if 0 <= client_idx < len(clients[zone]):
                 truck = input("Truck (e.g., NPR 7219): ")
                 rep = input("Sales Rep (e.g., Akrm): ")
-                orders_3kg = int(input("3kg Orders: ") or 0)
-                orders_5kg = int(input("5kg Orders: ") or 0)
+                orders_3kg = int(input("3kg bags: ") or 0)
+                orders_4kg = int(input("4kg bags: ") or 0)
+                orders_5kg = int(input("5kg bags: ") or 0)
                 delivered_time = input("Delivered Time (HH:MM:SS, e.g., 14:30:00): ")
                 
-                if truck in trucks and (orders_3kg * 3 + orders_5kg * 5) <= trucks[truck]["capacity"] * 1000:
+                if truck in trucks and (orders_3kg * 3 + orders_4kg * 4 + orders_5kg * 5) <= trucks[truck]["capacity"] * 1000:
                     client = clients[zone][client_idx]
-                    client["orders"] += orders_3kg + orders_5kg
+                    client["orders"] += orders_3kg + orders_4kg + orders_5kg
                     stock["3kg"] -= orders_3kg
+                    stock["4kg"] -= orders_4kg
                     stock["5kg"] -= orders_5kg
                     deliveries.append({
                         "zone": zone,
@@ -143,10 +148,11 @@ async def main():
                         "driver": trucks[truck]["driver"],
                         "delivered_time": delivered_time,
                         "orders_3kg": orders_3kg,
+                        "orders_4kg": orders_4kg,
                         "orders_5kg": orders_5kg
                     })
                     sales_reps[rep].append(client["name"])
-                    print(f"Delivery logged: {zone}, {client['name']}, {orders_3kg}×3kg, {orders_5kg}×5kg, {rep}, {trucks[truck]['driver']}, {delivered_time}")
+                    print(f"Delivery logged: {zone}, {client['name']}, {orders_3kg}×3kg, {orders_4kg}×4kg, {orders_5kg}×5kg, {rep}, {trucks[truck]['driver']}, {delivered_time}")
                 else:
                     print("Invalid truck or overload!")
         else:
@@ -162,11 +168,11 @@ async def main():
                     print(f"Alert: {client['name']} (Zone: {zone}, {client['freezer_count']} freezers){contact_info} needs refill!")
 
         # WhatsApp summary
-        summary = f"Summary - North Coast - {platform.system()} {platform.release()}:\n"
-        summary += f"Production: 3kg={production['3kg']}kg, 5kg={production['5kg']}kg, Cups={production['cups']}\n"
-        summary += f"Stock: 3kg={stock['3kg']}kg, 5kg={stock['5kg']}kg, Cups={stock['cups']}\n"
+        summary = f"Summary - North Coast Ice Cubes - {platform.system()} {platform.release()}:\n"
+        summary += f"Production: 3kg={production['3kg']} bags, 4kg={production['4kg']} bags, 5kg={production['5kg']} bags, Cups={production['cups']}\n"
+        summary += f"Stock: 3kg={stock['3kg']} bags, 4kg={stock['4kg']} bags, 5kg={stock['5kg']} bags, Cups={stock['cups']}\n"
         for delivery in deliveries:
-            summary += f"Delivered: {delivery['client']} ({delivery['zone']}), {delivery['orders_3kg']}×3kg, {delivery['orders_5kg']}×5kg, Rep: {delivery['sales_rep']}, Driver: {delivery['driver']}, Time: {delivery['delivered_time']}\n"
+            summary += f"Delivered: {delivery['client']} ({delivery['zone']}), {delivery['orders_3kg']}×3kg, {delivery['orders_4kg']}×4kg, {delivery['orders_5kg']}×5kg, Rep: {delivery['sales_rep']}, Driver: {delivery['driver']}, Time: {delivery['delivered_time']}\n"
         for zone in clients:
             for client in clients[zone]:
                 if client["freezer"] and client["orders"] == 0:
