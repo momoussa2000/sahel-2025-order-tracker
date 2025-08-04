@@ -174,8 +174,8 @@
             
             client_zones: {
                 "Almaza": [
-                    {"name": "بير الماظة", "freezer": true, "freezer_count": 5, "contact_person": "أحمد محمد", "phone": "01234567890"},
-                    {"name": "ساشي الماظة", "freezer": true, "freezer_count": 8, "contact_person": "سارة أحمد", "phone": "01234567891"},
+                    {"name": "بير الماظة", "name_en": "Pier Almaza", "freezer": true, "freezer_count": 5, "contact_person": "أحمد محمد", "phone": "01234567890"},
+                    {"name": "ساشي الماظة", "name_en": "Sachi Almaza", "freezer": true, "freezer_count": 8, "contact_person": "سارة أحمد", "phone": "01234567891"},
                     {"name": "جورميه الماظة", "freezer": true, "freezer_count": 1, "contact_person": "محمد علي", "phone": "01234567892"},
                     {"name": "شيرز الماظة", "freezer": true, "freezer_count": 1, "contact_person": "فاطمة محمود", "phone": "01234567893"},
                     {"name": "منقي بار الماظة", "freezer": true, "freezer_count": 2, "contact_person": "يوسف إبراهيم", "phone": "01234567894"},
@@ -292,6 +292,7 @@
                                     <div style="padding: 12px; background: rgba(0, 0, 0, 0.2); border-radius: 6px; font-size: 14px; margin-bottom: 8px;">
                                         <div style="font-weight: bold; margin-bottom: 5px;">
                                             ${client.freezer ? '❄️' : '🏪'} ${client.name} 
+                                            ${client.name_en ? `<br><small style="color: #4CAF50;">${client.name_en}</small>` : ''}
                                             ${client.freezer_count > 0 ? `(${client.freezer_count} فريزر)` : '(بدون فريزر)'}
                                         </div>
                                         ${client.contact_person ? `<div style="color: #4CAF50; font-size: 13px;">👤 ${client.contact_person} | 📞 ${client.phone}</div>` : ''}

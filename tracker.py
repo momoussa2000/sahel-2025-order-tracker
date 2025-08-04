@@ -7,87 +7,87 @@ FPS = 60  # Frame rate for Pyodide compatibility
 # North Coast clients from Sahel 2025.xlsx nested under zones
 clients = {
     "Almaza": [
-        {"name": "بير الماظة", "freezer": True, "orders": 0, "freezer_count": 5, "contact_person": "أحمد محمد", "phone": "01234567890"},
-        {"name": "ساشي الماظة", "freezer": True, "orders": 0, "freezer_count": 8, "contact_person": "سارة أحمد", "phone": "01234567891"},
-        {"name": "جورميه الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "محمد علي", "phone": "01234567892"},
-        {"name": "شيرز الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "فاطمة محمود", "phone": "01234567893"},
-        {"name": "منقي بار الماظة", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "يوسف إبراهيم", "phone": "01234567894"},
-        {"name": "كويك الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "نور الدين", "phone": "01234567895"},
-        {"name": "ذي تاب الماظة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "هند عبدالله", "phone": "01234567896"},
-        {"name": "شركة فو الماظة", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم سعد", "phone": "01234567897"}
+        {"name": "بير الماظة", "name_en": "Pier Almaza", "freezer": True, "orders": 0, "freezer_count": 5, "contact_person": "أحمد محمد", "phone": "01234567890"},
+        {"name": "ساشي الماظة", "name_en": "Sachi Almaza", "freezer": True, "orders": 0, "freezer_count": 8, "contact_person": "سارة أحمد", "phone": "01234567891"},
+        {"name": "جورميه الماظة", "name_en": "Gourmet Almaza", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "محمد علي", "phone": "01234567892"},
+        {"name": "شيرز الماظة", "name_en": "Cheers Almaza", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "فاطمة محمود", "phone": "01234567893"},
+        {"name": "منقي بار الماظة", "name_en": "Monkey bar & Olivo", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "يوسف إبراهيم", "phone": "01234567894"},
+        {"name": "كويك الماظة", "name_en": "Quick almaza", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "نور الدين", "phone": "01234567895"},
+        {"name": "ذي تاب الماظة", "name_en": "THE TAP", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "هند عبدالله", "phone": "01234567896"},
+        {"name": "شركة فو الماظة", "name_en": "VOO Almaza", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم سعد", "phone": "01234567897"}
     ],
     "Sidi Heneish": [
-        {"name": "مطعم تافيرنا", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "خالد حسن", "phone": "01234567898"},
-        {"name": "دريمز لا فيستا ضبعة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "مريم فتحي", "phone": "01234567899"},
-        {"name": "دريمز صوان لايك", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "عمر صلاح", "phone": "01234567900"},
-        {"name": "Baboos Taverna", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Ahmed Baboos", "phone": "01234567930"}
+        {"name": "مطعم تافيرنا", "name_en": "Cheers Sidi Heneish", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "خالد حسن", "phone": "01234567898"},
+        {"name": "دريمز لا فيستا ضبعة", "name_en": "Dreams La Vista Dab3a", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "مريم فتحي", "phone": "01234567899"},
+        {"name": "دريمز صوان لايك", "name_en": "Dreams Swan Lake", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "عمر صلاح", "phone": "01234567900"},
+        {"name": "Baboos Taverna", "name_en": "Baboos Taverna", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Ahmed Baboos", "phone": "01234567930"}
     ],
     "Mountain View": [
-        {"name": "أوسكار ماونتن فيو", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "أوسكار ماونتن فيو", "name_en": "Oscar Mountain View", "freezer": False, "orders": 0, "freezer_count": 0}
     ],
     "Ghazala Bay": [
-        {"name": "ساس غزالة", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "ريكسوس علامين", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "ساس غزالة", "name_en": "Sass- Ghazala", "freezer": False, "orders": 0, "freezer_count": 0},
+        {"name": "ريكسوس علامين", "name_en": "Rixos Alamein", "freezer": False, "orders": 0, "freezer_count": 0}
     ],
     "Telal": [
-        {"name": "دريمز تلال", "freezer": True, "orders": 0, "freezer_count": 2}
+        {"name": "دريمز تلال", "name_en": "Dreams Telal", "freezer": True, "orders": 0, "freezer_count": 2}
     ],
     "Hacienda Red": [
-        {"name": "لوسيدة هاسيندا", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "جورميه هاسيندا", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "سيركل ك هاسيندا", "freezer": True, "orders": 0, "freezer_count": 1}
+        {"name": "لوسيدة هاسيندا", "name_en": "Lucida Hacienda", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "جورميه هاسيندا", "name_en": "Gourmet Hacienda", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "سيركل ك هاسيندا", "name_en": "Circle K Hacienda", "freezer": True, "orders": 0, "freezer_count": 1}
     ],
     "Hacienda White": [
-        {"name": "ساس فندق - كازا كوك", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "كيكيز هاسيندا وايت", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "مطعم جلامبو", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "برون نوز هاسيندا وايت", "freezer": True, "orders": 0, "freezer_count": 3}
+        {"name": "ساس فندق - كازا كوك", "name_en": "SASS Hotel - Casa Cook", "freezer": True, "orders": 0, "freezer_count": 1},
+        {"name": "كيكيز هاسيندا وايت", "name_en": "Kiki's Hacienda White Restauran", "freezer": False, "orders": 0, "freezer_count": 0},
+        {"name": "مطعم جلامبو", "name_en": "Galambo", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "برون نوز هاسيندا وايت", "name_en": "Brown Nose Hacienda White", "freezer": True, "orders": 0, "freezer_count": 3}
     ],
     "Seashell": [
-        {"name": "مطعم نوي", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "سيركل كاي سيشل", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "مطعم نوي", "name_en": "NOI", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "سيركل كاي سيشل", "name_en": "Circle K Seachell", "freezer": False, "orders": 0, "freezer_count": 0}
     ],
     "Bianchi": [
-        {"name": "شيرز بيانكي", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "سموكري بيانكي", "freezer": True, "orders": 0, "freezer_count": 4}
+        {"name": "شيرز بيانكي", "name_en": "Cheers Bianchi", "freezer": True, "orders": 0, "freezer_count": 1},
+        {"name": "سموكري بيانكي", "name_en": "Smokery Bianchi", "freezer": True, "orders": 0, "freezer_count": 4}
     ],
     "La Vista Cascada": [
-        {"name": "دريمز لا فيستا كاسكادا", "freezer": True, "orders": 0, "freezer_count": 1}
+        {"name": "دريمز لا فيستا كاسكادا", "name_en": "Dreams La Vista Cascada", "freezer": True, "orders": 0, "freezer_count": 1}
     ],
     "Marassi": [
-        {"name": "ساشي مراسي", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "علي محمد", "phone": "01234567920"},
-        {"name": "ميجومي مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "سارة محمود", "phone": "01234567921"},
-        {"name": "دار الأمار مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "أحمد فتحي", "phone": "01234567922"},
-        {"name": "ساكس مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "نورا سعد", "phone": "01234567923"},
-        {"name": "سموكري مراسي", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم علي", "phone": "01234567924"},
-        {"name": "مطعم إزاكايا", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "هند محمد", "phone": "01234567925"},
-        {"name": "سعودي مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "محمد عبدالله", "phone": "01234567926"},
-        {"name": "برون نوز مراسي", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "فاطمة أحمد", "phone": "01234567927"},
-        {"name": "سول بيتش", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "يوسف حسن", "phone": "01234567928"}
+        {"name": "ساشي مراسي", "name_en": "Sachi Marassi", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "علي محمد", "phone": "01234567920"},
+        {"name": "ميجومي مراسي", "name_en": "MEGUMI Marassi", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "سارة محمود", "phone": "01234567921"},
+        {"name": "دار الأمار مراسي", "name_en": "Dar El AMAR", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "أحمد فتحي", "phone": "01234567922"},
+        {"name": "ساكس مراسي", "name_en": "SAX", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "نورا سعد", "phone": "01234567923"},
+        {"name": "سموكري مراسي", "name_en": "Smokery Marassi", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "كريم علي", "phone": "01234567924"},
+        {"name": "مطعم إزاكايا", "name_en": "IZAKAYA", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "هند محمد", "phone": "01234567925"},
+        {"name": "سعودي مراسي", "name_en": "Seoudi Marassi", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "محمد عبدالله", "phone": "01234567926"},
+        {"name": "برون نوز مراسي", "name_en": "Brown Nose Marassi", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "فاطمة أحمد", "phone": "01234567927"},
+        {"name": "سول بيتش", "name_en": "SOL BEACH", "freezer": False, "orders": 0, "freezer_count": 0, "contact_person": "يوسف حسن", "phone": "01234567928"}
     ],
     "Sidi Abdel Rahman": [
-        {"name": "شركة فو ساحل", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "أحمد عبدالرحمن", "phone": "01234567910"},
-        {"name": "Seven Fortunes Sahel", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Mohamed Ali", "phone": "01234567911"}
+        {"name": "شركة فو ساحل", "name_en": "VOO Sahel", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "أحمد عبدالرحمن", "phone": "01234567910"},
+        {"name": "Seven Fortunes Sahel", "name_en": "Seven Fortunes Sahel", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Mohamed Ali", "phone": "01234567911"}
     ],
     "Stella Di Mare": [
-        {"name": "دريمز ستلا", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "جورميه ستلا", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "شيرز ستلا", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "دريمز ستلا", "name_en": "Dreams Stella", "freezer": True, "orders": 0, "freezer_count": 1},
+        {"name": "جورميه ستلا", "name_en": "Gourmet Stella", "freezer": False, "orders": 0, "freezer_count": 0},
+        {"name": "شيرز ستلا", "name_en": "Cheers Stella", "freezer": False, "orders": 0, "freezer_count": 0}
     ],
     "Diplomasseen": [
-        {"name": "سيركل كاي دلبومسين", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "دريمز دلبومسين", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "سب كافيه ديبلوماسين", "freezer": True, "orders": 0, "freezer_count": 1},
-        {"name": "MATTER CAFE", "freezer": True, "orders": 0, "freezer_count": 1}
+        {"name": "سيركل كاي دلبومسين", "name_en": "Circle K Diplomasseen", "freezer": True, "orders": 0, "freezer_count": 1},
+        {"name": "دريمز دلبومسين", "name_en": "Dreams Diplomaseen", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "سب كافيه ديبلوماسين", "name_en": "SIP CAFE / Sass Diplomasseen", "freezer": True, "orders": 0, "freezer_count": 1},
+        {"name": "MATTER CAFE", "name_en": "MATTER CAFE", "freezer": True, "orders": 0, "freezer_count": 1}
     ],
     "Alamein": [
-        {"name": "سعودي العلامين", "freezer": False, "orders": 0, "freezer_count": 0},
-        {"name": "سيركل كاي العلامين", "freezer": False, "orders": 0, "freezer_count": 0}
+        {"name": "سعودي العلامين", "name_en": "Seoudi Alamein", "freezer": False, "orders": 0, "freezer_count": 0},
+        {"name": "سيركل كاي العلامين", "name_en": "Circle K Alamien", "freezer": False, "orders": 0, "freezer_count": 0}
     ],
     "Marina": [
-        {"name": "أنديامو مارينا 5", "freezer": True, "orders": 0, "freezer_count": 2},
-        {"name": "سيركل كاي مارينا 5", "freezer": True, "orders": 0, "freezer_count": 0},
-        {"name": "سيركل كاي مارينا 7", "freezer": True, "orders": 0, "freezer_count": 0}
+        {"name": "أنديامو مارينا 5", "name_en": "Andiamo Marina 5", "freezer": True, "orders": 0, "freezer_count": 2},
+        {"name": "سيركل كاي مارينا 5", "name_en": "Circle K Marina 5", "freezer": True, "orders": 0, "freezer_count": 0},
+        {"name": "سيركل كاي مارينا 7", "name_en": "Circle K Marina 7", "freezer": True, "orders": 0, "freezer_count": 0}
     ]
 }
 trucks = {
