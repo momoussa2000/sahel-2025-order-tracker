@@ -7,7 +7,7 @@ A comprehensive order tracking system for ice cube deliveries across the North C
 ## 🌟 Features
 
 - **📊 Client Management**: 51 North Coast clients organized by 16 zones
-- **❄️ Freezer Monitoring**: Track 35 clients with 67 total freezers
+- **❄️ Freezer Monitoring**: Track 36 clients with 69 total freezers
 - **🚛 Delivery Optimization**: Route planning with 2 delivery trucks
 - **👥 Sales Team Tracking**: 5 sales representatives with client assignments
 - **📱 WhatsApp Integration**: Ready-to-share summaries
@@ -19,8 +19,8 @@ A comprehensive order tracking system for ice cube deliveries across the North C
 |--------|-------|
 | **Total Clients** | 51 |
 | **Zones** | 16 |
-| **Freezer Clients** | 35 |
-| **Total Freezers** | 67 |
+| **Freezer Clients** | 36 |
+| **Total Freezers** | 69 |
 | **Delivery Trucks** | 2 |
 | **Sales Representatives** | 5 |
 

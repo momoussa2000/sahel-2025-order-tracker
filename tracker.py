@@ -19,7 +19,8 @@ clients = {
     "Sidi Heneish": [
         {"name": "مطعم تافيرنا", "freezer": True, "orders": 0, "freezer_count": 3, "contact_person": "خالد حسن", "phone": "01234567898"},
         {"name": "دريمز لا فيستا ضبعة", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "مريم فتحي", "phone": "01234567899"},
-        {"name": "دريمز صوان لايك", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "عمر صلاح", "phone": "01234567900"}
+        {"name": "دريمز صوان لايك", "freezer": True, "orders": 0, "freezer_count": 1, "contact_person": "عمر صلاح", "phone": "01234567900"},
+        {"name": "Baboos Taverna", "freezer": True, "orders": 0, "freezer_count": 2, "contact_person": "Ahmed Baboos", "phone": "01234567930"}
     ],
     "Mountain View": [
         {"name": "أوسكار ماونتن فيو", "freezer": False, "orders": 0, "freezer_count": 0}
