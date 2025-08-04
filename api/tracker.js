@@ -15,7 +15,7 @@ module.exports = (req, res) => {
     const summary = {
       status: "SAHEL 2025 Order Tracker - Active",
       zones: 16,
-      total_clients: 50,
+      total_clients: 51,
       freezer_clients: 35,
       total_freezers: 67,
       trucks: ["NPR 7219 (Tariq)", "TFR 9987 (Mohamed)"],

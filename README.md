@@ -2,11 +2,11 @@
 
 **نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025**
 
-A comprehensive order tracking system for ice cube deliveries across the North Coast of Egypt, managing 50 clients across 16 zones with freezer monitoring and delivery optimization.
+A comprehensive order tracking system for ice cube deliveries across the North Coast of Egypt, managing 51 clients across 16 zones with freezer monitoring and delivery optimization.
 
 ## 🌟 Features
 
-- **📊 Client Management**: 50 North Coast clients organized by 16 zones
+- **📊 Client Management**: 51 North Coast clients organized by 16 zones
 - **❄️ Freezer Monitoring**: Track 35 clients with 67 total freezers
 - **🚛 Delivery Optimization**: Route planning with 2 delivery trucks
 - **👥 Sales Team Tracking**: 5 sales representatives with client assignments
@@ -17,7 +17,7 @@ A comprehensive order tracking system for ice cube deliveries across the North C
 
 | Metric | Count |
 |--------|-------|
-| **Total Clients** | 50 |
+| **Total Clients** | 51 |
 | **Zones** | 16 |
 | **Freezer Clients** | 35 |
 | **Total Freezers** | 67 |
