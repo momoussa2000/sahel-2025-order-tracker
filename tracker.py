@@ -126,6 +126,140 @@ distribution = {"3kg": 225, "4kg": 0, "5kg": 300, "cups": 0}
 refunds = {"3kg": 58, "4kg": 0, "5kg": 53, "cups": 0}
 damages = {"3kg": 10, "4kg": 0, "5kg": 6, "cups": 0}
 
+# Sales Rep Fulfillment Report (what was actually delivered)
+sales_fulfillment = {
+    "date": "3/8/2025",
+    "reports": [
+        {
+            "route": "Sokhna - El Gouna - Hurghada",
+            "vehicle_type": "Rental Car",
+            "vehicle_number": "8659",
+            "driver": "Basil Gamal (Rental)",
+            "sales_rep": "Hussein Sabra",
+            "deliveries": [
+                {"client": "KIG Sokhna", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50},
+                {"client": "Dreams Talaat", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100},
+                {"client": "Dreams La Vista", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100},
+                {"client": "Gourmet El Gouna", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 300},
+                {"client": "Best Way Mangrove", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 40},
+                {"client": "Best Way Marina", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 90},
+                {"client": "Best Way Town", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 80},
+                {"client": "Best Way Store", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 171},
+                {"client": "Senior Sassi", "3kg": 0, "4kg": 0, "5kg": 30, "cups": 0},
+                {"client": "Smokery El Gouna", "3kg": 0, "4kg": 0, "5kg": 70, "cups": 0},
+                {"client": "Steigenberger Hotel", "3kg": 0, "4kg": 0, "5kg": 40, "cups": 0},
+                {"client": "Jazz Somabay Hotel", "3kg": 0, "4kg": 0, "5kg": 105, "cups": 20, "bonus": 5}
+            ]
+        },
+        {
+            "route": "Sharm El Sheikh & Dahab",
+            "vehicle_type": "Rental Car",
+            "vehicle_number": "2344",
+            "driver": "Monir",
+            "sales_rep": "Monir",
+            "deliveries": [
+                {"client": "Marabella Hotel", "3kg": 0, "4kg": 0, "5kg": 600, "cups": 0},
+                {"client": "Jazz El Fanar Hotel", "3kg": 0, "4kg": 0, "5kg": 200, "cups": 0},
+                {"client": "El Kazar Hotel", "3kg": 0, "4kg": 0, "5kg": 300, "cups": 0},
+                {"client": "Jazz Dahabiya Hotel", "3kg": 0, "4kg": 0, "5kg": 150, "cups": 0}
+            ]
+        },
+        {
+            "route": "Heliopolis",
+            "vehicle_type": "Factory Owned Tank",
+            "vehicle_number": "9987",
+            "driver": "Shenouda Labib",
+            "sales_rep": "Shenouda Labib",
+            "deliveries": [
+                {"client": "Almaza TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 65},
+                {"client": "Garden TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 40},
+                {"client": "El Korba TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 40},
+                {"client": "Voo Heliopolis", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Drinks Faisal", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20}
+            ]
+        },
+        {
+            "route": "Maadi & Tagamoa",
+            "vehicle_type": "Rental Car",
+            "vehicle_number": "3729",
+            "driver": "Mohamed Mahi",
+            "sales_rep": "Mohamed Mahi (Mohamed Moussa)",
+            "deliveries": [
+                {"client": "Voo El Maadi", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 44},
+                {"client": "Mariam Market", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 35, "bonus": 20},
+                {"client": "Bing", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 70},
+                {"client": "W Mart El Banafsag", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 60},
+                {"client": "Gourmet Cove", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 35, "bonus": 20},
+                {"client": "Saudi El Maadi", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50, "bonus": 5}
+            ]
+        },
+        {
+            "route": "Sahel Coast",
+            "vehicle_type": "Factory Owned",
+            "vehicle_number": "N/A",
+            "driver": "Islam Ahmed",
+            "sales_rep": "Islam Ahmed",
+            "deliveries": [
+                {"client": "Drinks Stella Abdelrahman", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 5},
+                {"client": "Marasi TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 30},
+                {"client": "Coffee Culture", "3kg": 0, "4kg": 0, "5kg": 250, "cups": 0},
+                {"client": "Smokery Bianki", "3kg": 0, "4kg": 0, "5kg": 40, "cups": 0},
+                {"client": "H.H.", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 120},
+                {"client": "Dreams El W", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Dreams Stella", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50},
+                {"client": "Dreams Cascada", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50},
+                {"client": "Dreams Swan Lake", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100}
+            ]
+        },
+        {
+            "route": "October & Zamalek",
+            "vehicle_type": "Rental Car",
+            "vehicle_number": "N/A",
+            "driver": "Abdelrahman Tarek",
+            "sales_rep": "Abdelrahman Tarek",
+            "deliveries": [
+                {"client": "Noy Metropole", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 13},
+                {"client": "Gourmet SODIC", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "SODIC TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10},
+                {"client": "Pier88 Zamalek", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Sass Zamalek", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Seeb Zamalek", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 15},
+                {"client": "Miami", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 9},
+                {"client": "Zamalek TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 15},
+                {"client": "Dara Zamalek", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10},
+                {"client": "Drinks Zamalek", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Seeb Tahrir", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 12},
+                {"client": "Azakaba", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 18},
+                {"client": "Seven Fortunes Arkan", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 3},
+                {"client": "Gourmet Arkan", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 60, "bonus": 125},
+                {"client": "Circle K Zayed", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 25},
+                {"client": "Dreams Palm", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 55},
+                {"client": "Bizex City View", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50}
+            ]
+        },
+        {
+            "route": "Tagamoa & Masr El Gedida",
+            "vehicle_type": "Factory Owned",
+            "vehicle_number": "9987",
+            "driver": "Abdeljawad",
+            "sales_rep": "Abdeljawad",
+            "shift": "Evening",
+            "deliveries": [
+                {"client": "Seven Fortunes Heliopolis", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 8},
+                {"client": "Heliopolis Club Party", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10},
+                {"client": "Edge", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 26},
+                {"client": "Rabbit Tagamoa", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10},
+                {"client": "W Mart El Shouifat", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 15},
+                {"client": "O1 Brown Nose", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 25},
+                {"client": "W Mart El Rehab", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Seven Fortunes Drive", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20},
+                {"client": "Seven Fortunes Waterway", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 15},
+                {"client": "Seven Fortunes Mafida", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 16}
+            ]
+        }
+    ]
+}
+
 # Calculate total stock across all storage rooms
 def get_total_stock():
     total = {"3kg": 0, "4kg": 0, "5kg": 0, "cups": 0}
@@ -401,6 +535,55 @@ async def main():
             summary += "❄️ FREEZER REFILL ALERTS:\n"
             for alert in freezer_alerts:
                 summary += f"{alert}\n"
+        
+        # Sales Rep Fulfillment Summary
+        summary += f"\n📋 SALES REP FULFILLMENT REPORT ({sales_fulfillment['date']}):\n"
+        total_fulfilled_3kg = 0
+        total_fulfilled_4kg = 0
+        total_fulfilled_5kg = 0
+        total_fulfilled_cups = 0
+        
+        for report in sales_fulfillment['reports']:
+            summary += f"\n🚚 {report['route']}\n"
+            summary += f"   • Vehicle: {report['vehicle_type']} {report['vehicle_number']}\n"
+            summary += f"   • Driver: {report['driver']}\n"
+            summary += f"   • Sales Rep: {report['sales_rep']}\n"
+            
+            route_3kg = 0
+            route_4kg = 0
+            route_5kg = 0
+            route_cups = 0
+            
+            for delivery in report['deliveries']:
+                summary += f"   • {delivery['client']}: "
+                delivery_items = []
+                if delivery['3kg'] > 0:
+                    delivery_items.append(f"{delivery['3kg']} 3kg")
+                    route_3kg += delivery['3kg']
+                if delivery['4kg'] > 0:
+                    delivery_items.append(f"{delivery['4kg']} 4kg")
+                    route_4kg += delivery['4kg']
+                if delivery['5kg'] > 0:
+                    delivery_items.append(f"{delivery['5kg']} 5kg")
+                    route_5kg += delivery['5kg']
+                if delivery['cups'] > 0:
+                    delivery_items.append(f"{delivery['cups']} cups")
+                    route_cups += delivery['cups']
+                if 'bonus' in delivery and delivery['bonus'] > 0:
+                    delivery_items.append(f"{delivery['bonus']} bonus")
+                
+                summary += ", ".join(delivery_items) + "\n"
+            
+            summary += f"   📊 Route Total: {route_3kg} 3kg, {route_4kg} 4kg, {route_5kg} 5kg, {route_cups} cups\n"
+            
+            total_fulfilled_3kg += route_3kg
+            total_fulfilled_4kg += route_4kg
+            total_fulfilled_5kg += route_5kg
+            total_fulfilled_cups += route_cups
+        
+        summary += f"\n📊 TOTAL FULFILLED: {total_fulfilled_3kg} 3kg, {total_fulfilled_4kg} 4kg, {total_fulfilled_5kg} 5kg, {total_fulfilled_cups} cups\n"
+        total_fulfilled_kg = total_fulfilled_3kg * 3 + total_fulfilled_4kg * 4 + total_fulfilled_5kg * 5
+        summary += f"📦 Total Weight Delivered: {total_fulfilled_kg:,} kg ({total_fulfilled_kg/1000:.1f} tons)\n"
         
         print(summary)  # Copy to WhatsApp manually
 
