@@ -762,6 +762,32 @@
                                 </div>
                             `).join('')}
                         </div>
+                        
+                        <!-- Orders Made Summary -->
+                        <div style="margin-top: 20px; background: rgba(100, 181, 246, 0.1); border-radius: 12px; padding: 20px; border: 1px solid rgba(100, 181, 246, 0.3);">
+                            <h4 style="color: #64b5f6; margin: 0 0 15px 0; font-size: 1.1em;">📊 Orders Made Summary</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #64b5f6;">${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["3kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">3kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #64b5f6;">${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["4kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">4kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #64b5f6;">${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["5kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">5kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #64b5f6;">${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order.cups || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Cups</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center; font-size: 1.1em; font-weight: bold; color: #64b5f6;">
+                                Total Weight: ${(demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["3kg"] || 0) * 3 + (order["4kg"] || 0) * 4 + (order["5kg"] || 0) * 5, 0), 0)).toLocaleString()} kg
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="data-section">
@@ -794,6 +820,96 @@
                                     </div>
                                 </div>
                             `).join('')}
+                        </div>
+                        
+                        <!-- Sales Fulfillment Summary -->
+                        <div style="margin-top: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 12px; padding: 20px; border: 1px solid rgba(76, 175, 80, 0.3);">
+                            <h4 style="color: #4CAF50; margin: 0 0 15px 0; font-size: 1.1em;">📊 Sales Fulfillment Summary</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["3kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">3kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["4kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">4kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["5kg"] || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">5kg Bags</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery.cups || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Cups</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.5em; font-weight: bold; color: #4CAF50;">${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery.bonus || 0), 0), 0)}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Bonus Items</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center; font-size: 1.1em; font-weight: bold; color: #4CAF50;">
+                                Total Weight Delivered: ${(demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["3kg"] || 0) * 3 + (delivery["4kg"] || 0) * 4 + (delivery["5kg"] || 0) * 5, 0), 0)).toLocaleString()} kg
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Orders vs Fulfillment Comparison -->
+                    <div class="data-section">
+                        <h3>📊 Orders Requested vs Orders Fulfilled Comparison</h3>
+                        <div style="background: rgba(255, 193, 7, 0.1); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                                <div style="text-align: center; padding: 20px; background: rgba(100, 181, 246, 0.1); border-radius: 8px; border: 1px solid rgba(100, 181, 246, 0.3);">
+                                    <h4 style="color: #64b5f6; margin: 0 0 15px 0;">📋 Orders Requested</h4>
+                                    <div style="font-size: 2em; font-weight: bold; color: #64b5f6;">
+                                        ${(demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["3kg"] || 0) * 3 + (order["4kg"] || 0) * 4 + (order["5kg"] || 0) * 5, 0), 0)).toLocaleString()}
+                                    </div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Total kg</div>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3);">
+                                    <h4 style="color: #4CAF50; margin: 0 0 15px 0;">✅ Orders Fulfilled</h4>
+                                    <div style="font-size: 2em; font-weight: bold; color: #4CAF50;">
+                                        ${(demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["3kg"] || 0) * 3 + (delivery["4kg"] || 0) * 4 + (delivery["5kg"] || 0) * 5, 0), 0)).toLocaleString()}
+                                    </div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Total kg</div>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: rgba(255, 193, 7, 0.1); border-radius: 8px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                                    <h4 style="color: #FFC107; margin: 0 0 15px 0;">📈 Fulfillment Rate</h4>
+                                    <div style="font-size: 2em; font-weight: bold; color: #FFC107;">
+                                        ${((demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["3kg"] || 0) * 3 + (delivery["4kg"] || 0) * 4 + (delivery["5kg"] || 0) * 5, 0), 0) / demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["3kg"] || 0) * 3 + (order["4kg"] || 0) * 4 + (order["5kg"] || 0) * 5, 0), 0)) * 100).toFixed(1)}%
+                                    </div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">Success Rate</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">3kg Bags</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">
+                                        Requested: ${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["3kg"] || 0), 0), 0)} | 
+                                        Fulfilled: ${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["3kg"] || 0), 0), 0)}
+                                    </div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">4kg Bags</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">
+                                        Requested: ${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["4kg"] || 0), 0), 0)} | 
+                                        Fulfilled: ${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["4kg"] || 0), 0), 0)}
+                                    </div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">5kg Bags</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">
+                                        Requested: ${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order["5kg"] || 0), 0), 0)} | 
+                                        Fulfilled: ${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery["5kg"] || 0), 0), 0)}
+                                    </div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+                                    <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">Cups</div>
+                                    <div style="font-size: 0.9em; opacity: 0.8;">
+                                        Requested: ${demoData.orders_made.routes.reduce((total, route) => total + route.orders.reduce((sum, order) => sum + (order.cups || 0), 0), 0)} | 
+                                        Fulfilled: ${demoData.sales_fulfillment.reports.reduce((total, report) => total + report.deliveries.reduce((sum, delivery) => sum + (delivery.cups || 0), 0), 0)}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
