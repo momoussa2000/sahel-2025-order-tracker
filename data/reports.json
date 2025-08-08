@@ -1,3 +1,71 @@
-{}
-
-
+{
+  "6/8/2025": {
+    "production": {
+      "date": "6/8/2025",
+      "daily": {
+        "total_kg": 15000,
+        "3kg": 2000,
+        "4kg": 3000,
+        "5kg": 10000
+      }
+    },
+    "storage": {
+      "total": {
+        "total_kg": 15000,
+        "3kg": 2000,
+        "4kg": 3000,
+        "5kg": 10000
+      }
+    },
+    "distribution": {
+      "total_kg": 12000
+    },
+    "sales_fulfillment": {
+      "reports": [
+        {
+          "sales_rep": "Mostafa Khaled",
+          "route": "Route A",
+          "deliveries": [
+            {
+              "client": "Client 1",
+              "3kg": 100,
+              "4kg": 150,
+              "5kg": 200
+            }
+          ]
+        },
+        {
+          "sales_rep": "Ahmed Hussein",
+          "route": "Route B",
+          "deliveries": [
+            {
+              "client": "Client 2",
+              "3kg": 75,
+              "4kg": 115,
+              "5kg": 175
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "7/8/2025": {
+    "production": {
+      "date": "7/8/2025",
+      "daily": {
+        "total_kg": 18000,
+        "3kg": 2500,
+        "4kg": 3500,
+        "5kg": 12000
+      }
+    },
+    "storage": {
+      "total": {
+        "total_kg": 18000,
+        "3kg": 2500,
+        "4kg": 3500,
+        "5kg": 12000
+      }
+    }
+  }
+}
