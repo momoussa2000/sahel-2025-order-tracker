@@ -256,7 +256,17 @@
         <div class="main-content">
             <button id="loadDataBtn" onclick="loadTrackerData()" class="load-button">
                 Load Production Data
-                </button>
+            </button>
+            
+            <!-- Report Management Section -->
+            <div id="reportControls" style="text-align: center; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                <h3 style="color: #64b5f6; margin-bottom: 15px;">📊 Report Management</h3>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button id="cloudLoad" onclick="loadFromCloud()" style="padding: 12px 20px; border-radius: 8px; background: rgba(168,221,238,0.15); color: #a8ddee; border: 1px solid rgba(168,221,238,0.35); cursor: pointer; font-weight: bold;">☁️ Load from Cloud</button>
+                    <button id="cloudSave" onclick="saveToCloud()" style="padding: 12px 20px; border-radius: 8px; background: rgba(129,199,132,0.15); color: #81c784; border: 1px solid rgba(129,199,132,0.35); cursor: pointer; font-weight: bold;">☁️ Save to Cloud</button>
+                    <button id="addReport" onclick="showReportSubmission()" style="padding: 12px 20px; border-radius: 8px; background: rgba(255,193,7,0.15); color: #ffc107; border: 1px solid rgba(255,193,7,0.35); cursor: pointer; font-weight: bold;">📝 Add Report</button>
+                </div>
+            </div>
             
             <div id="dayNavigation"></div>
             <div id="dataDisplay"></div>
@@ -1760,6 +1770,18 @@
             });
         });
 
+        // Cloud functions
+        async function loadFromCloud() {
+            await loadTrackerData();
+        }
+        
+        async function saveToCloud() {
+            try {
+                await fetch('/api/reports', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(multiDayData) });
+                alert('Saved to cloud');
+            } catch(e) { alert('Save failed: ' + e.message); }
+        }
+        
         // Report submission modal and parsing functions
         function showReportSubmission() {
             const modal = document.createElement('div');
