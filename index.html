@@ -1802,11 +1802,10 @@
                     // Update display
                     renderDayNavigation();
                     
-                    // Show the day data if it exists
-                    const dayData = multiDayData[reportDate];
-                    if (dayData) {
-                        showDayData(reportDate);
-                    }
+                    // Switch to the new day to show the data
+                    currentDay = reportDate;
+                    demoData = multiDayData[reportDate];
+                    loadTrackerData();
                     
                     closeReportModal();
                     alert(`✅ Report for ${reportDate} added successfully!`);
