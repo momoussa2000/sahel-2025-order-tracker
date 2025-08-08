@@ -1329,8 +1329,16 @@
             button.disabled = true;
             
             try {
-                // Simulate API call delay
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                // Try to hydrate from cloud (GitHub) first
+                try {
+                    const res = await fetch('/api/reports');
+                    if (res.ok) {
+                        const json = await res.json();
+                        if (json && json.data && Object.keys(json.data).length) {
+                            multiDayData = json.data;
+                        }
+                    }
+                } catch (_) {}
                 
                 // Render day navigation
                 renderDayNavigation();
@@ -1669,6 +1677,25 @@
             btn.addEventListener('mouseleave', function() {
                 this.style.background = '#4CAF50';
             });
+
+                // Add quick cloud save/load controls
+                const nav = document.getElementById('dayNavigation');
+                if (nav) {
+                    const wrap = document.createElement('div');
+                    wrap.style.marginBottom = '10px';
+                    wrap.innerHTML = `
+                        <button id="cloudLoad" style="margin-right:8px; padding:8px 14px; border-radius:8px; background:rgba(168,221,238,0.15); color:#a8ddee; border:1px solid rgba(168,221,238,0.35); cursor:pointer;">☁️ Load from Cloud</button>
+                        <button id="cloudSave" style="padding:8px 14px; border-radius:8px; background:rgba(129,199,132,0.15); color:#81c784; border:1px solid rgba(129,199,132,0.35); cursor:pointer;">☁️ Save to Cloud</button>
+                    `;
+                    nav.prepend(wrap);
+                    document.getElementById('cloudLoad').onclick = async () => { await loadTrackerData(); };
+                    document.getElementById('cloudSave').onclick = async () => {
+                        try {
+                            await fetch('/api/reports', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(multiDayData) });
+                            alert('Saved to cloud');
+                        } catch(e) { alert('Save failed: ' + e.message); }
+                    };
+                }
 
             // Tooltip behavior for all analytic rows/cards
             document.body.addEventListener('click', function(e) {
