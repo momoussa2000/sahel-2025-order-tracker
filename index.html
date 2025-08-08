@@ -207,7 +207,7 @@
         }
 
         /* Analytics tooltips */
-        .kpi-card { position: relative; cursor: pointer; }
+        .kpi-card, .explain-card, .row-card, .summary-row { position: relative; cursor: pointer; }
         .kpi-tooltip {
             position: absolute;
             left: 12px;
@@ -225,6 +225,9 @@
             display: none;
         }
         .kpi-card.show-tooltip .kpi-tooltip { display: block; }
+        .explain-card.show-tooltip .kpi-tooltip { display: block; }
+        .row-card.show-tooltip .kpi-tooltip { display: block; }
+        .summary-row.show-tooltip .kpi-tooltip { display: block; }
         @media (max-width: 600px) {
             .kpi-tooltip { left: auto; right: 12px; width: 260px; }
         }
@@ -1072,11 +1075,15 @@
                             const rate = req > 0 ? (ful / req) * 100 : 0;
                             const unmetNum = Math.max(0, req - ful);
                             return `
-                                <div style="padding: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;">
+                                <div class="explain-card" style="padding: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;">
                                     <div style="font-weight: 600; margin-bottom: 6px; color: #64b5f6;">${p.toUpperCase()}</div>
                                     <div style="font-size: 0.9em; opacity: 0.85;">Req: ${req.toLocaleString()} • Ful: ${ful.toLocaleString()}</div>
                                     <div style="font-size: 0.9em; color: ${rate >= 90 ? '#81c784' : rate >= 70 ? '#FFC107' : '#ff6b6b'}; font-weight: 600;">Rate: ${rate.toFixed(1)}%</div>
                                     <div style="font-size: 0.9em; opacity: 0.85;">Unmet: ${unmetNum.toLocaleString()}</div>
+                                    <div class="kpi-tooltip">
+                                        <div style="margin-bottom:6px; opacity:0.9;">Requested vs Fulfilled for ${p}.</div>
+                                        <div style="opacity:0.85;">Analysis: ${rate.toFixed(1)}% fulfillment. ${unmetNum>0?`Shortfall of <b>${unmetNum.toLocaleString()} ${p}</b>.`:'No shortfall — fully met.'}</div>
+                                    </div>
                                 </div>`;
                         }).join('')}
                     </div>
@@ -1097,7 +1104,7 @@
                         </div>
                     </div>
 
-                    <!-- Per-Day Compact Table -->
+                    <!-- Per-Day Compact Table with explanations -->
                     <div style="padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;">
                         <div style="font-weight: 600; margin-bottom: 10px; color:#fff;">Daily Summary</div>
                         <div style="display:grid; grid-template-columns: repeat(7, minmax(90px,1fr)); gap: 8px; font-size: 0.92em;">
@@ -1108,16 +1115,21 @@
                             <div style="opacity:0.7;">Damage (kg)</div>
                             <div style="opacity:0.7;">Req (kg)</div>
                             <div style="opacity:0.7;">Rate</div>
-                            ${daySummaries.map(s => `
-                                <div style="font-weight:600;">${s.day}</div>
-                                <div>${s.productionKg.toLocaleString()}</div>
-                                <div>${s.distributionKg.toLocaleString()}</div>
-                                <div>${s.refundsKg.toLocaleString()}</div>
-                                <div>${s.damagesKg.toLocaleString()}</div>
-                                <div>${s.requestedKg.toLocaleString()}</div>
-                                <div>${s.fulfillmentRate != null ? s.fulfillmentRate.toFixed(1)+'%' : '—'}</div>
-                            `).join('')}
                         </div>
+                        ${daySummaries.map(s => {
+                            const msg = s.fulfillmentRate==null? 'No orders made.' : (s.fulfillmentRate>=90? 'Great fulfillment.' : s.fulfillmentRate>=70? 'OK, room to improve.' : 'Low fulfillment — action needed.');
+                            return `
+                                <div class=\"summary-row\" style=\"display:grid; grid-template-columns: repeat(7, minmax(90px,1fr)); gap: 8px; font-size: 0.92em; margin-top:6px; align-items:center;\">
+                                    <div style=\"font-weight:600;\">${s.day}</div>
+                                    <div>${s.productionKg.toLocaleString()}</div>
+                                    <div>${s.distributionKg.toLocaleString()}</div>
+                                    <div>${s.refundsKg.toLocaleString()}</div>
+                                    <div>${s.damagesKg.toLocaleString()}</div>
+                                    <div>${s.requestedKg.toLocaleString()}</div>
+                                    <div>${s.fulfillmentRate != null ? s.fulfillmentRate.toFixed(1)+'%' : '—'}</div>
+                                    <div class=\"kpi-tooltip\">Day analysis: Production ${s.productionKg.toLocaleString()} kg, Distribution ${s.distributionKg.toLocaleString()} kg. Requested ${s.requestedKg.toLocaleString()} kg, Fulfillment ${s.fulfillmentRate!=null?s.fulfillmentRate.toFixed(1)+'%':'—'}. ${msg}</div>
+                                </div>`;
+                        }).join('')}
                     </div>
 
                     <!-- Trends (sparklines) -->
@@ -1170,13 +1182,16 @@
                                     <div style="opacity:0.7;">Requested kg</div>
                                     <div style="opacity:0.7;">Fulfilled kg</div>
                                     <div style="opacity:0.7;">Rate</div>
-                                    ${rows.map(r => `
+                                </div>
+                                ${rows.map(r => `
+                                    <div class=\"row-card\" style=\"display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:10px; align-items:center; margin-top:6px;\">
                                         <div>${r.k}</div>
                                         <div>${r.req.toLocaleString()}</div>
                                         <div>${r.ful.toLocaleString()}</div>
-                                        <div style="color:${r.rate>=90?'#81c784':r.rate>=70?'#FFC107':'#ff6b6b'}; font-weight:600;">${r.rate.toFixed(1)}%</div>
-                                    `).join('')}
-                                </div>
+                                        <div style=\"color:${r.rate>=90?'#81c784':r.rate>=70?'#FFC107':'#ff6b6b'}; font-weight:600;\">${r.rate.toFixed(1)}%</div>
+                                        <div class=\"kpi-tooltip\">Route analysis: requested <b>${r.req.toLocaleString()} kg</b>, fulfilled <b>${r.ful.toLocaleString()} kg</b> (${r.rate.toFixed(1)}%). ${r.rate>=90?'Great service level.':r.rate>=70?'Acceptable but can improve.':'Low service level — investigate capacity or routing.'}</div>
+                                    </div>
+                                `).join('')}
                             </div>`;
                     })()}
 
@@ -1582,28 +1597,24 @@
                 this.style.background = '#4CAF50';
             });
 
-            // KPI tooltip behavior: click to toggle; hover to preview
+            // Tooltip behavior for all analytic rows/cards
             document.body.addEventListener('click', function(e) {
-                const card = e.target.closest('.kpi-card');
+                const card = e.target.closest('.kpi-card, .explain-card, .row-card, .summary-row');
                 const clickedInsideCard = !!card;
-                // Close others when clicking outside
-                document.querySelectorAll('.kpi-card.show-tooltip').forEach(el => {
-                    if (!clickedInsideCard || el !== card) el.classList.remove('show-tooltip');
-                });
-                if (card) {
-                    // Toggle this card
-                    card.classList.toggle('show-tooltip');
-                }
+                // Close all open tooltips when clicking outside
+                document.querySelectorAll('.kpi-card.show-tooltip, .explain-card.show-tooltip, .row-card.show-tooltip, .summary-row.show-tooltip')
+                    .forEach(el => { if (!clickedInsideCard || el !== card) el.classList.remove('show-tooltip'); });
+                if (card) card.classList.toggle('show-tooltip');
             });
             document.body.addEventListener('mouseover', function(e) {
-                const card = e.target.closest('.kpi-card');
+                const card = e.target.closest('.kpi-card, .explain-card, .row-card, .summary-row');
                 if (card && !card.classList.contains('show-tooltip')) {
                     card.classList.add('show-tooltip');
                     card.setAttribute('data-hover', '1');
                 }
             });
             document.body.addEventListener('mouseout', function(e) {
-                const card = e.target.closest('.kpi-card');
+                const card = e.target.closest('.kpi-card, .explain-card, .row-card, .summary-row');
                 if (card && card.getAttribute('data-hover') === '1') {
                     card.classList.remove('show-tooltip');
                     card.removeAttribute('data-hover');
