@@ -2010,44 +2010,41 @@
                 // Look for delivery lines (containing kg amounts)
                 if (trimmedLine.includes('ك') || trimmedLine.includes('ص')) {
                     console.log('Found delivery line:', trimmedLine);
-                    // Extract client name and amount
-                    const parts = trimmedLine.split(/\s+/).filter(part => part.trim());
-                    console.log('Parts:', parts);
                     
-                    if (parts.length >= 2) {
-                        const clientName = parts[0];
-                        const amountStr = parts[parts.length - 1]; // Last part should be the amount
+                    // Extract the amount first (last part with numbers)
+                    const amountMatch = trimmedLine.match(/(\d+)[كص]/);
+                    if (amountMatch && currentReport && currentReport.deliveries) {
+                        const amount = parseInt(amountMatch[1]);
+                        const amountStr = amountMatch[0]; // The full amount string (e.g., "٧٥ك")
                         
-                        console.log('Client name:', clientName, 'Amount string:', amountStr);
+                        // Extract client name (everything before the amount)
+                        const clientName = trimmedLine.replace(amountStr, '').trim();
                         
-                        // Extract numeric amount
-                        const amountMatch = amountStr.match(/(\d+)/);
-                        if (amountMatch && currentReport && currentReport.deliveries) {
-                            const amount = parseInt(amountMatch[1]);
-                            const delivery = { 
-                                client: clientName, 
-                                "3kg": 0, 
-                                "4kg": 0, 
-                                "5kg": 0 
-                            };
-                            
-                            // Determine bag size based on suffix
-                            if (amountStr.includes('ك')) {
-                                // Assume 5kg bags for 'ك' suffix
-                                delivery["5kg"] = amount;
-                                console.log('Added 5kg delivery:', amount, 'for client:', clientName);
-                            } else if (amountStr.includes('ص')) {
-                                // Assume 3kg bags for 'ص' suffix
-                                delivery["3kg"] = amount;
-                                console.log('Added 3kg delivery:', amount, 'for client:', clientName);
-                            } else {
-                                // Default to 5kg if no suffix
-                                delivery["5kg"] = amount;
-                                console.log('Added default 5kg delivery:', amount, 'for client:', clientName);
-                            }
-                            
-                            currentReport.deliveries.push(delivery);
+                        console.log('Client name:', clientName, 'Amount string:', amountStr, 'Amount:', amount);
+                        
+                        const delivery = { 
+                            client: clientName, 
+                            "3kg": 0, 
+                            "4kg": 0, 
+                            "5kg": 0 
+                        };
+                        
+                        // Determine bag size based on suffix
+                        if (amountStr.includes('ك')) {
+                            // Assume 5kg bags for 'ك' suffix
+                            delivery["5kg"] = amount;
+                            console.log('Added 5kg delivery:', amount, 'for client:', clientName);
+                        } else if (amountStr.includes('ص')) {
+                            // Assume 3kg bags for 'ص' suffix
+                            delivery["3kg"] = amount;
+                            console.log('Added 3kg delivery:', amount, 'for client:', clientName);
+                        } else {
+                            // Default to 5kg if no suffix
+                            delivery["5kg"] = amount;
+                            console.log('Added default 5kg delivery:', amount, 'for client:', clientName);
                         }
+                        
+                        currentReport.deliveries.push(delivery);
                     }
                 }
             }
