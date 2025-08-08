@@ -205,6 +205,42 @@
             display: inline-block;
             margin-bottom: 15px;
         }
+
+        /* Analytics tooltips */
+        .kpi-card {
+            position: relative;
+        }
+        .kpi-info-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.08);
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .kpi-tooltip {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            z-index: 20;
+            background: rgba(10, 14, 20, 0.96);
+            color: #fff;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 280px;
+            font-size: 12.5px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+            display: none;
+        }
+        .kpi-card.show-tooltip .kpi-tooltip { display: block; }
     </style>
 </head>
 <body>
@@ -985,22 +1021,30 @@
 
                     <!-- KPI Row -->
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px;">
-                        <div style="padding: 18px; background: rgba(76, 175, 80, 0.12); border: 1px solid rgba(76, 175, 80, 0.35); border-radius: 12px; text-align: center;">
+                        <div class="kpi-card" style="padding: 18px; background: rgba(76, 175, 80, 0.12); border: 1px solid rgba(76, 175, 80, 0.35); border-radius: 12px; text-align: center;">
+                            <button class="kpi-info-button" data-tooltip-id="kpi-fulfillment">i</button>
+                            <div class="kpi-tooltip" id="kpi-fulfillment">Overall Fulfillment shows the percentage of requested weight that was actually delivered. Formula: (Fulfilled kg ÷ Requested kg) × 100.</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Overall Fulfillment</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #4CAF50;">${overallFulfillmentRate.toFixed(1)}%</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">${totals.orders_fulfilled.total_kg.toLocaleString()} / ${totals.orders_requested.total_kg.toLocaleString()} kg</div>
                         </div>
-                        <div style="padding: 18px; background: rgba(100, 181, 246, 0.12); border: 1px solid rgba(100, 181, 246, 0.35); border-radius: 12px; text-align: center;">
+                        <div class="kpi-card" style="padding: 18px; background: rgba(100, 181, 246, 0.12); border: 1px solid rgba(100, 181, 246, 0.35); border-radius: 12px; text-align: center;">
+                            <button class="kpi-info-button" data-tooltip-id="kpi-production">i</button>
+                            <div class="kpi-tooltip" id="kpi-production">Total Production is the sum of all bags converted to kilograms for the selected time window (all days loaded).</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Total Production</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #64b5f6;">${totals.production.total_kg.toLocaleString()} kg</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Top Day: ${topProdDay.day || '-'} (${(topProdDay.productionKg || 0).toLocaleString()} kg)</div>
                         </div>
-                        <div style="padding: 18px; background: rgba(255, 152, 0, 0.12); border: 1px solid rgba(255, 152, 0, 0.35); border-radius: 12px; text-align: center;">
+                        <div class="kpi-card" style="padding: 18px; background: rgba(255, 152, 0, 0.12); border: 1px solid rgba(255, 152, 0, 0.35); border-radius: 12px; text-align: center;">
+                            <button class="kpi-info-button" data-tooltip-id="kpi-p2d">i</button>
+                            <div class="kpi-tooltip" id="kpi-p2d">Production → Distribution Ratio indicates how production compares to what went out for delivery. Formula: Production kg ÷ Distribution kg.</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Production → Distribution Ratio</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #FF9800;">${productionToDistributionRatio.toFixed(2)}×</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Dist: ${totals.distribution.total_kg.toLocaleString()} kg</div>
                         </div>
-                        <div style="padding: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; text-align: center;">
+                        <div class="kpi-card" style="padding: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; text-align: center;">
+                            <button class="kpi-info-button" data-tooltip-id="kpi-netflow">i</button>
+                            <div class="kpi-tooltip" id="kpi-netflow">Net Flow (P − D − R − Dam) approximates the net change in stock given production (P), distribution (D), refunds (R), and damages (Dam). Positive = stock build; Negative = drawdown.</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Net Flow (P − D − R − Dam)</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: ${netFlowKg >= 0 ? '#81c784' : '#ff6b6b'};">${netFlowKg.toLocaleString()} kg</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">R: ${totals.refunds.total_kg.toLocaleString()} • Dam: ${totals.damages.total_kg.toLocaleString()}</div>
@@ -1523,6 +1567,31 @@
             });
             btn.addEventListener('mouseleave', function() {
                 this.style.background = '#4CAF50';
+            });
+
+            // Delegate tooltip interactions
+            document.body.addEventListener('click', function(e) {
+                const btn = e.target.closest('.kpi-info-button');
+                const anyOpen = document.querySelectorAll('.kpi-card.show-tooltip');
+                anyOpen.forEach(el => { if (!el.contains(e.target)) el.classList.remove('show-tooltip'); });
+                if (btn) {
+                    const card = btn.closest('.kpi-card');
+                    card.classList.toggle('show-tooltip');
+                }
+            });
+            document.body.addEventListener('mouseover', function(e) {
+                const btn = e.target.closest('.kpi-info-button');
+                if (btn) {
+                    const card = btn.closest('.kpi-card');
+                    card.classList.add('show-tooltip');
+                }
+            });
+            document.body.addEventListener('mouseout', function(e) {
+                const btn = e.target.closest('.kpi-info-button');
+                if (btn) {
+                    const card = btn.closest('.kpi-card');
+                    card.classList.remove('show-tooltip');
+                }
             });
         });
     </script>
