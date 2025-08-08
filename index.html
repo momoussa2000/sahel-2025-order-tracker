@@ -1221,6 +1221,14 @@
                         const maxReq = Math.max(1, ...byReq.map(x=>x.req));
                         const maxUnm = Math.max(1, ...byUnmet.map(x=>x.unmet));
                         const bar = (v,max,color) => `<div style=\"height:8px; background: rgba(255,255,255,0.08); border-radius:6px;\"><div style=\"height:8px; width:${(v/max*100).toFixed(0)}%; background:${color}; border-radius:6px;\"></div></div>`;
+                        const totalRequestedKg = totals.orders_requested.total_kg || 0;
+                        const totalUnmetKg = Math.max(0, (totals.orders_requested.total_kg || 0) - (totals.orders_fulfilled.total_kg || 0));
+                        const top10RequestedKg = byReq.reduce((s,c)=> s + c.req, 0);
+                        const top10UnmetKg = byUnmet.reduce((s,c)=> s + c.unmet, 0);
+                        const shareTopDemand = totalRequestedKg > 0 ? (top10RequestedKg / totalRequestedKg) * 100 : 0;
+                        const shareTopUnmet = totalUnmetKg > 0 ? (top10UnmetKg / totalUnmetKg) * 100 : 0;
+                        const biggestDemand = byReq[0] || {name:'—', req:0};
+                        const biggestUnmet = byUnmet[0] || {name:'—', unmet:0};
                         return `
                             <div class="data-section">
                                 <h3>Client Pareto</h3>
@@ -1243,6 +1251,12 @@
                                             </div>
                                         `).join('')}
                                     </div>
+                                </div>
+                                <div style=\"margin-top:16px; display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;\">
+                                    <div class=\"data-item\"><div class=\"data-label\">Top 10 Demand</div><div class=\"data-value\">${top10RequestedKg.toLocaleString()} kg</div><div style=\"opacity:0.8; font-size:0.9em;\">${shareTopDemand.toFixed(1)}% of all requested</div></div>
+                                    <div class=\"data-item\"><div class=\"data-label\">Top 10 Unmet</div><div class=\"data-value\" style=\"color:#ff6b6b;\">${top10UnmetKg.toLocaleString()} kg</div><div style=\"opacity:0.8; font-size:0.9em;\">${shareTopUnmet.toFixed(1)}% of total unmet</div></div>
+                                    <div class=\"data-item\"><div class=\"data-label\">Largest Demand Client</div><div style=\"font-weight:600;\">${biggestDemand.name}</div><div style=\"opacity:0.8;\">${biggestDemand.req.toLocaleString()} kg</div></div>
+                                    <div class=\"data-item\"><div class=\"data-label\">Largest Unmet Client</div><div style=\"font-weight:600; color:#ff6b6b;\">${biggestUnmet.name}</div><div style=\"opacity:0.8;\">${biggestUnmet.unmet ? biggestUnmet.unmet.toLocaleString() : 0} kg</div></div>
                                 </div>
                             </div>`;
                     })()}
