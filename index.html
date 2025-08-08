@@ -1956,7 +1956,7 @@
                 console.log('Processing line:', trimmedLine);
                 
                 // Look for sales rep and vehicle info
-                if (trimmedLine.includes('المندوب:') || trimmedLine.includes('عربية')) {
+                if (trimmedLine.includes('المندوب:') || (trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة'))) {
                     // Extract sales rep
                     if (trimmedLine.includes('المندوب:')) {
                         const repMatch = trimmedLine.match(/المندوب:\s*(.+)/);
