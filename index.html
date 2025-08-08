@@ -265,7 +265,7 @@
 
     <script>
         // Multi-day data structure
-        const multiDayData = {
+        let multiDayData = {
             "3/8/2025": {
             status: "SAHEL 2025 Order Tracker - Enhanced Active",
             zones: 16,
@@ -867,8 +867,19 @@
         }
     };
     
+    // Persistence helpers
+    const STORAGE_KEY = 'sahel_multi_day_v1';
+    function restoreMultiDayData() {
+        try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) multiDayData = JSON.parse(raw); } catch(_) {}
+    }
+    function persistMultiDayData() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(multiDayData)); } catch(_) {}
+    }
+
     // Current selected day
     let currentDay = "3/8/2025";
+    restoreMultiDayData();
+    if (!multiDayData[currentDay]) { const ks = Object.keys(multiDayData); if (ks.length) currentDay = ks[0]; }
     let demoData = multiDayData[currentDay];
 
         // Function to switch between days
@@ -972,8 +983,12 @@
                 // Orders requested
                 let requested3 = 0, requested4 = 0, requested5 = 0, requestedCups = 0;
                 if (d.orders_made?.routes) {
+                    const orderSeen = new Set();
                     d.orders_made.routes.forEach(route => {
                         route.orders.forEach(o => {
+                            const key = `${day}|req|${route.route_name||route.route_number||''}|${o.client}|${o["3kg"]||0}|${o["4kg"]||0}|${o["5kg"]||0}|${o.cups||0}`;
+                            if (orderSeen.has(key)) return;
+                            orderSeen.add(key);
                             requested3 += o["3kg"] || 0;
                             requested4 += o["4kg"] || 0;
                             requested5 += o["5kg"] || 0;
@@ -989,8 +1004,12 @@
                 // Orders fulfilled
                 let fulfilled3 = 0, fulfilled4 = 0, fulfilled5 = 0, fulfilledCups = 0;
                 if (d.sales_fulfillment?.reports) {
+                    const deliverySeen = new Set();
                     d.sales_fulfillment.reports.forEach(report => {
                         report.deliveries.forEach(del => {
+                            const key = `${day}|ful|${report.route||''}|${report.vehicle_number||''}|${del.client}|${del["3kg"]||0}|${del["4kg"]||0}|${del["5kg"]||0}|${del.cups||0}`;
+                            if (deliverySeen.has(key)) return;
+                            deliverySeen.add(key);
                             fulfilled3 += del["3kg"] || 0;
                             fulfilled4 += del["4kg"] || 0;
                             fulfilled5 += del["5kg"] || 0;
@@ -1316,6 +1335,9 @@
                 // Render day navigation
                 renderDayNavigation();
                 
+                // Persist latest data (ensures we keep edits and avoid re-entry)
+                persistMultiDayData();
+
                 // Display the demo data
                 display.style.display = 'block';
                 display.innerHTML = `
