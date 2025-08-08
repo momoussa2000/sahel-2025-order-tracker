@@ -1822,15 +1822,22 @@
             }
             
             try {
+                console.log('Parsing report:', { reportType, reportDate, reportText });
                 const parsedData = parseReport(reportType, reportDate, reportText);
+                console.log('Parsed data:', parsedData);
+                
                 if (parsedData) {
                     // Merge with existing data
                     if (!multiDayData[reportDate]) {
                         multiDayData[reportDate] = {};
                     }
                     
+                    console.log('Existing data for', reportDate, ':', multiDayData[reportDate]);
+                    
                     // Merge the parsed data
                     Object.assign(multiDayData[reportDate], parsedData);
+                    
+                    console.log('Merged data for', reportDate, ':', multiDayData[reportDate]);
                     
                     // Save to localStorage
                     localStorage.setItem('multiDayData', JSON.stringify(multiDayData));
@@ -1847,6 +1854,7 @@
                     alert(`✅ Report for ${reportDate} added successfully!`);
                 }
             } catch (error) {
+                console.error('Error parsing report:', error);
                 alert('Error parsing report: ' + error.message);
             }
         }
@@ -1964,12 +1972,18 @@
             const sales_fulfillment = { reports: [] };
             let currentReport = null;
             
+            console.log('Parsing fulfillment report for date:', date);
+            console.log('Lines:', lines);
+            
             for (const line of lines) {
                 const trimmedLine = line.trim();
                 if (!trimmedLine) continue;
                 
+                console.log('Processing line:', trimmedLine);
+                
                 // Look for sales rep name (usually a single word/name)
                 if (!trimmedLine.includes('تقرير') && !trimmedLine.includes('سائق') && !trimmedLine.includes('ك') && !trimmedLine.includes('ص') && !/\d/.test(trimmedLine)) {
+                    console.log('Found sales rep:', trimmedLine);
                     if (currentReport && currentReport.deliveries && currentReport.deliveries.length > 0) {
                         sales_fulfillment.reports.push(currentReport);
                     }
@@ -1983,21 +1997,28 @@
                 
                 // Look for driver and vehicle info
                 if (trimmedLine.includes('سائق')) {
+                    console.log('Found driver info:', trimmedLine);
                     if (currentReport) {
                         const vehicleMatch = trimmedLine.match(/سائق\s+(.+)/);
                         if (vehicleMatch) {
                             currentReport.vehicle = vehicleMatch[1].trim();
+                            console.log('Extracted vehicle:', currentReport.vehicle);
                         }
                     }
                 }
                 
                 // Look for delivery lines (containing kg amounts)
                 if (trimmedLine.includes('ك') || trimmedLine.includes('ص')) {
+                    console.log('Found delivery line:', trimmedLine);
                     // Extract client name and amount
                     const parts = trimmedLine.split(/\s+/).filter(part => part.trim());
+                    console.log('Parts:', parts);
+                    
                     if (parts.length >= 2) {
                         const clientName = parts[0];
                         const amountStr = parts[parts.length - 1]; // Last part should be the amount
+                        
+                        console.log('Client name:', clientName, 'Amount string:', amountStr);
                         
                         // Extract numeric amount
                         const amountMatch = amountStr.match(/(\d+)/);
@@ -2014,12 +2035,15 @@
                             if (amountStr.includes('ك')) {
                                 // Assume 5kg bags for 'ك' suffix
                                 delivery["5kg"] = amount;
+                                console.log('Added 5kg delivery:', amount, 'for client:', clientName);
                             } else if (amountStr.includes('ص')) {
                                 // Assume 3kg bags for 'ص' suffix
                                 delivery["3kg"] = amount;
+                                console.log('Added 3kg delivery:', amount, 'for client:', clientName);
                             } else {
                                 // Default to 5kg if no suffix
                                 delivery["5kg"] = amount;
+                                console.log('Added default 5kg delivery:', amount, 'for client:', clientName);
                             }
                             
                             currentReport.deliveries.push(delivery);
@@ -2033,6 +2057,7 @@
                 sales_fulfillment.reports.push(currentReport);
             }
             
+            console.log('Final parsed data:', sales_fulfillment);
             return { sales_fulfillment };
         }
     </script>
