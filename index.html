@@ -864,10 +864,9 @@
     }
 
     // Current selected day
-    let currentDay = "3/8/2025";
     restoreMultiDayData();
-    if (!multiDayData[currentDay]) { const ks = Object.keys(multiDayData); if (ks.length) currentDay = ks[0]; }
-    let demoData = multiDayData[currentDay];
+    let currentDay = Object.keys(multiDayData)[0] || null;
+    let demoData = currentDay ? multiDayData[currentDay] : null;
 
         // Function to switch between days
         function switchDay(day) {
