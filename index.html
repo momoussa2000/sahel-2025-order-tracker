@@ -1701,26 +1701,30 @@
             });
 
                 // Add quick cloud save/load controls and report submission
-                let nav = document.getElementById('dayNavigation');
-                if (!nav) {
-                    // Create navigation if it doesn't exist
-                    const dataDisplay = document.getElementById('dataDisplay');
-                    if (dataDisplay) {
-                        nav = document.createElement('div');
-                        nav.id = 'dayNavigation';
-                        dataDisplay.parentNode.insertBefore(nav, dataDisplay);
-                    }
-                }
-                
-                if (nav) {
-                    const wrap = document.createElement('div');
-                    wrap.style.marginBottom = '10px';
-                    wrap.innerHTML = `
-                        <button id="cloudLoad" style="margin-right:8px; padding:8px 14px; border-radius:8px; background:rgba(168,221,238,0.15); color:#a8ddee; border:1px solid rgba(168,221,238,0.35); cursor:pointer;">☁️ Load from Cloud</button>
-                        <button id="cloudSave" style="margin-right:8px; padding:8px 14px; border-radius:8px; background:rgba(129,199,132,0.15); color:#81c784; border:1px solid rgba(129,199,132,0.35); cursor:pointer;">☁️ Save to Cloud</button>
-                        <button id="addReport" style="padding:8px 14px; border-radius:8px; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.35); cursor:pointer;">📝 Add Report</button>
+                const mainContent = document.querySelector('main') || document.body;
+                const existingControls = document.getElementById('reportControls');
+                if (!existingControls) {
+                    const controlsDiv = document.createElement('div');
+                    controlsDiv.id = 'reportControls';
+                    controlsDiv.style.cssText = 'text-align: center; margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);';
+                    controlsDiv.innerHTML = `
+                        <h3 style="color: #64b5f6; margin-bottom: 15px;">📊 Report Management</h3>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                            <button id="cloudLoad" style="padding: 12px 20px; border-radius: 8px; background: rgba(168,221,238,0.15); color: #a8ddee; border: 1px solid rgba(168,221,238,0.35); cursor: pointer; font-weight: bold;">☁️ Load from Cloud</button>
+                            <button id="cloudSave" style="padding: 12px 20px; border-radius: 8px; background: rgba(129,199,132,0.15); color: #81c784; border: 1px solid rgba(129,199,132,0.35); cursor: pointer; font-weight: bold;">☁️ Save to Cloud</button>
+                            <button id="addReport" style="padding: 12px 20px; border-radius: 8px; background: rgba(255,193,7,0.15); color: #ffc107; border: 1px solid rgba(255,193,7,0.35); cursor: pointer; font-weight: bold;">📝 Add Report</button>
+                        </div>
                     `;
-                    nav.prepend(wrap);
+                    
+                    // Insert after the load button
+                    const loadBtn = document.getElementById('loadDataBtn');
+                    if (loadBtn && loadBtn.parentNode) {
+                        loadBtn.parentNode.insertBefore(controlsDiv, loadBtn.nextSibling);
+                    } else {
+                        mainContent.appendChild(controlsDiv);
+                    }
+                    
+                    // Add event listeners
                     document.getElementById('cloudLoad').onclick = async () => { await loadTrackerData(); };
                     document.getElementById('cloudSave').onclick = async () => {
                         try {
