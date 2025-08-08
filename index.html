@@ -1453,12 +1453,11 @@
                             ${demoData.orders_made.routes.map(route => `
                                 <div style="margin-bottom: 30px; background: rgba(255, 255, 255, 0.02); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.05);">
                                     <h4 style="color: #64b5f6; margin: 0 0 15px 0; font-size: 1.1em;">
-                                        Route ${route.route_number || 'N/A'} - ${route.destination || 'N/A'}
+                                        ${route.route_name || 'Main Route'}
                                     </h4>
                                     <div style="margin-bottom: 15px; font-size: 0.9em; opacity: 0.8;">
-                                        <div>${route.route_name || 'N/A'}</div>
-                                        <div>${route.vehicle_type || 'N/A'} • ${route.vehicle_owner || 'N/A'} • ${route.vehicle_number || 'N/A'}</div>
-                                        <div>Shift: ${route.shift || 'N/A'}</div>
+                                        <div><strong>Sales Rep:</strong> ${route.sales_rep || 'Unknown'}</div>
+                                        <div><strong>Vehicle:</strong> ${route.vehicle_type || 'N/A'} • ${route.vehicle_owner || 'N/A'} • ${route.vehicle_number || 'N/A'}</div>
                                     </div>
                                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px;">
                                         ${route.orders?.map(order => `
@@ -1990,6 +1989,12 @@
                             console.log('Found vehicle:', currentRoute.vehicle_owner, currentRoute.vehicle_number);
                         }
                     }
+                }
+                
+                // Look for load info to set route name
+                if (trimmedLine.includes('حمولة')) {
+                    console.log('Found load info:', trimmedLine);
+                    currentRoute.route_name = 'Main Route - Loaded';
                 }
                 
                 // Look for load info
