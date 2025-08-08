@@ -1952,7 +1952,7 @@
                     
                     currentRoute = {
                         route_name: 'Unknown Route',
-                        vehicle_type: 'Unknown Vehicle',
+                        vehicle_type: 'Rental Car',
                         vehicle_owner: 'Unknown Owner',
                         vehicle_number: 'Unknown Number',
                         sales_rep: 'Unknown Rep',
@@ -1986,24 +1986,24 @@
                 }
                 
                 // Look for client orders (lines with client names and amounts)
-                if (!trimmedLine.includes('المندوب:') && !trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة') && !trimmedLine.includes('فوو زايد') && !trimmedLine.includes('فوو بيفرلي') && (trimmedLine.includes('صغير') || trimmedLine.includes('كبير') || trimmedLine.includes('فوو'))) {
+                if (!trimmedLine.includes('المندوب:') && !trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة') && !trimmedLine.includes('فوو زايد') && !trimmedLine.includes('فوو بيفرلي') && !trimmedLine.includes('استلم') && (trimmedLine.includes('صغير') || trimmedLine.includes('كبير') || trimmedLine.includes('فوو'))) {
                     console.log('Found client order:', trimmedLine);
                     
                     // Extract client name (everything before the amounts)
                     let clientName = trimmedLine;
                     const amounts = [];
                     
-                    // Extract amounts and their types
-                    const smallMatch = trimmedLine.match(/(\d+)\s+صغير/);
-                    const bigMatch = trimmedLine.match(/(\d+)\s+كبير/);
-                    const fooMatch = trimmedLine.match(/(\d+)\s+فوو/);
+                    // Extract amounts and their types - be more flexible with spacing
+                    const smallMatch = trimmedLine.match(/(\d+)\s*صغير/);
+                    const bigMatch = trimmedLine.match(/(\d+)\s*كبير/);
+                    const fooMatch = trimmedLine.match(/(\d+)\s*فوو/);
                     
                     if (smallMatch) amounts.push({ type: '3kg', amount: parseInt(smallMatch[1]) });
                     if (bigMatch) amounts.push({ type: '5kg', amount: parseInt(bigMatch[1]) });
                     if (fooMatch) amounts.push({ type: '4kg', amount: parseInt(fooMatch[1]) });
                     
-                    // Remove amounts from client name
-                    clientName = clientName.replace(/\d+\s+(صغير|كبير|فوو)/g, '').trim();
+                    // Remove amounts from client name - be more careful
+                    clientName = clientName.replace(/\d+\s*(صغير|كبير|فوو)/g, '').trim();
                     
                     console.log('Extracted client:', clientName, 'Amounts:', amounts);
                     
