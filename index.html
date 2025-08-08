@@ -1062,6 +1062,118 @@
                             `).join('')}
                         </div>
                     </div>
+
+                    <!-- Trends (sparklines) -->
+                    ${(() => {
+                        const prodVals = daySummaries.map(d => d.productionKg);
+                        const distVals = daySummaries.map(d => d.distributionKg);
+                        const reqVals = daySummaries.map(d => d.requestedKg);
+                        const fulVals = daySummaries.map(d => d.fulfilledKg);
+                        const spark = (vals) => {
+                            const max = Math.max(1, ...vals);
+                            const blocks = '▁▂▃▄▅▆▇█';
+                            return vals.map(v => blocks[Math.min(7, Math.floor((v / max) * 7))]).join('');
+                        };
+                        return `
+                            <div style="margin-top:16px; display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                                <div class="data-item"><div class="data-label">Production trend</div><div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 20px;">${spark(prodVals)}</div></div>
+                                <div class="data-item"><div class="data-label">Distribution trend</div><div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 20px;">${spark(distVals)}</div></div>
+                                <div class="data-item"><div class="data-label">Requested trend</div><div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 20px;">${spark(reqVals)}</div></div>
+                                <div class="data-item"><div class="data-label">Fulfilled trend</div><div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 20px;">${spark(fulVals)}</div></div>
+                            </div>`;
+                    })()}
+
+                    <!-- Route-level analytics -->
+                    ${(() => {
+                        const routeReq = new Map();
+                        const routeFul = new Map();
+                        days.forEach(day => {
+                            const dd = multiDayData[day];
+                            dd.orders_made?.routes?.forEach(r => {
+                                const key = r.route_name || `Route ${r.route_number} - ${r.destination}`;
+                                const kg = r.orders.reduce((s,o)=> s + (o["3kg"]||0)*3 + (o["4kg"]||0)*4 + (o["5kg"]||0)*5, 0);
+                                routeReq.set(key, (routeReq.get(key)||0) + kg);
+                            });
+                            dd.sales_fulfillment?.reports?.forEach(rep => {
+                                const key = rep.route || 'Unknown Route';
+                                const kg = rep.deliveries.reduce((s,o)=> s + (o["3kg"]||0)*3 + (o["4kg"]||0)*4 + (o["5kg"]||0)*5, 0);
+                                routeFul.set(key, (routeFul.get(key)||0) + kg);
+                            });
+                        });
+                        const allKeys = Array.from(new Set([...routeReq.keys(), ...routeFul.keys()]));
+                        const rows = allKeys.map(k => {
+                            const req = routeReq.get(k)||0; const ful = routeFul.get(k)||0; const rate = req>0? (ful/req)*100 : 0;
+                            return {k, req, ful, rate};
+                        }).sort((a,b)=> b.req - a.req).slice(0,6);
+                        return `
+                            <div class="data-section">
+                                <h3>Routes Performance (Top 6 by Requested)</h3>
+                                <div style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap:10px;">
+                                    <div style="opacity:0.7;">Route</div>
+                                    <div style="opacity:0.7;">Requested kg</div>
+                                    <div style="opacity:0.7;">Fulfilled kg</div>
+                                    <div style="opacity:0.7;">Rate</div>
+                                    ${rows.map(r => `
+                                        <div>${r.k}</div>
+                                        <div>${r.req.toLocaleString()}</div>
+                                        <div>${r.ful.toLocaleString()}</div>
+                                        <div style="color:${r.rate>=90?'#81c784':r.rate>=70?'#FFC107':'#ff6b6b'}; font-weight:600;">${r.rate.toFixed(1)}%</div>
+                                    `).join('')}
+                                </div>
+                            </div>`;
+                    })()}
+
+                    <!-- Client Pareto: Top demand & unmet -->
+                    ${(() => {
+                        const client = new Map();
+                        days.forEach(day => {
+                            const dd = multiDayData[day];
+                            dd.orders_made?.routes?.forEach(r => {
+                                r.orders.forEach(o => {
+                                    const name = o.client; const kg = (o["3kg"]||0)*3 + (o["4kg"]||0)*4 + (o["5kg"]||0)*5;
+                                    const v = client.get(name) || {req:0, ful:0};
+                                    v.req += kg; client.set(name, v);
+                                });
+                            });
+                            dd.sales_fulfillment?.reports?.forEach(rep => {
+                                rep.deliveries.forEach(o => {
+                                    const name = o.client; const kg = (o["3kg"]||0)*3 + (o["4kg"]||0)*4 + (o["5kg"]||0)*5;
+                                    const v = client.get(name) || {req:0, ful:0};
+                                    v.ful += kg; client.set(name, v);
+                                });
+                            });
+                        });
+                        const arr = Array.from(client.entries()).map(([name, v]) => ({name, req:v.req, ful:v.ful, unmet: Math.max(0, v.req - v.ful)}));
+                        const byReq = arr.filter(a=>a.req>0).sort((a,b)=> b.req - a.req).slice(0,10);
+                        const byUnmet = arr.filter(a=>a.unmet>0).sort((a,b)=> b.unmet - a.unmet).slice(0,10);
+                        const maxReq = Math.max(1, ...byReq.map(x=>x.req));
+                        const maxUnm = Math.max(1, ...byUnmet.map(x=>x.unmet));
+                        const bar = (v,max,color) => `<div style=\"height:8px; background: rgba(255,255,255,0.08); border-radius:6px;\"><div style=\"height:8px; width:${(v/max*100).toFixed(0)}%; background:${color}; border-radius:6px;\"></div></div>`;
+                        return `
+                            <div class="data-section">
+                                <h3>Client Pareto</h3>
+                                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+                                    <div>
+                                        <h4 style="margin:0 0 10px 0; color:#64b5f6;">Top 10 by Demand (kg)</h4>
+                                        ${byReq.map(c => `
+                                            <div style=\"margin-bottom:10px;\">
+                                                <div style=\"display:flex; justify-content:space-between; font-size:0.95em;\"><span>${c.name}</span><span>${c.req.toLocaleString()}</span></div>
+                                                ${bar(c.req, maxReq, '#64b5f6')}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div>
+                                        <h4 style="margin:0 0 10px 0; color:#ff6b6b;">Top 10 by Unmet (kg)</h4>
+                                        ${byUnmet.map(c => `
+                                            <div style=\"margin-bottom:10px;\">
+                                                <div style=\"display:flex; justify-content:space-between; font-size:0.95em;\"><span>${c.name}</span><span>${c.unmet.toLocaleString()}</span></div>
+                                                ${bar(c.unmet, maxUnm, '#ff6b6b')}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>`;
+                    })()}
                 </div>
             `;
         }
