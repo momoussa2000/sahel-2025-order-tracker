@@ -2015,10 +2015,12 @@
                     const amountMatch = trimmedLine.match(/(\d+)[كص]/);
                     if (amountMatch && currentReport && currentReport.deliveries) {
                         const amount = parseInt(amountMatch[1]);
-                        const amountStr = amountMatch[0]; // The full amount string (e.g., "٧٥ك")
+                        const amountStr = amountMatch[0]; // The full amount string (e.g., "75ك")
                         
-                        // Extract client name (everything before the amount)
-                        const clientName = trimmedLine.replace(amountStr, '').trim();
+                        // Extract client name (everything before the amount, but be more careful)
+                        let clientName = trimmedLine;
+                        // Remove the amount and any trailing text after it
+                        clientName = clientName.replace(new RegExp(`\\s*${amountStr}.*$`), '').trim();
                         
                         console.log('Client name:', clientName, 'Amount string:', amountStr, 'Amount:', amount);
                         
@@ -2031,11 +2033,11 @@
                         
                         // Determine bag size based on suffix
                         if (amountStr.includes('ك')) {
-                            // Assume 5kg bags for 'ك' suffix
+                            // 5kg bags for 'ك' suffix
                             delivery["5kg"] = amount;
                             console.log('Added 5kg delivery:', amount, 'for client:', clientName);
                         } else if (amountStr.includes('ص')) {
-                            // Assume 3kg bags for 'ص' suffix
+                            // 3kg bags for 'ص' suffix
                             delivery["3kg"] = amount;
                             console.log('Added 3kg delivery:', amount, 'for client:', clientName);
                         } else {
