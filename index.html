@@ -6,11 +6,18 @@
     <title>SAHEL 2025 Order Tracker | متتبع طلبات ساحل 2025</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
+        :root {
+            --navy: #0a2234;
+            --navy-2: #0c2e47;
+            --ice: #a8ddee;
+            --ice-mid: #79c1db;
+            --ice-dark: #2e6e8e;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
             color: #ffffff;
             min-height: 100vh;
         }
@@ -21,21 +28,8 @@
             padding: 20px;
         }
         
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .header h1 {
-            font-size: 2.4em;
-            margin: 0;
-            font-weight: 300;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #64b5f6, #81c784);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .header { text-align: center; margin-bottom: 30px; }
+        #logo { max-width: 320px; height: auto; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.35)); }
         
         .stats-grid {
             display: grid;
@@ -64,7 +58,7 @@
             font-size: 3em;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #64b5f6;
+            color: var(--ice);
         }
         
         .stat-label {
@@ -79,11 +73,11 @@
             border-radius: 20px;
             padding: 40px;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(168, 221, 238, 0.12);
         }
         
         .load-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--ice-dark) 0%, var(--navy-2) 100%);
             color: white;
             border: none;
             padding: 18px 36px;
@@ -124,7 +118,7 @@
             margin: 0 0 20px 0;
             font-size: 1.2em;
             font-weight: 500;
-            color: #64b5f6;
+            color: var(--ice-mid);
         }
         
         .data-grid {
@@ -151,7 +145,7 @@
         .data-value {
             font-size: 1.1em;
             font-weight: 500;
-            color: #81c784;
+            color: var(--ice);
         }
         
         .clients-grid {
@@ -197,8 +191,8 @@
         }
         
         .date-highlight {
-            background: linear-gradient(135deg, #ffd54f, #ffb300);
-            color: #000;
+            background: linear-gradient(135deg, var(--ice-mid), var(--ice));
+            color: #002533;
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 500;
@@ -236,7 +230,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>SAHEL 2025</h1>
+            <img id="logo" src="/logo.png" alt="ICEBREAKER" />
         </div>
         
         <div class="stats-grid">
@@ -814,7 +808,48 @@
             // Placeholder sales fulfillment for 6/8/2025
             sales_fulfillment: {
                 date: "6/8/2025",
-                reports: []
+                reports: [
+                    {
+                        route: "Tagamoa & Rehab",
+                        vehicle_type: "Rental Car",
+                        vehicle_number: "3729",
+                        driver: "Mostafa Khaled",
+                        sales_rep: "Mostafa Khaled",
+                        load_5kg_bags: 175,
+                        load_3kg_bags: 147,
+                        load_total_kg: 1316,
+                        deliveries: [
+                            { client: "Seven Fortunes Drive", "3kg": 0, "4kg": 0, "5kg": 25, "cups": 0 },
+                            { client: "Seven Fortunes Waterway", "3kg": 0, "4kg": 0, "5kg": 15, "cups": 0 },
+                            { client: "Coffee Culture U Venues", "3kg": 0, "4kg": 0, "5kg": 60, "cups": 0 },
+                            { client: "W Mart El Banafsag", "3kg": 40, "4kg": 0, "5kg": 20, "cups": 0 },
+                            { client: "W Mart El Rehab", "3kg": 15, "4kg": 0, "5kg": 20, "cups": 0 },
+                            { client: "Seven Fortunes Mafida", "3kg": 7, "4kg": 0, "5kg": 0, "cups": 0 },
+                            { client: "Alfa 90 North", "3kg": 40, "4kg": 0, "5kg": 20, "cups": 0 }
+                        ]
+                    },
+                    {
+                        route: "October & Zamalek & Dokki",
+                        vehicle_type: "Rental Car",
+                        vehicle_number: "7483",
+                        driver: "Ahmed Hussein",
+                        sales_rep: "Ahmed Hussein",
+                        load_5kg_bags: 150,
+                        load_3kg_bags: 210,
+                        load_total_kg: 1316,
+                        deliveries: [
+                            { client: "Coffee Culture Arkan", "3kg": 0, "4kg": 0, "5kg": 50, "cups": 0 },
+                            { client: "Seven Fortunes Arkan", "3kg": 0, "4kg": 0, "5kg": 4, "cups": 0 },
+                            { client: "Izakaya", "3kg": 0, "4kg": 0, "5kg": 17, "cups": 0 },
+                            { client: "Drinks Sphinx", "3kg": 10, "4kg": 0, "5kg": 0, "cups": 0 },
+                            { client: "SAS Zamalek", "3kg": 0, "4kg": 0, "5kg": 20, "cups": 0 },
+                            { client: "Seeb Zamalek", "3kg": 0, "4kg": 0, "5kg": 15, "cups": 0 },
+                            { client: "Miamor Zamalek", "3kg": 0, "4kg": 0, "5kg": 5, "cups": 0 },
+                            { client: "Drinks Zamalek", "3kg": 23, "4kg": 0, "5kg": 0, "cups": 0 },
+                            { client: "Saudi El Hegaz", "3kg": 70, "4kg": 0, "5kg": 0, "cups": 0, "bonus": 7 }
+                        ]
+                    }
+                ]
             },
             
             // Client zones data (same as 3/8/2025)
