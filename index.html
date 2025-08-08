@@ -1968,10 +1968,16 @@
                     
                     // Extract vehicle info - be more flexible with the regex
                     if (trimmedLine.includes('عربية')) {
+                        console.log('Processing vehicle line:', trimmedLine);
+                        
                         // Try different patterns for vehicle extraction
                         let vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+رقم\s+(\d+)/);
                         if (!vehicleMatch) {
                             vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+(\d+)/);
+                        }
+                        if (!vehicleMatch) {
+                            // Try to extract from the specific format: "عربية ايجار تبع محمد موسى رقم 7483"
+                            vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+رقم\s+(\d+)/);
                         }
                         if (!vehicleMatch) {
                             vehicleMatch = trimmedLine.match(/عربية\s+(.+)/);
@@ -1987,6 +1993,17 @@
                                 currentRoute.vehicle_number = 'Unknown Number';
                             }
                             console.log('Found vehicle:', currentRoute.vehicle_owner, currentRoute.vehicle_number);
+                        } else {
+                            console.log('No vehicle match found for line:', trimmedLine);
+                            // Manual extraction as fallback
+                            if (trimmedLine.includes('عربية') && trimmedLine.includes('رقم')) {
+                                const parts = trimmedLine.split('عربية')[1].split('رقم');
+                                if (parts.length >= 2) {
+                                    currentRoute.vehicle_owner = parts[0].trim();
+                                    currentRoute.vehicle_number = parts[1].trim();
+                                    console.log('Manual extraction - Owner:', currentRoute.vehicle_owner, 'Number:', currentRoute.vehicle_number);
+                                }
+                            }
                         }
                     }
                 }
