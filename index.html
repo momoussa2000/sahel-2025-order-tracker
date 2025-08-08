@@ -1635,6 +1635,7 @@
                     ` : ''}
 
                     
+                    ${demoData.client_zones ? `
                     <div class="data-section">
                         <h3>Clients Overview</h3>
                         <div class="clients-grid">
@@ -1648,7 +1649,9 @@
                             `).join('')}
                         </div>
                     </div>
+                    ` : ''}
                     
+                    ${demoData.client_zones ? `
                     <div class="data-section">
                         <h3>All Clients & Contacts</h3>
                         <div style="max-height: 400px; overflow-y: auto;">
@@ -1674,10 +1677,13 @@
                         `).join('')}
                         </div>
                     </div>
+                    ` : ''}
                     
+                    ${demoData.total_clients ? `
                     <div class="status-bar">
-                        ✅ ${demoData.total_clients} clients loaded from ${demoData.zones} zones
+                        ✅ ${demoData.total_clients} clients loaded from ${demoData.zones || 'unknown'} zones
                     </div>
+                    ` : ''}
                 `;
                 
                 button.textContent = '✅ البيانات محملة (Data Loaded)';
