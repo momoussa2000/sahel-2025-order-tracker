@@ -26,6 +26,10 @@
     {
       "src": "/favicon.ico",
       "dest": "/favicon.ico"
+    },
+    {
+      "src": "/logo.png",
+      "dest": "/logo.png"
     }
   ]
 } 
