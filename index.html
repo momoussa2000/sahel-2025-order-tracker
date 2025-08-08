@@ -1678,14 +1678,15 @@
                 this.style.background = '#4CAF50';
             });
 
-                // Add quick cloud save/load controls
+                // Add quick cloud save/load controls and report submission
                 const nav = document.getElementById('dayNavigation');
                 if (nav) {
                     const wrap = document.createElement('div');
                     wrap.style.marginBottom = '10px';
                     wrap.innerHTML = `
                         <button id="cloudLoad" style="margin-right:8px; padding:8px 14px; border-radius:8px; background:rgba(168,221,238,0.15); color:#a8ddee; border:1px solid rgba(168,221,238,0.35); cursor:pointer;">☁️ Load from Cloud</button>
-                        <button id="cloudSave" style="padding:8px 14px; border-radius:8px; background:rgba(129,199,132,0.15); color:#81c784; border:1px solid rgba(129,199,132,0.35); cursor:pointer;">☁️ Save to Cloud</button>
+                        <button id="cloudSave" style="margin-right:8px; padding:8px 14px; border-radius:8px; background:rgba(129,199,132,0.15); color:#81c784; border:1px solid rgba(129,199,132,0.35); cursor:pointer;">☁️ Save to Cloud</button>
+                        <button id="addReport" style="padding:8px 14px; border-radius:8px; background:rgba(255,193,7,0.15); color:#ffc107; border:1px solid rgba(255,193,7,0.35); cursor:pointer;">📝 Add Report</button>
                     `;
                     nav.prepend(wrap);
                     document.getElementById('cloudLoad').onclick = async () => { await loadTrackerData(); };
@@ -1695,6 +1696,7 @@
                             alert('Saved to cloud');
                         } catch(e) { alert('Save failed: ' + e.message); }
                     };
+                    document.getElementById('addReport').onclick = () => { showReportSubmission(); };
                 }
 
             // Tooltip behavior for all analytic rows/cards
@@ -1721,6 +1723,244 @@
                 }
             });
         });
+
+        // Report submission modal and parsing functions
+        function showReportSubmission() {
+            const modal = document.createElement('div');
+            modal.id = 'reportModal';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.8); z-index: 1000; display: flex;
+                align-items: center; justify-content: center; padding: 20px;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: #1a2332; border-radius: 12px; padding: 30px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(100,181,246,0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: #64b5f6; margin: 0;">📝 Add Report</h3>
+                        <button onclick="closeReportModal()" style="background: none; border: none; color: #ff6b6b; font-size: 24px; cursor: pointer;">×</button>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #ffffff; margin-bottom: 8px; font-weight: 600;">Report Type:</label>
+                        <select id="reportType" style="width: 100%; padding: 12px; border-radius: 8px; background: #2a3441; border: 1px solid rgba(100,181,246,0.3); color: #ffffff; margin-bottom: 15px;">
+                            <option value="production">Production Sheet Report</option>
+                            <option value="orders">Orders Made Report</option>
+                            <option value="fulfillment">Sales Rep Fulfillment Report</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #ffffff; margin-bottom: 8px; font-weight: 600;">Date (DD/MM/YYYY):</label>
+                        <input type="text" id="reportDate" placeholder="e.g., 6/8/2025" style="width: 100%; padding: 12px; border-radius: 8px; background: #2a3441; border: 1px solid rgba(100,181,246,0.3); color: #ffffff; margin-bottom: 15px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #ffffff; margin-bottom: 8px; font-weight: 600;">Paste WhatsApp Report:</label>
+                        <textarea id="reportText" placeholder="Paste the WhatsApp message here..." style="width: 100%; height: 200px; padding: 12px; border-radius: 8px; background: #2a3441; border: 1px solid rgba(100,181,246,0.3); color: #ffffff; font-family: monospace; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button onclick="closeReportModal()" style="padding: 12px 24px; border-radius: 8px; background: rgba(255,107,107,0.15); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.35); cursor: pointer;">Cancel</button>
+                        <button onclick="parseAndSubmitReport()" style="padding: 12px 24px; border-radius: 8px; background: rgba(100,181,246,0.15); color: #64b5f6; border: 1px solid rgba(100,181,246,0.35); cursor: pointer;">Parse & Submit</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function closeReportModal() {
+            const modal = document.getElementById('reportModal');
+            if (modal) modal.remove();
+        }
+
+        function parseAndSubmitReport() {
+            const reportType = document.getElementById('reportType').value;
+            const reportDate = document.getElementById('reportDate').value;
+            const reportText = document.getElementById('reportText').value;
+            
+            if (!reportDate || !reportText.trim()) {
+                alert('Please fill in both date and report text');
+                return;
+            }
+            
+            try {
+                const parsedData = parseReport(reportType, reportDate, reportText);
+                if (parsedData) {
+                    // Merge with existing data
+                    if (!multiDayData[reportDate]) {
+                        multiDayData[reportDate] = {};
+                    }
+                    
+                    // Merge the parsed data
+                    Object.assign(multiDayData[reportDate], parsedData);
+                    
+                    // Save to localStorage
+                    saveDataToLocalStorage(multiDayData);
+                    
+                    // Update display
+                    renderDayNavigation();
+                    showDayData(reportDate);
+                    
+                    closeReportModal();
+                    alert(`✅ Report for ${reportDate} added successfully!`);
+                }
+            } catch (error) {
+                alert('Error parsing report: ' + error.message);
+            }
+        }
+
+        function parseReport(type, date, text) {
+            const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+            
+            switch (type) {
+                case 'production':
+                    return parseProductionReport(date, lines);
+                case 'orders':
+                    return parseOrdersReport(date, lines);
+                case 'fulfillment':
+                    return parseFulfillmentReport(date, lines);
+                default:
+                    throw new Error('Unknown report type');
+            }
+        }
+
+        function parseProductionReport(date, lines) {
+            const production = {
+                date: date,
+                daily: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 },
+                by_machine: {
+                    old_machine: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 },
+                    new_machine: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 }
+                }
+            };
+            
+            const storage = {
+                rooms: {
+                    main: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 },
+                    apex: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 }
+                },
+                total: { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 }
+            };
+            
+            const distribution = { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 };
+            const refunds = { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 };
+            const damages = { total_kg: 0, "3kg": 0, "4kg": 0, "5kg": 0 };
+            
+            // Simple parsing logic - you can enhance this based on actual message format
+            for (const line of lines) {
+                if (line.includes('إنتاج') || line.includes('production')) {
+                    // Parse production numbers
+                    const numbers = line.match(/\d+/g);
+                    if (numbers && numbers.length >= 3) {
+                        production.daily["3kg"] = parseInt(numbers[0]) || 0;
+                        production.daily["4kg"] = parseInt(numbers[1]) || 0;
+                        production.daily["5kg"] = parseInt(numbers[2]) || 0;
+                        production.daily.total_kg = production.daily["3kg"] + production.daily["4kg"] + production.daily["5kg"];
+                    }
+                }
+                if (line.includes('تخزين') || line.includes('storage')) {
+                    // Parse storage numbers
+                    const numbers = line.match(/\d+/g);
+                    if (numbers && numbers.length >= 3) {
+                        storage.total["3kg"] = parseInt(numbers[0]) || 0;
+                        storage.total["4kg"] = parseInt(numbers[1]) || 0;
+                        storage.total["5kg"] = parseInt(numbers[2]) || 0;
+                        storage.total.total_kg = storage.total["3kg"] + storage.total["4kg"] + storage.total["5kg"];
+                    }
+                }
+                if (line.includes('توزيع') || line.includes('distribution')) {
+                    // Parse distribution numbers
+                    const numbers = line.match(/\d+/g);
+                    if (numbers && numbers.length >= 3) {
+                        distribution["3kg"] = parseInt(numbers[0]) || 0;
+                        distribution["4kg"] = parseInt(numbers[1]) || 0;
+                        distribution["5kg"] = parseInt(numbers[2]) || 0;
+                        distribution.total_kg = distribution["3kg"] + distribution["4kg"] + distribution["5kg"];
+                    }
+                }
+            }
+            
+            return { production, storage, distribution, refunds, damages };
+        }
+
+        function parseOrdersReport(date, lines) {
+            const orders_made = { reports: [] };
+            let currentReport = null;
+            
+            for (const line of lines) {
+                if (line.includes('طريق') || line.includes('route')) {
+                    if (currentReport) orders_made.reports.push(currentReport);
+                    currentReport = {
+                        route: line.split(':')[1]?.trim() || 'Unknown Route',
+                        vehicle: 'Truck 1',
+                        orders: []
+                    };
+                }
+                if (line.includes('عميل') || line.includes('client')) {
+                    // Parse client order
+                    const parts = line.split(/\s+/);
+                    const clientName = parts[1] || 'Unknown Client';
+                    const order = { client: clientName, "3kg": 0, "4kg": 0, "5kg": 0 };
+                    
+                    // Extract numbers for different bag sizes
+                    const numbers = line.match(/\d+/g);
+                    if (numbers && numbers.length >= 3) {
+                        order["3kg"] = parseInt(numbers[0]) || 0;
+                        order["4kg"] = parseInt(numbers[1]) || 0;
+                        order["5kg"] = parseInt(numbers[2]) || 0;
+                    }
+                    
+                    if (currentReport) currentReport.orders.push(order);
+                }
+            }
+            
+            if (currentReport) orders_made.reports.push(currentReport);
+            return { orders_made };
+        }
+
+        function parseFulfillmentReport(date, lines) {
+            const sales_fulfillment = { reports: [] };
+            let currentReport = null;
+            
+            for (const line of lines) {
+                if (line.includes('مندوب') || line.includes('sales rep')) {
+                    if (currentReport) sales_fulfillment.reports.push(currentReport);
+                    const salesRepMatch = line.match(/(?:مندوب|sales rep)[:\s]+([^\n]+)/i);
+                    currentReport = {
+                        sales_rep: salesRepMatch?.[1]?.trim() || 'Unknown Sales Rep',
+                        route: 'Unknown Route',
+                        vehicle: 'Truck 1',
+                        deliveries: []
+                    };
+                }
+                if (line.includes('طريق') || line.includes('route')) {
+                    if (currentReport) {
+                        currentReport.route = line.split(':')[1]?.trim() || 'Unknown Route';
+                    }
+                }
+                if (line.includes('عميل') || line.includes('client') || line.includes('توزيعة')) {
+                    // Parse delivery
+                    const parts = line.split(/\s+/);
+                    const clientName = parts[1] || 'Unknown Client';
+                    const delivery = { client: clientName, "3kg": 0, "4kg": 0, "5kg": 0 };
+                    
+                    // Extract numbers for different bag sizes
+                    const numbers = line.match(/\d+/g);
+                    if (numbers && numbers.length >= 3) {
+                        delivery["3kg"] = parseInt(numbers[0]) || 0;
+                        delivery["4kg"] = parseInt(numbers[1]) || 0;
+                        delivery["5kg"] = parseInt(numbers[2]) || 0;
+                    }
+                    
+                    if (currentReport) currentReport.deliveries.push(delivery);
+                }
+            }
+            
+            if (currentReport) sales_fulfillment.reports.push(currentReport);
+            return { sales_fulfillment };
+        }
     </script>
 </body>
 </html> 
