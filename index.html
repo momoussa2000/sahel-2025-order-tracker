@@ -1797,7 +1797,7 @@
                     Object.assign(multiDayData[reportDate], parsedData);
                     
                     // Save to localStorage
-                    saveDataToLocalStorage(multiDayData);
+                    localStorage.setItem('multiDayData', JSON.stringify(multiDayData));
                     
                     // Update display
                     renderDayNavigation();
@@ -1925,36 +1925,61 @@
             let currentReport = null;
             
             for (const line of lines) {
-                if (line.includes('مندوب') || line.includes('sales rep')) {
+                // Look for sales rep name (usually a single word/name)
+                if (line.trim() && !line.includes('تقرير') && !line.includes('سائق') && !line.includes('ك') && !line.includes('ص') && !/\d/.test(line)) {
                     if (currentReport) sales_fulfillment.reports.push(currentReport);
-                    const salesRepMatch = line.match(/(?:مندوب|sales rep)[:\s]+([^\n]+)/i);
                     currentReport = {
-                        sales_rep: salesRepMatch?.[1]?.trim() || 'Unknown Sales Rep',
+                        sales_rep: line.trim(),
                         route: 'Unknown Route',
-                        vehicle: 'Truck 1',
+                        vehicle: 'Unknown Vehicle',
                         deliveries: []
                     };
                 }
-                if (line.includes('طريق') || line.includes('route')) {
+                
+                // Look for driver and vehicle info
+                if (line.includes('سائق')) {
                     if (currentReport) {
-                        currentReport.route = line.split(':')[1]?.trim() || 'Unknown Route';
+                        const vehicleMatch = line.match(/سائق\s+(.+)/);
+                        if (vehicleMatch) {
+                            currentReport.vehicle = vehicleMatch[1].trim();
+                        }
                     }
                 }
-                if (line.includes('عميل') || line.includes('client') || line.includes('توزيعة')) {
-                    // Parse delivery
-                    const parts = line.split(/\s+/);
-                    const clientName = parts[1] || 'Unknown Client';
-                    const delivery = { client: clientName, "3kg": 0, "4kg": 0, "5kg": 0 };
-                    
-                    // Extract numbers for different bag sizes
-                    const numbers = line.match(/\d+/g);
-                    if (numbers && numbers.length >= 3) {
-                        delivery["3kg"] = parseInt(numbers[0]) || 0;
-                        delivery["4kg"] = parseInt(numbers[1]) || 0;
-                        delivery["5kg"] = parseInt(numbers[2]) || 0;
+                
+                // Look for delivery lines (containing kg amounts)
+                if (line.includes('ك') || line.includes('ص')) {
+                    // Extract client name and amount
+                    const parts = line.split(/\s+/).filter(part => part.trim());
+                    if (parts.length >= 2) {
+                        const clientName = parts[0];
+                        const amountStr = parts[parts.length - 1]; // Last part should be the amount
+                        
+                        // Extract numeric amount
+                        const amountMatch = amountStr.match(/(\d+)/);
+                        if (amountMatch) {
+                            const amount = parseInt(amountMatch[1]);
+                            const delivery = { 
+                                client: clientName, 
+                                "3kg": 0, 
+                                "4kg": 0, 
+                                "5kg": 0 
+                            };
+                            
+                            // Determine bag size based on suffix
+                            if (amountStr.includes('ك')) {
+                                // Assume 5kg bags for 'ك' suffix
+                                delivery["5kg"] = amount;
+                            } else if (amountStr.includes('ص')) {
+                                // Assume 3kg bags for 'ص' suffix
+                                delivery["3kg"] = amount;
+                            } else {
+                                // Default to 5kg if no suffix
+                                delivery["5kg"] = amount;
+                            }
+                            
+                            if (currentReport) currentReport.deliveries.push(delivery);
+                        }
                     }
-                    
-                    if (currentReport) currentReport.deliveries.push(delivery);
                 }
             }
             
