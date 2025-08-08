@@ -1934,37 +1934,102 @@
         }
 
         function parseOrdersReport(date, lines) {
-            const orders_made = { reports: [] };
-            let currentReport = null;
+            const orders_made = { routes: [] };
+            let currentRoute = null;
+            
+            console.log('Parsing orders report for date:', date);
+            console.log('Lines:', lines);
             
             for (const line of lines) {
-                if (line.includes('طريق') || line.includes('route')) {
-                    if (currentReport) orders_made.reports.push(currentReport);
-                    currentReport = {
-                        route: line.split(':')[1]?.trim() || 'Unknown Route',
-                        vehicle: 'Truck 1',
+                const trimmedLine = line.trim();
+                if (!trimmedLine) continue;
+                
+                console.log('Processing line:', trimmedLine);
+                
+                // Look for sales rep and vehicle info
+                if (trimmedLine.includes('المندوب:') || trimmedLine.includes('عربية')) {
+                    if (currentRoute) orders_made.routes.push(currentRoute);
+                    
+                    currentRoute = {
+                        route_name: 'Unknown Route',
+                        vehicle_type: 'Unknown Vehicle',
+                        vehicle_owner: 'Unknown Owner',
+                        vehicle_number: 'Unknown Number',
+                        sales_rep: 'Unknown Rep',
                         orders: []
                     };
-                }
-                if (line.includes('عميل') || line.includes('client')) {
-                    // Parse client order
-                    const parts = line.split(/\s+/);
-                    const clientName = parts[1] || 'Unknown Client';
-                    const order = { client: clientName, "3kg": 0, "4kg": 0, "5kg": 0 };
                     
-                    // Extract numbers for different bag sizes
-                    const numbers = line.match(/\d+/g);
-                    if (numbers && numbers.length >= 3) {
-                        order["3kg"] = parseInt(numbers[0]) || 0;
-                        order["4kg"] = parseInt(numbers[1]) || 0;
-                        order["5kg"] = parseInt(numbers[2]) || 0;
+                    // Extract sales rep
+                    if (trimmedLine.includes('المندوب:')) {
+                        const repMatch = trimmedLine.match(/المندوب:\s*(.+)/);
+                        if (repMatch) {
+                            currentRoute.sales_rep = repMatch[1].trim();
+                            console.log('Found sales rep:', currentRoute.sales_rep);
+                        }
                     }
                     
-                    if (currentReport) currentReport.orders.push(order);
+                    // Extract vehicle info
+                    if (trimmedLine.includes('عربية')) {
+                        const vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+رقم\s+(\d+)/);
+                        if (vehicleMatch) {
+                            currentRoute.vehicle_owner = vehicleMatch[1].trim();
+                            currentRoute.vehicle_number = vehicleMatch[2].trim();
+                            console.log('Found vehicle:', currentRoute.vehicle_owner, currentRoute.vehicle_number);
+                        }
+                    }
+                }
+                
+                // Look for load info
+                if (trimmedLine.includes('حمولة')) {
+                    console.log('Found load info:', trimmedLine);
+                    // Extract load details if needed
+                }
+                
+                // Look for client orders (lines with client names and amounts)
+                if (!trimmedLine.includes('المندوب:') && !trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة') && !trimmedLine.includes('فوو زايد') && !trimmedLine.includes('فوو بيفرلي') && (trimmedLine.includes('صغير') || trimmedLine.includes('كبير') || trimmedLine.includes('فوو'))) {
+                    console.log('Found client order:', trimmedLine);
+                    
+                    // Extract client name (everything before the amounts)
+                    let clientName = trimmedLine;
+                    const amounts = [];
+                    
+                    // Extract amounts and their types
+                    const smallMatch = trimmedLine.match(/(\d+)\s+صغير/);
+                    const bigMatch = trimmedLine.match(/(\d+)\s+كبير/);
+                    const fooMatch = trimmedLine.match(/(\d+)\s+فوو/);
+                    
+                    if (smallMatch) amounts.push({ type: '3kg', amount: parseInt(smallMatch[1]) });
+                    if (bigMatch) amounts.push({ type: '5kg', amount: parseInt(bigMatch[1]) });
+                    if (fooMatch) amounts.push({ type: '4kg', amount: parseInt(fooMatch[1]) });
+                    
+                    // Remove amounts from client name
+                    clientName = clientName.replace(/\d+\s+(صغير|كبير|فوو)/g, '').trim();
+                    
+                    console.log('Extracted client:', clientName, 'Amounts:', amounts);
+                    
+                    if (clientName && amounts.length > 0 && currentRoute) {
+                        const order = { 
+                            client: clientName, 
+                            "3kg": 0, 
+                            "4kg": 0, 
+                            "5kg": 0,
+                            cups: 0
+                        };
+                        
+                        amounts.forEach(item => {
+                            if (item.type === '3kg') order["3kg"] = item.amount;
+                            if (item.type === '4kg') order["4kg"] = item.amount;
+                            if (item.type === '5kg') order["5kg"] = item.amount;
+                        });
+                        
+                        currentRoute.orders.push(order);
+                        console.log('Added order:', order);
+                    }
                 }
             }
             
-            if (currentReport) orders_made.reports.push(currentReport);
+            if (currentRoute) orders_made.routes.push(currentRoute);
+            console.log('Final orders_made:', orders_made);
             return { orders_made };
         }
 
