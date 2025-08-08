@@ -1338,9 +1338,10 @@
                 // Check if demoData exists and has required properties
                 if (!demoData) {
                     display.innerHTML = `
-                        <div style="text-align: center; padding: 40px; color: #ff6b6b;">
-                            <h3>❌ No Data Available</h3>
-                            <p>No data found for this day. Please add reports using the "Add Report" button.</p>
+                        <div style="text-align: center; padding: 40px; color: #64b5f6;">
+                            <h3>📊 Welcome to ICE BREAKER Order Tracker</h3>
+                            <p>No data found. Start by adding your first report!</p>
+                            <button onclick="showReportSubmission()" style="margin-top: 20px; padding: 12px 24px; border-radius: 8px; background: rgba(100,181,246,0.15); color: #64b5f6; border: 1px solid rgba(100,181,246,0.35); cursor: pointer;">📝 Add Your First Report</button>
                         </div>
                     `;
                     return;
@@ -1700,7 +1701,17 @@
             });
 
                 // Add quick cloud save/load controls and report submission
-                const nav = document.getElementById('dayNavigation');
+                let nav = document.getElementById('dayNavigation');
+                if (!nav) {
+                    // Create navigation if it doesn't exist
+                    const dataDisplay = document.getElementById('dataDisplay');
+                    if (dataDisplay) {
+                        nav = document.createElement('div');
+                        nav.id = 'dayNavigation';
+                        dataDisplay.parentNode.insertBefore(nav, dataDisplay);
+                    }
+                }
+                
                 if (nav) {
                     const wrap = document.createElement('div');
                     wrap.style.marginBottom = '10px';
