@@ -656,62 +656,62 @@
             timestamp: new Date().toISOString(),
             message: "نظام متتبع طلبات مكعبات الثلج للساحل الشمالي 2025 - محسن",
             
-            // Placeholder production data for 6/8/2025
+            // Production data for 6/8/2025 from production report
             production: {
                 date: "6/8/2025",
                 daily: {
-                    "3kg": 0,
+                    "3kg": 2255,
                     "4kg": 0,
-                    "5kg": 0,
+                    "5kg": 986,
                     "cups": 0,
-                    "total_kg": 0,
-                    "total_tons": 0
+                    "total_kg": 11695,
+                    "total_tons": 11.7
                 },
                 by_machine: {
                     "old_machine": {
-                        "3kg": 0,
+                        "3kg": 340,
                         "4kg": 0,
-                        "5kg": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "5kg": 606,
+                        "total_kg": 4050,
+                        "total_tons": 4.1
                     },
                     "new_machine": {
-                        "3kg": 0,
+                        "3kg": 1915,
                         "4kg": 0,
-                        "5kg": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "5kg": 380,
+                        "total_kg": 7645,
+                        "total_tons": 7.6
                     }
                 },
                 by_shift: {
                     "first_shift": {
-                        "3kg": 0,
+                        "3kg": 1155,
                         "4kg": 0,
-                        "5kg": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "5kg": 470,
+                        "total_kg": 5815,
+                        "total_tons": 5.8
                     },
                     "second_shift": {
-                        "3kg": 0,
+                        "3kg": 1100,
                         "4kg": 0,
-                        "5kg": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "5kg": 516,
+                        "total_kg": 5880,
+                        "total_tons": 5.9
                     }
                 }
             },
             
-            // Placeholder storage data for 6/8/2025
+            // Storage data for 6/8/2025 from production report
             storage: {
                 rooms: {
                     "main": {
                         "name": "Main Storage Room",
-                        "3kg": 0,
+                        "3kg": 3373,
                         "4kg": 0,
-                        "5kg": 0,
+                        "5kg": 2181,
                         "cups": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "total_kg": 21024,
+                        "total_tons": 21.0
                     },
                     "mahdi": {
                         "name": "External Storage 1 (Mahdi)",
@@ -720,16 +720,16 @@
                         "5kg": 0,
                         "cups": 0,
                         "total_kg": 0,
-                        "total_tons": 0
+                        "total_tons": 0.0
                     },
                     "apex": {
                         "name": "External Storage 2 (Apex for Food Industries)",
-                        "3kg": 0,
+                        "3kg": 1700,
                         "4kg": 0,
-                        "5kg": 0,
+                        "5kg": 33463,
                         "cups": 0,
-                        "total_kg": 0,
-                        "total_tons": 0
+                        "total_kg": 172415,
+                        "total_tons": 172.4
                     },
                     "brothers": {
                         "name": "External Storage 3 (Brothers)",
@@ -738,45 +738,45 @@
                         "5kg": 0,
                         "cups": 0,
                         "total_kg": 0,
-                        "total_tons": 0
+                        "total_tons": 0.0
                     }
                 },
                 total: {
-                    "3kg": 0,
+                    "3kg": 5073,
                     "4kg": 0,
-                    "5kg": 0,
+                    "5kg": 35644,
                     "cups": 0,
-                    "total_kg": 0,
-                    "total_tons": 0
+                    "total_kg": 193439,
+                    "total_tons": 193.4
                 }
             },
             
-            // Placeholder distribution data for 6/8/2025
+            // Distribution data for 6/8/2025 from production report
             distribution: {
-                "3kg": 0,
+                "3kg": 3357,
                 "4kg": 0,
-                "5kg": 0,
+                "5kg": 4915,
                 "cups": 0,
-                "total_kg": 0,
-                "total_tons": 0
+                "total_kg": 34646,
+                "total_tons": 34.6
             },
             
-            // Placeholder refunds and damages for 6/8/2025
+            // Refunds and damages for 6/8/2025 from production report
             refunds: {
-                "3kg": 0,
+                "3kg": 230,
                 "4kg": 0,
-                "5kg": 0,
+                "5kg": 56,
                 "cups": 0,
-                "total_kg": 0,
-                "total_tons": 0
+                "total_kg": 970,
+                "total_tons": 0.97
             },
             damages: {
-                "3kg": 0,
+                "3kg": 106,
                 "4kg": 0,
-                "5kg": 0,
+                "5kg": 5,
                 "cups": 0,
-                "total_kg": 0,
-                "total_tons": 0
+                "total_kg": 343,
+                "total_tons": 0.34
             },
             
             // Placeholder orders made for 6/8/2025
@@ -785,10 +785,75 @@
                 routes: []
             },
             
-            // Placeholder sales fulfillment for 6/8/2025
+            // Sales fulfillment data for 6/8/2025 from reports
             sales_fulfillment: {
                 date: "6/8/2025",
-                reports: []
+                reports: [
+                    {
+                        route: "Almaza Area",
+                        vehicle_type: "Jumbo",
+                        vehicle_number: "6393",
+                        driver: "Abdul Razzaq Mohamed",
+                        sales_rep: "Bibo",
+                        deliveries: [
+                            { client: "Pier Almaza", "3kg": 0, "4kg": 0, "5kg": 70, "cups": 0 },
+                            { client: "Gourmet Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100 },
+                            { client: "Zatab Almaza", "3kg": 0, "4kg": 0, "5kg": 33, "cups": 0 },
+                            { client: "Cheers Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 45 },
+                            { client: "Jazz Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 155 },
+                            { client: "Drinks Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 18 },
+                            { client: "Almaza TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10 },
+                            { client: "Dreams La Vista", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 110 },
+                            { client: "Cakes Hacienda", "3kg": 0, "4kg": 0, "5kg": 36, "cups": 36 },
+                            { client: "Keda Cook", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 200 },
+                            { client: "Lucida Hacienda", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 110 },
+                            { client: "Circle K Red", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 65 },
+                            { client: "Coffee Culture", "3kg": 0, "4kg": 0, "5kg": 320, "cups": 0 },
+                            { client: "Brown Nose Sahel", "3kg": 0, "4kg": 0, "5kg": 35, "cups": 0 }
+                        ]
+                    },
+                    {
+                        route: "Sokhna - El Gouna - Hurghada",
+                        vehicle_type: "Rental Car",
+                        vehicle_number: "2796",
+                        driver: "Ragab Gamal",
+                        sales_rep: "Hussein Sabra",
+                        load: "5150 kg",
+                        deliveries: [
+                            { client: "Best Way Sokhna", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100, "bonus": 10 },
+                            { client: "Dreams La Vista", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 70 },
+                            { client: "Smokery El Gouna", "3kg": 0, "4kg": 0, "5kg": 91, "cups": 0 },
+                            { client: "Pier88 El Gouna", "3kg": 0, "4kg": 0, "5kg": 50, "cups": 100 },
+                            { client: "Jazz Soma Hotel", "3kg": 0, "4kg": 0, "5kg": 170, "cups": 20 },
+                            { client: "Best Way Makadi", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 170 },
+                            { client: "Best El Kawther Old", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 180 },
+                            { client: "Best Way Metro", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 90 },
+                            { client: "Best Way Al Ahyaa", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 30 },
+                            { client: "Best Way Mangrove", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 30 },
+                            { client: "Best Way Town", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 80 },
+                            { client: "Best Way Marina", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 65 },
+                            { client: "City Market Hurghada", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50, "bonus": 5 },
+                            { client: "Oasis Hotel", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 33 },
+                            { client: "Miyumi Restaurant", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50 },
+                            { client: "Drinks Metro", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20 },
+                            { client: "Cheers Somabay", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 45 }
+                        ]
+                    },
+                    {
+                        route: "Sharm El Sheikh",
+                        vehicle_type: "Jumbo Rental",
+                        vehicle_number: "2433",
+                        driver: "Maher Nashaat",
+                        sales_rep: "Monir Saleh",
+                        load: "1200 bags 5kg",
+                        deliveries: [
+                            { client: "Marabella Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 600, "cups": 0 },
+                            { client: "El Kazar Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 300, "cups": 0 },
+                            { client: "Magic World Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 200, "cups": 0 },
+                            { client: "El Fanar Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 100, "cups": 0 }
+                        ]
+                    }
+                ]
             },
             
             // Client zones data (same as 3/8/2025)
