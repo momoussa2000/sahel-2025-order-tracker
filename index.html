@@ -1012,25 +1012,55 @@
                             <div style="font-size: 0.9em; opacity: 0.8;">Overall Fulfillment</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #4CAF50;">${overallFulfillmentRate.toFixed(1)}%</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">${totals.orders_fulfilled.total_kg.toLocaleString()} / ${totals.orders_requested.total_kg.toLocaleString()} kg</div>
-                            <div class="kpi-tooltip">Overall Fulfillment shows the percentage of requested weight that was actually delivered. Formula: (Fulfilled kg ÷ Requested kg) × 100.</div>
+                            <div class="kpi-tooltip">
+                                <div style="margin-bottom:6px; opacity:0.9;">Overall Fulfillment shows the percentage of requested weight that was actually delivered. Formula: (Fulfilled kg ÷ Requested kg) × 100.</div>
+                                <div style="opacity:0.85;">
+                                    Analysis: Delivered <b>${totals.orders_fulfilled.total_kg.toLocaleString()} kg</b> out of <b>${totals.orders_requested.total_kg.toLocaleString()} kg</b> requested.
+                                    ${gap => ''}
+                                    ${(() => {
+                                        const gap = Math.max(0, totals.orders_requested.total_kg - totals.orders_fulfilled.total_kg);
+                                        if (overallFulfillmentRate >= 90) return `Performance is strong with minimal shortfall (${gap.toLocaleString()} kg).`;
+                                        if (overallFulfillmentRate >= 70) return `Good, but improve by closing a shortfall of ${gap.toLocaleString()} kg.`;
+                                        return `Low fulfillment. Shortfall of ${gap.toLocaleString()} kg needs attention.`;
+                                    })()}
+                                </div>
+                            </div>
                         </div>
                         <div class="kpi-card" data-kpi="production" style="padding: 18px; background: rgba(100, 181, 246, 0.12); border: 1px solid rgba(100, 181, 246, 0.35); border-radius: 12px; text-align: center;">
                             <div style="font-size: 0.9em; opacity: 0.8;">Total Production</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #64b5f6;">${totals.production.total_kg.toLocaleString()} kg</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Top Day: ${topProdDay.day || '-'} (${(topProdDay.productionKg || 0).toLocaleString()} kg)</div>
-                            <div class="kpi-tooltip">Total Production is the sum of all bags converted to kilograms across the loaded days.</div>
+                            <div class="kpi-tooltip">
+                                <div style="margin-bottom:6px; opacity:0.9;">Total Production is the sum of all bags converted to kilograms across the loaded days.</div>
+                                <div style="opacity:0.85;">
+                                    Analysis: Produced <b>${totals.production.total_kg.toLocaleString()} kg</b> across ${days.length} days. Versus distribution of <b>${totals.distribution.total_kg.toLocaleString()} kg</b>, the difference is <b>${(totals.production.total_kg - totals.distribution.total_kg).toLocaleString()} kg</b>.
+                                    ${totals.production.total_kg - totals.distribution.total_kg >= 0 ? 'This suggests stock build or pending delivery.' : 'This suggests drawdown of stock or under-production.'}
+                                </div>
+                            </div>
                         </div>
                         <div class="kpi-card" data-kpi="p2d" style="padding: 18px; background: rgba(255, 152, 0, 0.12); border: 1px solid rgba(255, 152, 0, 0.35); border-radius: 12px; text-align: center;">
                             <div style="font-size: 0.9em; opacity: 0.8;">Production → Distribution Ratio</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: #FF9800;">${productionToDistributionRatio.toFixed(2)}×</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">Dist: ${totals.distribution.total_kg.toLocaleString()} kg</div>
-                            <div class="kpi-tooltip">Indicates how production compares to what went out for delivery. Formula: Production kg ÷ Distribution kg.</div>
+                            <div class="kpi-tooltip">
+                                <div style="margin-bottom:6px; opacity:0.9;">Indicates how production compares to what went out for delivery. Formula: Production kg ÷ Distribution kg.</div>
+                                <div style="opacity:0.85;">
+                                    Analysis: For every 1 kg delivered, we produced <b>${productionToDistributionRatio.toFixed(2)} kg</b>.
+                                    ${productionToDistributionRatio >= 1 ? 'At or above 1× means stock is stable/increasing.' : 'Below 1× means deliveries exceeded production (using existing stock).'}
+                                </div>
+                            </div>
                         </div>
                         <div class="kpi-card" data-kpi="netflow" style="padding: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; text-align: center;">
                             <div style="font-size: 0.9em; opacity: 0.8;">Net Flow (P − D − R − Dam)</div>
                             <div style="font-size: 2.2em; font-weight: 700; color: ${netFlowKg >= 0 ? '#81c784' : '#ff6b6b'};">${netFlowKg.toLocaleString()} kg</div>
                             <div style="font-size: 0.9em; opacity: 0.8;">R: ${totals.refunds.total_kg.toLocaleString()} • Dam: ${totals.damages.total_kg.toLocaleString()}</div>
-                            <div class="kpi-tooltip">Approximates net change in stock given production (P), distribution (D), refunds (R) and damages (Dam). Positive = stock build; Negative = drawdown.</div>
+                            <div class="kpi-tooltip">
+                                <div style="margin-bottom:6px; opacity:0.9;">Approximates net change in stock given production (P), distribution (D), refunds (R) and damages (Dam). Positive = stock build; Negative = drawdown.</div>
+                                <div style="opacity:0.85;">
+                                    Analysis: Net flow of <b>${Math.abs(netFlowKg).toLocaleString()} kg</b> ${netFlowKg >= 0 ? 'increase' : 'decrease'}.
+                                    ${netFlowKg >= 0 ? 'Inventory likely increased (more produced than moved out).' : 'Inventory likely decreased (more moved out than produced).'}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -1555,12 +1585,13 @@
             // KPI tooltip behavior: click to toggle; hover to preview
             document.body.addEventListener('click', function(e) {
                 const card = e.target.closest('.kpi-card');
-                const isCard = !!card;
-                // Close others if clicking outside or on another card
+                const clickedInsideCard = !!card;
+                // Close others when clicking outside
                 document.querySelectorAll('.kpi-card.show-tooltip').forEach(el => {
-                    if (!isCard || el !== card) el.classList.remove('show-tooltip');
+                    if (!clickedInsideCard || el !== card) el.classList.remove('show-tooltip');
                 });
                 if (card) {
+                    // Toggle this card
                     card.classList.toggle('show-tooltip');
                 }
             });
