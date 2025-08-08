@@ -1968,12 +1968,26 @@
                         }
                     }
                     
-                    // Extract vehicle info
+                    // Extract vehicle info - be more flexible with the regex
                     if (trimmedLine.includes('عربية')) {
-                        const vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+رقم\s+(\d+)/);
+                        // Try different patterns for vehicle extraction
+                        let vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+رقم\s+(\d+)/);
+                        if (!vehicleMatch) {
+                            vehicleMatch = trimmedLine.match(/عربية\s+(.+?)\s+(\d+)/);
+                        }
+                        if (!vehicleMatch) {
+                            vehicleMatch = trimmedLine.match(/عربية\s+(.+)/);
+                        }
+                        
                         if (vehicleMatch) {
-                            currentRoute.vehicle_owner = vehicleMatch[1].trim();
-                            currentRoute.vehicle_number = vehicleMatch[2].trim();
+                            if (vehicleMatch[2]) {
+                                currentRoute.vehicle_owner = vehicleMatch[1].trim();
+                                currentRoute.vehicle_number = vehicleMatch[2].trim();
+                            } else {
+                                // If no number found, put everything in owner
+                                currentRoute.vehicle_owner = vehicleMatch[1].trim();
+                                currentRoute.vehicle_number = 'Unknown Number';
+                            }
                             console.log('Found vehicle:', currentRoute.vehicle_owner, currentRoute.vehicle_number);
                         }
                     }
