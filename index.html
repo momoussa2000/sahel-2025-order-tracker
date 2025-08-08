@@ -235,7 +235,7 @@
         <div class="main-content">
             <button id="loadDataBtn" onclick="loadTrackerData()" class="load-button">
                 Load Production Data
-            </button>
+                </button>
             
             <div id="dayNavigation"></div>
             <div id="dataDisplay"></div>
@@ -785,75 +785,10 @@
                 routes: []
             },
             
-            // Sales fulfillment data for 6/8/2025 from reports
+            // Placeholder sales fulfillment for 6/8/2025
             sales_fulfillment: {
                 date: "6/8/2025",
-                reports: [
-                    {
-                        route: "Almaza Area",
-                        vehicle_type: "Jumbo",
-                        vehicle_number: "6393",
-                        driver: "Abdul Razzaq Mohamed",
-                        sales_rep: "Bibo",
-                        deliveries: [
-                            { client: "Pier Almaza", "3kg": 0, "4kg": 0, "5kg": 70, "cups": 0 },
-                            { client: "Gourmet Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100 },
-                            { client: "Zatab Almaza", "3kg": 0, "4kg": 0, "5kg": 33, "cups": 0 },
-                            { client: "Cheers Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 45 },
-                            { client: "Jazz Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 155 },
-                            { client: "Drinks Almaza", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 18 },
-                            { client: "Almaza TBS", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 10 },
-                            { client: "Dreams La Vista", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 110 },
-                            { client: "Cakes Hacienda", "3kg": 0, "4kg": 0, "5kg": 36, "cups": 36 },
-                            { client: "Keda Cook", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 200 },
-                            { client: "Lucida Hacienda", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 110 },
-                            { client: "Circle K Red", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 65 },
-                            { client: "Coffee Culture", "3kg": 0, "4kg": 0, "5kg": 320, "cups": 0 },
-                            { client: "Brown Nose Sahel", "3kg": 0, "4kg": 0, "5kg": 35, "cups": 0 }
-                        ]
-                    },
-                    {
-                        route: "Sokhna - El Gouna - Hurghada",
-                        vehicle_type: "Rental Car",
-                        vehicle_number: "2796",
-                        driver: "Ragab Gamal",
-                        sales_rep: "Hussein Sabra",
-                        load: "5150 kg",
-                        deliveries: [
-                            { client: "Best Way Sokhna", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 100, "bonus": 10 },
-                            { client: "Dreams La Vista", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 70 },
-                            { client: "Smokery El Gouna", "3kg": 0, "4kg": 0, "5kg": 91, "cups": 0 },
-                            { client: "Pier88 El Gouna", "3kg": 0, "4kg": 0, "5kg": 50, "cups": 100 },
-                            { client: "Jazz Soma Hotel", "3kg": 0, "4kg": 0, "5kg": 170, "cups": 20 },
-                            { client: "Best Way Makadi", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 170 },
-                            { client: "Best El Kawther Old", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 180 },
-                            { client: "Best Way Metro", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 90 },
-                            { client: "Best Way Al Ahyaa", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 30 },
-                            { client: "Best Way Mangrove", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 30 },
-                            { client: "Best Way Town", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 80 },
-                            { client: "Best Way Marina", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 65 },
-                            { client: "City Market Hurghada", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50, "bonus": 5 },
-                            { client: "Oasis Hotel", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 33 },
-                            { client: "Miyumi Restaurant", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 50 },
-                            { client: "Drinks Metro", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 20 },
-                            { client: "Cheers Somabay", "3kg": 0, "4kg": 0, "5kg": 0, "cups": 45 }
-                        ]
-                    },
-                    {
-                        route: "Sharm El Sheikh",
-                        vehicle_type: "Jumbo Rental",
-                        vehicle_number: "2433",
-                        driver: "Maher Nashaat",
-                        sales_rep: "Monir Saleh",
-                        load: "1200 bags 5kg",
-                        deliveries: [
-                            { client: "Marabella Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 600, "cups": 0 },
-                            { client: "El Kazar Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 300, "cups": 0 },
-                            { client: "Magic World Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 200, "cups": 0 },
-                            { client: "El Fanar Hotel Sharm", "3kg": 0, "4kg": 0, "5kg": 100, "cups": 0 }
-                        ]
-                    }
-                ]
+                reports: []
             },
             
             // Client zones data (same as 3/8/2025)
@@ -932,138 +867,205 @@
         function showAnalytics() {
             const display = document.getElementById('dataDisplay');
             const days = Object.keys(multiDayData);
-            
-            // Calculate totals across all days
+
             const totals = {
                 production: { "3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "total_kg": 0 },
                 distribution: { "3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "total_kg": 0 },
+                refunds: { total_kg: 0 },
+                damages: { total_kg: 0 },
                 orders_requested: { "3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "total_kg": 0 },
-                orders_fulfilled: { "3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "total_kg": 0 }
+                orders_fulfilled: { "3kg": 0, "4kg": 0, "5kg": 0, "cups": 0, "total_kg": 0 },
+                machines: { old_machine: 0, new_machine: 0 },
+                shifts: { first_shift: 0, second_shift: 0 }
             };
-            
+
+            const daySummaries = [];
+
             days.forEach(day => {
-                const dayData = multiDayData[day];
-                
+                const d = multiDayData[day];
+
                 // Production totals
-                totals.production["3kg"] += dayData.production.daily["3kg"] || 0;
-                totals.production["4kg"] += dayData.production.daily["4kg"] || 0;
-                totals.production["5kg"] += dayData.production.daily["5kg"] || 0;
-                totals.production["cups"] += dayData.production.daily["cups"] || 0;
-                totals.production["total_kg"] += dayData.production.daily["total_kg"] || 0;
-                
-                // Distribution totals
-                totals.distribution["3kg"] += dayData.distribution["3kg"] || 0;
-                totals.distribution["4kg"] += dayData.distribution["4kg"] || 0;
-                totals.distribution["5kg"] += dayData.distribution["5kg"] || 0;
-                totals.distribution["cups"] += dayData.distribution["cups"] || 0;
-                totals.distribution["total_kg"] += dayData.distribution["total_kg"] || 0;
-                
-                // Orders requested totals
-                if (dayData.orders_made && dayData.orders_made.routes) {
-                    dayData.orders_made.routes.forEach(route => {
-                        route.orders.forEach(order => {
-                            totals.orders_requested["3kg"] += order["3kg"] || 0;
-                            totals.orders_requested["4kg"] += order["4kg"] || 0;
-                            totals.orders_requested["5kg"] += order["5kg"] || 0;
-                            totals.orders_requested["cups"] += order["cups"] || 0;
+                totals.production["3kg"] += d.production?.daily?.["3kg"] || 0;
+                totals.production["4kg"] += d.production?.daily?.["4kg"] || 0;
+                totals.production["5kg"] += d.production?.daily?.["5kg"] || 0;
+                totals.production["cups"] += d.production?.daily?.["cups"] || 0;
+                totals.production["total_kg"] += d.production?.daily?.["total_kg"] || 0;
+
+                // Machines & shifts
+                totals.machines.old_machine += d.production?.by_machine?.old_machine?.total_kg || 0;
+                totals.machines.new_machine += d.production?.by_machine?.new_machine?.total_kg || 0;
+                totals.shifts.first_shift += d.production?.by_shift?.first_shift?.total_kg || 0;
+                totals.shifts.second_shift += d.production?.by_shift?.second_shift?.total_kg || 0;
+
+                // Distribution / refunds / damages
+                totals.distribution["3kg"] += d.distribution?.["3kg"] || 0;
+                totals.distribution["4kg"] += d.distribution?.["4kg"] || 0;
+                totals.distribution["5kg"] += d.distribution?.["5kg"] || 0;
+                totals.distribution["cups"] += d.distribution?.["cups"] || 0;
+                totals.distribution["total_kg"] += d.distribution?.total_kg || 0;
+                totals.refunds.total_kg += d.refunds?.total_kg || 0;
+                totals.damages.total_kg += d.damages?.total_kg || 0;
+
+                // Orders requested
+                let requested3 = 0, requested4 = 0, requested5 = 0, requestedCups = 0;
+                if (d.orders_made?.routes) {
+                    d.orders_made.routes.forEach(route => {
+                        route.orders.forEach(o => {
+                            requested3 += o["3kg"] || 0;
+                            requested4 += o["4kg"] || 0;
+                            requested5 += o["5kg"] || 0;
+                            requestedCups += o.cups || 0;
                         });
                     });
                 }
-                
-                // Orders fulfilled totals
-                if (dayData.sales_fulfillment && dayData.sales_fulfillment.reports) {
-                    dayData.sales_fulfillment.reports.forEach(report => {
-                        report.deliveries.forEach(delivery => {
-                            totals.orders_fulfilled["3kg"] += delivery["3kg"] || 0;
-                            totals.orders_fulfilled["4kg"] += delivery["4kg"] || 0;
-                            totals.orders_fulfilled["5kg"] += delivery["5kg"] || 0;
-                            totals.orders_fulfilled["cups"] += delivery["cups"] || 0;
+                totals.orders_requested["3kg"] += requested3;
+                totals.orders_requested["4kg"] += requested4;
+                totals.orders_requested["5kg"] += requested5;
+                totals.orders_requested["cups"] += requestedCups;
+
+                // Orders fulfilled
+                let fulfilled3 = 0, fulfilled4 = 0, fulfilled5 = 0, fulfilledCups = 0;
+                if (d.sales_fulfillment?.reports) {
+                    d.sales_fulfillment.reports.forEach(report => {
+                        report.deliveries.forEach(del => {
+                            fulfilled3 += del["3kg"] || 0;
+                            fulfilled4 += del["4kg"] || 0;
+                            fulfilled5 += del["5kg"] || 0;
+                            fulfilledCups += del.cups || 0;
                         });
                     });
                 }
+                totals.orders_fulfilled["3kg"] += fulfilled3;
+                totals.orders_fulfilled["4kg"] += fulfilled4;
+                totals.orders_fulfilled["5kg"] += fulfilled5;
+                totals.orders_fulfilled["cups"] += fulfilledCups;
+
+                const requestedKg = requested3 * 3 + requested4 * 4 + requested5 * 5;
+                const fulfilledKg = fulfilled3 * 3 + fulfilled4 * 4 + fulfilled5 * 5;
+
+                daySummaries.push({
+                    day,
+                    productionKg: d.production?.daily?.total_kg || 0,
+                    distributionKg: d.distribution?.total_kg || 0,
+                    refundsKg: d.refunds?.total_kg || 0,
+                    damagesKg: d.damages?.total_kg || 0,
+                    requestedKg,
+                    fulfilledKg,
+                    fulfillmentRate: requestedKg > 0 ? (fulfilledKg / requestedKg) * 100 : null
+                });
             });
-            
-            // Calculate weight totals
-            totals.orders_requested["total_kg"] = totals.orders_requested["3kg"] * 3 + totals.orders_requested["4kg"] * 4 + totals.orders_requested["5kg"] * 5;
-            totals.orders_fulfilled["total_kg"] = totals.orders_fulfilled["3kg"] * 3 + totals.orders_fulfilled["4kg"] * 4 + totals.orders_fulfilled["5kg"] * 5;
-            
+
+            // Totals in kg
+            totals.orders_requested.total_kg = totals.orders_requested["3kg"] * 3 + totals.orders_requested["4kg"] * 4 + totals.orders_requested["5kg"] * 5;
+            totals.orders_fulfilled.total_kg = totals.orders_fulfilled["3kg"] * 3 + totals.orders_fulfilled["4kg"] * 4 + totals.orders_fulfilled["5kg"] * 5;
+
+            const overallFulfillmentRate = totals.orders_requested.total_kg > 0
+                ? (totals.orders_fulfilled.total_kg / totals.orders_requested.total_kg) * 100
+                : 0;
+
+            const netFlowKg = totals.production.total_kg - (totals.distribution.total_kg + totals.refunds.total_kg + totals.damages.total_kg);
+            const productionToDistributionRatio = totals.distribution.total_kg > 0
+                ? (totals.production.total_kg / totals.distribution.total_kg)
+                : 0;
+
+            const unmet = {
+                "3kg": Math.max(0, totals.orders_requested["3kg"] - totals.orders_fulfilled["3kg"]),
+                "4kg": Math.max(0, totals.orders_requested["4kg"] - totals.orders_fulfilled["4kg"]),
+                "5kg": Math.max(0, totals.orders_requested["5kg"] - totals.orders_fulfilled["5kg"]),
+                cups: Math.max(0, totals.orders_requested["cups"] - totals.orders_fulfilled["cups"]) 
+            };
+
+            const topProdDay = daySummaries.reduce((max, d) => d.productionKg > max.productionKg ? d : max, { productionKg: -1 });
+
+            // Render
+            display.style.display = 'block';
             display.innerHTML = `
                 <div style="background: rgba(255, 193, 7, 0.1); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 193, 7, 0.3); margin-bottom: 20px;">
                     <h2 style="color: #FFC107; margin: 0 0 20px 0; text-align: center;">📊 Multi-Day Analytics (${days.length} Days)</h2>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                        <div style="text-align: center; padding: 20px; background: rgba(100, 181, 246, 0.1); border-radius: 8px; border: 1px solid rgba(100, 181, 246, 0.3);">
-                            <h4 style="color: #64b5f6; margin: 0 0 15px 0;">🏭 Total Production</h4>
-                            <div style="font-size: 2em; font-weight: bold; color: #64b5f6;">
-                                ${totals.production["total_kg"].toLocaleString()}
-                            </div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">kg</div>
+
+                    <!-- KPI Row -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                        <div style="padding: 18px; background: rgba(76, 175, 80, 0.12); border: 1px solid rgba(76, 175, 80, 0.35); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9em; opacity: 0.8;">Overall Fulfillment</div>
+                            <div style="font-size: 2.2em; font-weight: 700; color: #4CAF50;">${overallFulfillmentRate.toFixed(1)}%</div>
+                            <div style="font-size: 0.9em; opacity: 0.8;">${totals.orders_fulfilled.total_kg.toLocaleString()} / ${totals.orders_requested.total_kg.toLocaleString()} kg</div>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.3);">
-                            <h4 style="color: #4CAF50; margin: 0 0 15px 0;">🚛 Total Distribution</h4>
-                            <div style="font-size: 2em; font-weight: bold; color: #4CAF50;">
-                                ${totals.distribution["total_kg"].toLocaleString()}
-                            </div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">kg</div>
+                        <div style="padding: 18px; background: rgba(100, 181, 246, 0.12); border: 1px solid rgba(100, 181, 246, 0.35); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9em; opacity: 0.8;">Total Production</div>
+                            <div style="font-size: 2.2em; font-weight: 700; color: #64b5f6;">${totals.production.total_kg.toLocaleString()} kg</div>
+                            <div style="font-size: 0.9em; opacity: 0.8;">Top Day: ${topProdDay.day || '-'} (${(topProdDay.productionKg || 0).toLocaleString()} kg)</div>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; border: 1px solid rgba(255, 152, 0, 0.3);">
-                            <h4 style="color: #FF9800; margin: 0 0 15px 0;">📋 Total Orders Requested</h4>
-                            <div style="font-size: 2em; font-weight: bold; color: #FF9800;">
-                                ${totals.orders_requested["total_kg"].toLocaleString()}
-                            </div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">kg</div>
+                        <div style="padding: 18px; background: rgba(255, 152, 0, 0.12); border: 1px solid rgba(255, 152, 0, 0.35); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9em; opacity: 0.8;">Production → Distribution Ratio</div>
+                            <div style="font-size: 2.2em; font-weight: 700; color: #FF9800;">${productionToDistributionRatio.toFixed(2)}×</div>
+                            <div style="font-size: 0.9em; opacity: 0.8;">Dist: ${totals.distribution.total_kg.toLocaleString()} kg</div>
                         </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(156, 39, 176, 0.1); border-radius: 8px; border: 1px solid rgba(156, 39, 176, 0.3);">
-                            <h4 style="color: #9C27B0; margin: 0 0 15px 0;">✅ Total Orders Fulfilled</h4>
-                            <div style="font-size: 2em; font-weight: bold; color: #9C27B0;">
-                                ${totals.orders_fulfilled["total_kg"].toLocaleString()}
-                            </div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">kg</div>
+                        <div style="padding: 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.9em; opacity: 0.8;">Net Flow (P − D − R − Dam)</div>
+                            <div style="font-size: 2.2em; font-weight: 700; color: ${netFlowKg >= 0 ? '#81c784' : '#ff6b6b'};">${netFlowKg.toLocaleString()} kg</div>
+                            <div style="font-size: 0.9em; opacity: 0.8;">R: ${totals.refunds.total_kg.toLocaleString()} • Dam: ${totals.damages.total_kg.toLocaleString()}</div>
                         </div>
                     </div>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                            <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">3kg Bags</div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">
-                                Production: ${totals.production["3kg"].toLocaleString()}<br>
-                                Distribution: ${totals.distribution["3kg"].toLocaleString()}<br>
-                                Requested: ${totals.orders_requested["3kg"].toLocaleString()}<br>
-                                Fulfilled: ${totals.orders_fulfilled["3kg"].toLocaleString()}
-                            </div>
+
+                    <!-- Per-Product Fulfillment & Unmet -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                        ${["3kg","4kg","5kg","cups"].map(p => {
+                            const req = totals.orders_requested[p] || 0;
+                            const ful = totals.orders_fulfilled[p] || 0;
+                            const rate = req > 0 ? (ful / req) * 100 : 0;
+                            const unmetNum = Math.max(0, req - ful);
+                            return `
+                                <div style="padding: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;">
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #64b5f6;">${p.toUpperCase()}</div>
+                                    <div style="font-size: 0.9em; opacity: 0.85;">Req: ${req.toLocaleString()} • Ful: ${ful.toLocaleString()}</div>
+                                    <div style="font-size: 0.9em; color: ${rate >= 90 ? '#81c784' : rate >= 70 ? '#FFC107' : '#ff6b6b'}; font-weight: 600;">Rate: ${rate.toFixed(1)}%</div>
+                                    <div style="font-size: 0.9em; opacity: 0.85;">Unmet: ${unmetNum.toLocaleString()}</div>
+                                </div>`;
+                        }).join('')}
+                    </div>
+
+                    <!-- Machines & Shifts Contribution -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                        <div style="padding: 16px; background: rgba(100, 181, 246, 0.08); border-radius: 12px; border: 1px solid rgba(100, 181, 246, 0.25);">
+                            <div style="font-weight: 600; color: #64b5f6; margin-bottom: 8px;">Machine Contribution</div>
+                            <div>Old Machine: <span style="color:#64b5f6; font-weight:600;">${totals.machines.old_machine.toLocaleString()} kg</span></div>
+                            <div>New Machine: <span style="color:#64b5f6; font-weight:600;">${totals.machines.new_machine.toLocaleString()} kg</span></div>
+                            <div style="opacity:0.8; font-size:0.9em; margin-top:6px;">New/Old Ratio: ${(totals.machines.old_machine>0 ? (totals.machines.new_machine / totals.machines.old_machine).toFixed(2) : '—')}×</div>
                         </div>
-                        <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                            <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">4kg Bags</div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">
-                                Production: ${totals.production["4kg"].toLocaleString()}<br>
-                                Distribution: ${totals.distribution["4kg"].toLocaleString()}<br>
-                                Requested: ${totals.orders_requested["4kg"].toLocaleString()}<br>
-                                Fulfilled: ${totals.orders_fulfilled["4kg"].toLocaleString()}
-                            </div>
+                        <div style="padding: 16px; background: rgba(129, 199, 132, 0.08); border-radius: 12px; border: 1px solid rgba(129, 199, 132, 0.25);">
+                            <div style="font-weight: 600; color: #81c784; margin-bottom: 8px;">Shift Contribution</div>
+                            <div>First Shift: <span style="color:#81c784; font-weight:600;">${totals.shifts.first_shift.toLocaleString()} kg</span></div>
+                            <div>Second Shift: <span style="color:#81c784; font-weight:600;">${totals.shifts.second_shift.toLocaleString()} kg</span></div>
+                            <div style="opacity:0.8; font-size:0.9em; margin-top:6px;">Second/First Ratio: ${(totals.shifts.first_shift>0 ? (totals.shifts.second_shift / totals.shifts.first_shift).toFixed(2) : '—')}×</div>
                         </div>
-                        <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                            <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">5kg Bags</div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">
-                                Production: ${totals.production["5kg"].toLocaleString()}<br>
-                                Distribution: ${totals.distribution["5kg"].toLocaleString()}<br>
-                                Requested: ${totals.orders_requested["5kg"].toLocaleString()}<br>
-                                Fulfilled: ${totals.orders_fulfilled["5kg"].toLocaleString()}
-                            </div>
-                        </div>
-                        <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
-                            <div style="font-size: 1.2em; font-weight: bold; color: #64b5f6;">Cups</div>
-                            <div style="font-size: 0.9em; opacity: 0.8;">
-                                Production: ${totals.production["cups"].toLocaleString()}<br>
-                                Distribution: ${totals.distribution["cups"].toLocaleString()}<br>
-                                Requested: ${totals.orders_requested["cups"].toLocaleString()}<br>
-                                Fulfilled: ${totals.orders_fulfilled["cups"].toLocaleString()}
-                            </div>
+                    </div>
+
+                    <!-- Per-Day Compact Table -->
+                    <div style="padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;">
+                        <div style="font-weight: 600; margin-bottom: 10px; color:#fff;">Daily Summary</div>
+                        <div style="display:grid; grid-template-columns: repeat(7, minmax(90px,1fr)); gap: 8px; font-size: 0.92em;">
+                            <div style="opacity:0.7;">Day</div>
+                            <div style="opacity:0.7;">Prod (kg)</div>
+                            <div style="opacity:0.7;">Dist (kg)</div>
+                            <div style="opacity:0.7;">Refund (kg)</div>
+                            <div style="opacity:0.7;">Damage (kg)</div>
+                            <div style="opacity:0.7;">Req (kg)</div>
+                            <div style="opacity:0.7;">Rate</div>
+                            ${daySummaries.map(s => `
+                                <div style="font-weight:600;">${s.day}</div>
+                                <div>${s.productionKg.toLocaleString()}</div>
+                                <div>${s.distributionKg.toLocaleString()}</div>
+                                <div>${s.refundsKg.toLocaleString()}</div>
+                                <div>${s.damagesKg.toLocaleString()}</div>
+                                <div>${s.requestedKg.toLocaleString()}</div>
+                                <div>${s.fulfillmentRate != null ? s.fulfillmentRate.toFixed(1)+'%' : '—'}</div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
             `;
         }
-        
+
         async function loadTrackerData() {
             const button = document.getElementById('loadDataBtn');
             const display = document.getElementById('dataDisplay');
@@ -1243,8 +1245,8 @@
                                             </div>
                                         `).join('')}
                                     </div>
-                                </div>
-                            `).join('')}
+                                    </div>
+                                `).join('')}
                         </div>
                         
                         <!-- Sales Fulfillment Summary -->
@@ -1373,8 +1375,8 @@
                                             </div>
                                         `).join('')}
                                     </div>
-                                </div>
-                            `).join('')}
+                            </div>
+                        `).join('')}
                         </div>
                     </div>
                     

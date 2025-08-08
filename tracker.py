@@ -516,7 +516,7 @@ async def main():
         # Deliveries
         if deliveries:
             summary += "🚚 RECENT DELIVERIES:\n"
-            for delivery in deliveries:
+        for delivery in deliveries:
                 summary += f"📦 {delivery['client']} ({delivery['zone']})\n"
                 summary += f"   • {delivery['orders_3kg']}×3kg, {delivery['orders_4kg']}×4kg, {delivery['orders_5kg']}×5kg\n"
                 summary += f"   • Rep: {delivery['sales_rep']}, Driver: {delivery['driver']}, Time: {delivery['delivered_time']}\n\n"
