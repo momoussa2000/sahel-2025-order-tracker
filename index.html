@@ -1940,6 +1940,16 @@
             console.log('Parsing orders report for date:', date);
             console.log('Lines:', lines);
             
+            // Initialize the first route
+            currentRoute = {
+                route_name: 'Main Route',
+                vehicle_type: 'Rental Car',
+                vehicle_owner: 'Unknown Owner',
+                vehicle_number: 'Unknown Number',
+                sales_rep: 'Unknown Rep',
+                orders: []
+            };
+            
             for (const line of lines) {
                 const trimmedLine = line.trim();
                 if (!trimmedLine) continue;
@@ -1948,17 +1958,6 @@
                 
                 // Look for sales rep and vehicle info
                 if (trimmedLine.includes('المندوب:') || trimmedLine.includes('عربية')) {
-                    if (currentRoute) orders_made.routes.push(currentRoute);
-                    
-                    currentRoute = {
-                        route_name: 'Unknown Route',
-                        vehicle_type: 'Rental Car',
-                        vehicle_owner: 'Unknown Owner',
-                        vehicle_number: 'Unknown Number',
-                        sales_rep: 'Unknown Rep',
-                        orders: []
-                    };
-                    
                     // Extract sales rep
                     if (trimmedLine.includes('المندوب:')) {
                         const repMatch = trimmedLine.match(/المندوب:\s*(.+)/);
@@ -2042,7 +2041,16 @@
                 }
             }
             
-            if (currentRoute) orders_made.routes.push(currentRoute);
+            // Always add the current route at the end
+            if (currentRoute && currentRoute.orders.length > 0) {
+                orders_made.routes.push(currentRoute);
+            } else if (currentRoute) {
+                // Even if no orders, add the route if we have sales rep or vehicle info
+                if (currentRoute.sales_rep !== 'Unknown Rep' || currentRoute.vehicle_owner !== 'Unknown Owner') {
+                    orders_made.routes.push(currentRoute);
+                }
+            }
+            
             console.log('Final orders_made:', orders_made);
             return { orders_made };
         }
