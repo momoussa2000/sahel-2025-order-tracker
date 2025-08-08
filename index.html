@@ -1801,7 +1801,12 @@
                     
                     // Update display
                     renderDayNavigation();
-                    showDayData(reportDate);
+                    
+                    // Show the day data if it exists
+                    const dayData = multiDayData[reportDate];
+                    if (dayData) {
+                        showDayData(reportDate);
+                    }
                     
                     closeReportModal();
                     alert(`✅ Report for ${reportDate} added successfully!`);
@@ -1925,11 +1930,16 @@
             let currentReport = null;
             
             for (const line of lines) {
+                const trimmedLine = line.trim();
+                if (!trimmedLine) continue;
+                
                 // Look for sales rep name (usually a single word/name)
-                if (line.trim() && !line.includes('تقرير') && !line.includes('سائق') && !line.includes('ك') && !line.includes('ص') && !/\d/.test(line)) {
-                    if (currentReport) sales_fulfillment.reports.push(currentReport);
+                if (!trimmedLine.includes('تقرير') && !trimmedLine.includes('سائق') && !trimmedLine.includes('ك') && !trimmedLine.includes('ص') && !/\d/.test(trimmedLine)) {
+                    if (currentReport && currentReport.deliveries && currentReport.deliveries.length > 0) {
+                        sales_fulfillment.reports.push(currentReport);
+                    }
                     currentReport = {
-                        sales_rep: line.trim(),
+                        sales_rep: trimmedLine,
                         route: 'Unknown Route',
                         vehicle: 'Unknown Vehicle',
                         deliveries: []
@@ -1937,9 +1947,9 @@
                 }
                 
                 // Look for driver and vehicle info
-                if (line.includes('سائق')) {
+                if (trimmedLine.includes('سائق')) {
                     if (currentReport) {
-                        const vehicleMatch = line.match(/سائق\s+(.+)/);
+                        const vehicleMatch = trimmedLine.match(/سائق\s+(.+)/);
                         if (vehicleMatch) {
                             currentReport.vehicle = vehicleMatch[1].trim();
                         }
@@ -1947,16 +1957,16 @@
                 }
                 
                 // Look for delivery lines (containing kg amounts)
-                if (line.includes('ك') || line.includes('ص')) {
+                if (trimmedLine.includes('ك') || trimmedLine.includes('ص')) {
                     // Extract client name and amount
-                    const parts = line.split(/\s+/).filter(part => part.trim());
+                    const parts = trimmedLine.split(/\s+/).filter(part => part.trim());
                     if (parts.length >= 2) {
                         const clientName = parts[0];
                         const amountStr = parts[parts.length - 1]; // Last part should be the amount
                         
                         // Extract numeric amount
                         const amountMatch = amountStr.match(/(\d+)/);
-                        if (amountMatch) {
+                        if (amountMatch && currentReport && currentReport.deliveries) {
                             const amount = parseInt(amountMatch[1]);
                             const delivery = { 
                                 client: clientName, 
@@ -1977,13 +1987,17 @@
                                 delivery["5kg"] = amount;
                             }
                             
-                            if (currentReport) currentReport.deliveries.push(delivery);
+                            currentReport.deliveries.push(delivery);
                         }
                     }
                 }
             }
             
-            if (currentReport) sales_fulfillment.reports.push(currentReport);
+            // Add the last report if it has deliveries
+            if (currentReport && currentReport.deliveries && currentReport.deliveries.length > 0) {
+                sales_fulfillment.reports.push(currentReport);
+            }
+            
             return { sales_fulfillment };
         }
     </script>
