@@ -1354,10 +1354,15 @@
                             console.log('No data found in cloud response');
                         }
                     } else {
-                        console.log('Cloud API returned status:', res.status);
+                        console.log('Cloud API returned status:', res.status, res.statusText);
                     }
                 } catch (error) {
                     console.log('Cloud API error (this is normal if not deployed):', error.message);
+                    // Show a user-friendly message
+                    const cloudStatus = document.createElement('div');
+                    cloudStatus.style.cssText = 'background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.3); border-radius: 8px; padding: 10px; margin: 10px 0; color: #ffc107; text-align: center;';
+                    cloudStatus.innerHTML = '☁️ Cloud storage not available - using local data only';
+                    display.appendChild(cloudStatus);
                 }
                 
                 // Render day navigation
@@ -1797,15 +1802,34 @@
         // Cloud functions
         window.loadFromCloud = async function() {
             console.log('Load from cloud clicked');
-            await loadTrackerData();
+            try {
+                await loadTrackerData();
+                alert('✅ Data loaded successfully!');
+            } catch (error) {
+                console.error('Error loading from cloud:', error);
+                alert('❌ Failed to load data: ' + error.message);
+            }
         }
         
         window.saveToCloud = async function() {
             console.log('Save to cloud clicked');
             try {
-                await fetch('/api/reports', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(multiDayData) });
-                alert('Saved to cloud');
-            } catch(e) { alert('Save failed: ' + e.message); }
+                const response = await fetch('/api/reports', { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify(multiDayData) 
+                });
+                
+                if (response.ok) {
+                    alert('✅ Data saved to cloud successfully!');
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch(e) { 
+                console.error('Save to cloud failed:', e);
+                alert('❌ Save failed: ' + e.message);
+            }
         }
         
         window.showReportSubmission = function() {
