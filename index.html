@@ -1,230 +1,245 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAHEL 2025 Order Tracker | متتبع طلبات ساحل 2025</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="preload" as="image" href="/logo.png" />
+    <title>ICEBREAKER - Order Tracker</title>
     <style>
-        :root {
-            --navy: #0a2234;
-            --navy-2: #0c2e47;
-            --ice: #a8ddee;
-            --ice-mid: #79c1db;
-            --ice-dark: #2e6e8e;
-        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
             color: #ffffff;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
-        .header { text-align: center; margin-bottom: 30px; }
-        #logo { width: 420px; max-width: 80%; height: auto; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.35)); }
-        
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
-        
+
         .stat-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             padding: 25px;
-            border-radius: 16px;
             text-align: center;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .stat-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(100, 181, 246, 0.3);
-            box-shadow: 0 8px 32px rgba(100, 181, 246, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         .stat-number {
-            font-size: 3em;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--ice);
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #64b5f6;
+            margin-bottom: 5px;
         }
-        
+
         .stat-label {
-            font-size: 0.9em;
-            opacity: 0.7;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.1em;
+            color: #a0a0a0;
+            font-weight: 500;
         }
-        
+
         .main-content {
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(168, 221, 238, 0.12);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .load-button {
-            background: linear-gradient(135deg, var(--ice-dark) 0%, var(--navy-2) 100%);
+            background: linear-gradient(135deg, #64b5f6 0%, #1976d2 100%);
             color: white;
             border: none;
-            padding: 18px 36px;
-            font-size: 16px;
-            border-radius: 12px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 500;
             transition: all 0.3s ease;
-            display: block;
-            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 20px;
         }
-        
+
         .load-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(100, 181, 246, 0.4);
         }
-        
+
         .load-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-        
-        #dataDisplay {
-            margin-top: 30px;
-            display: none;
-        }
-        
+
         .data-section {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
             padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        
+
         .data-section h3 {
+            color: #64b5f6;
             margin: 0 0 20px 0;
-            font-size: 1.2em;
-            font-weight: 500;
-            color: var(--ice-mid);
+            font-size: 1.4em;
+            font-weight: 600;
         }
-        
+
         .data-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
-        
+
         .data-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .data-label {
-            font-size: 0.85em;
-            opacity: 0.6;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-        
-        .data-value {
-            font-size: 1.1em;
-            font-weight: 500;
-            color: var(--ice);
-        }
-        
-        .clients-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-        
-        .client-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.2s ease;
-        }
-        
-        .client-card:hover {
-            border-color: rgba(100, 181, 246, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .client-name {
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-        
-        .client-details {
-            font-size: 0.9em;
-            opacity: 0.7;
-            line-height: 1.4;
-        }
-        
-        .status-bar {
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 25px;
             text-align: center;
-            font-size: 0.9em;
-        }
-        
-        .date-highlight {
-            background: linear-gradient(135deg, var(--ice-mid), var(--ice));
-            color: #002533;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 500;
-            display: inline-block;
-            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Analytics tooltips */
-        .kpi-card, .explain-card, .row-card, .summary-row { position: relative; cursor: pointer; }
-        .kpi-tooltip {
-            position: absolute;
-            left: 12px;
-            top: 100%;
-            margin-top: 8px;
-            z-index: 40;
-            background: rgba(10,14,20,0.96);
-            color: #fff;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
-            width: 280px;
-            font-size: 12.5px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-            display: none;
+        .data-label {
+            font-size: 0.9em;
+            color: #a0a0a0;
+            margin-bottom: 8px;
         }
-        .kpi-card.show-tooltip .kpi-tooltip { display: block; }
-        .explain-card.show-tooltip .kpi-tooltip { display: block; }
-        .row-card.show-tooltip .kpi-tooltip { display: block; }
-        .summary-row.show-tooltip .kpi-tooltip { display: block; }
-        @media (max-width: 600px) {
-            .kpi-tooltip { left: auto; right: 12px; width: 260px; }
+
+        .data-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .date-highlight {
+            background: linear-gradient(135deg, #64b5f6 0%, #1976d2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .client-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .client-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64b5f6;
+            margin-bottom: 10px;
+        }
+
+        .client-details {
+            font-size: 0.9em;
+            color: #a0a0a0;
+        }
+
+        .day-navigation {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .day-button {
+            background: rgba(100, 181, 246, 0.15);
+            color: #64b5f6;
+            border: 1px solid rgba(100, 181, 246, 0.35);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .day-button:hover {
+            background: rgba(100, 181, 246, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .day-button.active {
+            background: #64b5f6;
+            color: white;
+        }
+
+        .kpi-card, .explain-card, .row-card, .summary-row {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover, .explain-card:hover, .row-card:hover, .summary-row:hover {
+            background: rgba(100, 181, 246, 0.1);
+        }
+
+        .kpi-card.show-tooltip::after, .explain-card.show-tooltip::after, .row-card.show-tooltip::after, .summary-row.show-tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            white-space: nowrap;
+            z-index: 1000;
+            max-width: 300px;
+            white-space: normal;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1326,16 +1341,24 @@
             button.disabled = true;
             
             try {
-                    // Try to hydrate from cloud (GitHub) first
+                // Try to hydrate from cloud (GitHub) first
                 try {
+                    console.log('Attempting to load data from cloud...');
                     const res = await fetch('/api/reports');
                     if (res.ok) {
                         const json = await res.json();
                         if (json && json.data && Object.keys(json.data).length) {
                             multiDayData = json.data;
+                            console.log('Successfully loaded data from cloud:', Object.keys(json.data));
+                        } else {
+                            console.log('No data found in cloud response');
                         }
+                    } else {
+                        console.log('Cloud API returned status:', res.status);
                     }
-                } catch (_) {}
+                } catch (error) {
+                    console.log('Cloud API error (this is normal if not deployed):', error.message);
+                }
                 
                 // Render day navigation
                 renderDayNavigation();
