@@ -1952,8 +1952,30 @@
                     
                     console.log('Existing data for', reportDate, ':', multiDayData[reportDate]);
                     
-                    // Merge the parsed data
-                    Object.assign(multiDayData[reportDate], parsedData);
+                    // Merge the parsed data properly
+                    for (const [key, value] of Object.entries(parsedData)) {
+                        if (key === 'orders_made' && value.routes) {
+                            // Special handling for orders_made - merge routes
+                            if (!multiDayData[reportDate].orders_made) {
+                                multiDayData[reportDate].orders_made = { routes: [] };
+                            }
+                            // Add new routes to existing routes
+                            multiDayData[reportDate].orders_made.routes.push(...value.routes);
+                        } else if (key === 'sales_fulfillment' && value.reports) {
+                            // Special handling for sales_fulfillment - merge reports
+                            if (!multiDayData[reportDate].sales_fulfillment) {
+                                multiDayData[reportDate].sales_fulfillment = { reports: [] };
+                            }
+                            // Add new reports to existing reports
+                            multiDayData[reportDate].sales_fulfillment.reports.push(...value.reports);
+                        } else {
+                            // For other data types, use Object.assign
+                            if (!multiDayData[reportDate][key]) {
+                                multiDayData[reportDate][key] = {};
+                            }
+                            Object.assign(multiDayData[reportDate][key], value);
+                        }
+                    }
                     
                     console.log('Merged data for', reportDate, ':', multiDayData[reportDate]);
                     
@@ -2058,21 +2080,42 @@
             console.log('Parsing orders report for date:', date);
             console.log('Lines:', lines);
             
-            // Initialize the first route
-            currentRoute = {
-                route_name: 'Main Route',
-                vehicle_type: 'Rental Car',
-                vehicle_owner: 'Unknown Owner',
-                vehicle_number: 'Unknown Number',
-                sales_rep: 'Unknown Rep',
-                orders: []
-            };
-            
             for (const line of lines) {
                 const trimmedLine = line.trim();
                 if (!trimmedLine) continue;
                 
                 console.log('Processing line:', trimmedLine);
+                
+                // Check if this is a new route (starts with "تقرير" or "المندوب" or "عربية")
+                if (trimmedLine.includes('تقرير') || (trimmedLine.includes('المندوب') && !trimmedLine.includes('حمولة')) || (trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة'))) {
+                    // Save the previous route if it exists and has orders
+                    if (currentRoute && currentRoute.orders.length > 0) {
+                        orders_made.routes.push(currentRoute);
+                        console.log('Added route:', currentRoute);
+                    }
+                    
+                    // Start a new route
+                    currentRoute = {
+                        route_name: 'Main Route',
+                        vehicle_type: 'Rental Car',
+                        vehicle_owner: 'Unknown Owner',
+                        vehicle_number: 'Unknown Number',
+                        sales_rep: 'Unknown Rep',
+                        orders: []
+                    };
+                }
+                
+                // If no current route, create one
+                if (!currentRoute) {
+                    currentRoute = {
+                        route_name: 'Main Route',
+                        vehicle_type: 'Rental Car',
+                        vehicle_owner: 'Unknown Owner',
+                        vehicle_number: 'Unknown Number',
+                        sales_rep: 'Unknown Rep',
+                        orders: []
+                    };
+                }
                 
                 // Look for sales rep and vehicle info
                 if (trimmedLine.includes('المندوب:') || (trimmedLine.includes('عربية') && !trimmedLine.includes('حمولة'))) {
